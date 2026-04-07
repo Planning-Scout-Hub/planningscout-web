@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PlanningScout — Automated Planning Leads for UK Consultancies | Free Trial</title>
-<meta name="description" content="Get a shortlist regularly of pre-scored UK planning leads — before your competitors call the client. 44+ councils, configured to your practice to ensure accurate, qualified leads. First month free, no card needed.">
+<title>PlanningScout Madrid — Radar de Proyectos de Construcción | Prueba Gratuita</title>
+<meta name="description" content="Detectamos licencias de obra mayor, urbanizaciones y planes especiales en Madrid directamente del BOCM. Para instaladores, promotores, grandes constructoras y directores de expansión. Primer mes gratis.">
 <link rel="icon" type="image/png" href="fav icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,1779 +12,1132 @@
 
 <style>
 /* ────────────────────────────────────────────────
-   TOKENS
+   DESIGN TOKENS
 ──────────────────────────────────────────────── */
 :root {
   --ink:       #0d1a2b;
   --ink-mid:   #334155;
   --ink-dim:   #64748b;
   --ink-faint: #94a3b8;
-
   --surface:   #ffffff;
   --surface-2: #f7f8fa;
   --surface-3: #f0f2f5;
-
   --border:    #e2e8f0;
   --border-2:  #cbd5e1;
-
   --amber:     #c8860a;
   --amber-lt:  #fdf3e3;
   --amber-md:  #fde68a;
   --amber-bdr: rgba(200,134,10,.22);
-
   --green:     #16a34a;
   --green-lt:  #f0fdf4;
   --green-bdr: rgba(22,163,74,.22);
-
   --navy:      #1e3a5f;
   --navy-lt:   #eff4fb;
   --navy-bdr:  rgba(30,58,95,.18);
-
-  --shadow-sm: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
-  --shadow:    0 4px 16px rgba(0,0,0,.07), 0 1px 4px rgba(0,0,0,.05);
-  --shadow-lg: 0 16px 48px rgba(0,0,0,.10), 0 4px 12px rgba(0,0,0,.06);
-
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
+  --shadow:    0 4px 16px rgba(0,0,0,.07),0 1px 4px rgba(0,0,0,.05);
+  --shadow-lg: 0 16px 48px rgba(0,0,0,.10),0 4px 12px rgba(0,0,0,.06);
   --head: 'Fraunces', Georgia, serif;
   --body: 'Plus Jakarta Sans', system-ui, sans-serif;
   --mono: 'JetBrains Mono', monospace;
-
   --ease: cubic-bezier(.4,0,.2,1);
-  --r:    8px;
-  --r2:   14px;
-  --r3:   20px;
+  --r:  8px; --r2: 14px; --r3: 20px;
 }
 
 /* ────────────────────────────────────────────────
    RESET
 ──────────────────────────────────────────────── */
-*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-html {
-  overflow-x: hidden; /* overflow-x only on html, not body */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{
+  background:var(--surface);
+  background-image:radial-gradient(circle at 2px 2px,rgba(0,0,0,.03) 1px,transparent 0);
+  background-size:40px 40px;
+  color:var(--ink-mid);font-family:var(--body);font-size:16px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;
 }
-body {
-  background: var(--surface);
-  background-image: radial-gradient(circle at 2px 2px, rgba(0,0,0,0.03) 1px, transparent 0);
-  background-size: 40px 40px;
-  color: var(--ink-mid);
-  font-family: var(--body);
-  font-size: 16px;
-  line-height: 1.65;
-  -webkit-font-smoothing: antialiased;
-  -webkit-tap-highlight-color: transparent; /* removes blue flash on tap - iOS/Android */
-}
-a { text-decoration: none; color: inherit; }
-img, svg { display: block; }
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--surface-2); }
-::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 4px; }
+a{text-decoration:none;color:inherit;}
+img,svg{display:block;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--surface-2);}
+::-webkit-scrollbar-thumb{background:var(--border-2);border-radius:4px;}
 
 /* ────────────────────────────────────────────────
    LAYOUT
 ──────────────────────────────────────────────── */
-.wrap { max-width: 1080px; margin: 0 auto; padding: 0 36px; }
-@media (max-width: 580px) { .wrap { padding: 0 20px; } }
+.wrap{max-width:1080px;margin:0 auto;padding:0 36px;}
+@media(max-width:580px){.wrap{padding:0 20px;}}
+section{border-bottom:1px solid var(--border);}
+section:last-of-type{border-bottom:none;}
 
 /* ────────────────────────────────────────────────
    NAV
 ──────────────────────────────────────────────── */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 99;
-  height: 66px;
-  background: rgba(255,255,255,.92);
-  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-  transition: box-shadow .25s var(--ease);
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:99;
+  height:66px;background:rgba(255,255,255,.92);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  transition:box-shadow .25s var(--ease);
 }
-nav.scrolled { box-shadow: var(--shadow-sm); }
-.nav-inner {
-  max-width: 1080px; margin: 0 auto; padding: 0 36px;
-  height: 100%; display: flex; align-items: center;
-  justify-content: space-between; gap: 24px;
+nav.scrolled{box-shadow:var(--shadow-sm);}
+.nav-inner{
+  max-width:1080px;margin:0 auto;padding:0 36px;
+  height:100%;display:flex;align-items:center;
+  justify-content:space-between;gap:24px;
 }
-/* ── LOGO ── */
-.logo { 
-  display: flex; 
-  align-items: center; 
-  gap: 11px; 
-  flex-shrink: 0; 
-  position: relative;
-  top: 2px; /* This shifts the entire logo group down */
-}.logo-mark {
-  width: 38px; height: 38px;
-  background: var(--navy);
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(30,58,95,.25);
+.logo{display:flex;align-items:center;gap:11px;flex-shrink:0;}
+.nav-links{display:flex;gap:2px;list-style:none;}
+@media(max-width:860px){.nav-links{display:none;}}
+.nav-links a{
+  font-size:14px;font-weight:500;color:var(--ink-dim);
+  padding:10px 14px;border-radius:var(--r);
+  transition:color .15s,background .15s;
+  min-height:44px;display:flex;align-items:center;
 }
-.logo-text {
-  font-family: var(--head);
-  font-size: 18px; font-weight: 600;
-  color: var(--ink); letter-spacing: -.3px;
+.nav-links a:hover{color:var(--ink);background:var(--surface-2);}
+.nav-cta{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.btn-primary{
+  font-family:var(--body);font-size:13.5px;font-weight:600;
+  color:#fff;background:var(--navy);
+  padding:10px 20px;border-radius:var(--r);
+  border:none;cursor:pointer;white-space:nowrap;
+  touch-action:manipulation;
+  transition:background .18s,transform .18s,box-shadow .18s;
+  box-shadow:0 2px 8px rgba(30,58,95,.3);
+  min-height:44px;
 }
-.logo-text span { color: var(--amber); }
-.nav-links { display: flex; gap: 2px; list-style: none; }
-@media (max-width: 860px) { .nav-links { display: none; } }
-.nav-links a {
-  font-size: 14px; font-weight: 500; color: var(--ink-dim);
-  padding: 10px 14px; border-radius: var(--r); /* increased from 7px to 10px for 44px touch target */
-  transition: color .15s, background .15s;
-  min-height: 44px; display: flex; align-items: center; /* 44px minimum touch target */
+.btn-primary:hover{background:#162e4d;transform:translateY(-1px);box-shadow:0 6px 16px rgba(30,58,95,.28);}
+.nav-burger{
+  display:none;width:44px;height:44px;
+  flex-direction:column;justify-content:center;align-items:center;gap:5px;
+  background:transparent;border:1px solid var(--border-2);
+  border-radius:var(--r);cursor:pointer;flex-shrink:0;
+  transition:background .15s;-webkit-tap-highlight-color:transparent;
 }
-.nav-links a:hover { color: var(--ink); background: var(--surface-2); }
-.nav-cta {
-  display: flex; align-items: center; gap: 10px;
-  flex-shrink: 0;
+.nav-burger span{display:block;width:18px;height:1.5px;background:var(--ink-dim);border-radius:2px;transition:transform .25s var(--ease),opacity .2s;}
+@media(max-width:860px){.nav-burger{display:flex;}}
+.nav-drawer{
+  position:fixed;top:66px;left:0;right:0;z-index:98;
+  background:rgba(255,255,255,.97);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:12px 16px 20px;display:none;flex-direction:column;gap:2px;
+  box-shadow:0 8px 24px rgba(0,0,0,.08);
 }
-.btn-outline-nav {
-  font-family: var(--body); font-size: 13.5px; font-weight: 500;
-  color: var(--ink-mid); padding: 10px 16px; border-radius: var(--r);
-  border: 1px solid var(--border-2);
-  transition: border-color .15s, color .15s;
-  white-space: nowrap;
+.nav-drawer.open{display:flex;}
+.nav-drawer a{
+  font-size:15px;font-weight:500;color:var(--ink-mid);
+  padding:13px 16px;border-radius:var(--r);
+  transition:background .15s;min-height:44px;display:flex;align-items:center;
 }
-@media (max-width: 500px) { .btn-outline-nav { display: none; } }
-.btn-outline-nav:hover { border-color: var(--ink-dim); color: var(--ink); }
-.btn-primary {
-  font-family: var(--body); font-size: 13.5px; font-weight: 600;
-  color: #fff; background: var(--navy);
-  padding: 10px 20px; border-radius: var(--r);
-  border: none; cursor: pointer; white-space: nowrap;
-  touch-action: manipulation; /* removes 300ms tap delay on iOS */
-  transition: background .18s, transform .18s, box-shadow .18s;
-  box-shadow: 0 2px 8px rgba(30,58,95,.3);
-  min-height: 44px; /* iOS/Android minimum touch target */
+.nav-drawer a:hover{background:var(--surface-2);color:var(--ink);}
+.nav-drawer .drawer-divider{height:1px;background:var(--border);margin:6px 0;}
+.nav-drawer .drawer-cta{
+  background:var(--navy);color:#fff;text-align:center;
+  font-weight:600;border-radius:var(--r2);justify-content:center;
+  box-shadow:0 2px 8px rgba(30,58,95,.25);margin-top:4px;
 }
-.btn-primary:hover {
-  background: #162e4d;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(30,58,95,.28);
-}
-/* ── HAMBURGER BUTTON ── */
-.nav-burger {
-  display: none;
-  width: 44px; height: 44px; /* exact 44px iOS touch target */
-  flex-direction: column; justify-content: center; align-items: center; gap: 5px;
-  background: transparent; border: 1px solid var(--border-2);
-  border-radius: var(--r); cursor: pointer; flex-shrink: 0;
-  transition: background .15s, border-color .15s;
-  -webkit-tap-highlight-color: transparent;
-}
-.nav-burger:hover { background: var(--surface-2); border-color: var(--border-2); }
-.nav-burger span {
-  display: block; width: 18px; height: 1.5px;
-  background: var(--ink-dim); border-radius: 2px;
-  transition: transform .25s var(--ease), opacity .2s, background .15s;
-}
-@media (max-width: 860px) { .nav-burger { display: flex; } }
-/* ── MOBILE DRAWER ── */
-.nav-drawer {
-  position: fixed; top: 66px; left: 0; right: 0; z-index: 98;
-  background: rgba(255,255,255,.97);
-  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-  padding: 12px 16px 20px;
-  display: none;
-  flex-direction: column; gap: 2px;
-  box-shadow: 0 8px 24px rgba(0,0,0,.08);
-  /* Animate down */
-  transform: translateY(-8px); opacity: 0;
-  transition: transform .25s var(--ease), opacity .25s;
-}
-.nav-drawer.open {
-  display: flex;
-  transform: translateY(0); opacity: 1;
-}
-.nav-drawer a {
-  font-family: var(--body); font-size: 15px; font-weight: 500;
-  color: var(--ink-mid); padding: 13px 16px; border-radius: var(--r);
-  transition: background .15s, color .15s;
-  min-height: 44px; display: flex; align-items: center;
-  -webkit-tap-highlight-color: transparent;
-}
-.nav-drawer a:hover, .nav-drawer a:active { background: var(--surface-2); color: var(--ink); }
-.nav-drawer .drawer-divider {
-  height: 1px; background: var(--border); margin: 6px 0;
-}
-.nav-drawer .drawer-cta {
-  margin-top: 4px;
-  background: var(--navy); color: #fff; text-align: center;
-  font-weight: 600; border-radius: var(--r2);
-  justify-content: center;
-  box-shadow: 0 2px 8px rgba(30,58,95,.25);
-}
-.nav-drawer .drawer-cta:hover, .nav-drawer .drawer-cta:active { background: #162e4d; color: #fff; }
+.nav-drawer .drawer-cta:hover{background:#162e4d;color:#fff;}
 
 /* ────────────────────────────────────────────────
-   SECTIONS
+   SHARED COMPONENTS
 ──────────────────────────────────────────────── */
-section { border-bottom: 1px solid var(--border); }
-section:last-of-type { border-bottom: none; }
-
-.eyebrow {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-family: var(--mono); font-size: 11px; font-weight: 500;
-  color: var(--amber); letter-spacing: .12em; text-transform: uppercase;
-  margin-bottom: 16px;
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:11px;font-weight:500;
+  color:var(--amber);letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px;
 }
-.eyebrow::before {
-  content: '';
-  width: 18px; height: 1.5px;
-  background: var(--amber); border-radius: 2px; display: inline-block;
+.eyebrow::before{content:'';width:18px;height:1.5px;background:var(--amber);border-radius:2px;display:inline-block;}
+h2{
+  font-family:var(--head);font-size:clamp(28px,4vw,42px);
+  font-weight:600;color:var(--ink);letter-spacing:-.5px;line-height:1.12;margin-bottom:16px;
 }
-h2 {
-  font-family: var(--head);
-  font-size: clamp(28px, 4vw, 42px);
-  font-weight: 600; color: var(--ink);
-  letter-spacing: -.5px; line-height: 1.12;
-  margin-bottom: 16px;
+.lead{font-size:17px;color:var(--ink-dim);line-height:1.78;max-width:560px;}
+.btn-hero{
+  font-family:var(--body);font-size:15px;font-weight:600;
+  color:#fff;background:var(--navy);
+  padding:14px 28px;border-radius:var(--r2);border:none;cursor:pointer;
+  transition:background .18s,transform .18s,box-shadow .18s;
+  box-shadow:0 4px 16px rgba(30,58,95,.3);display:inline-block;
 }
-.lead { font-size: 17px; color: var(--ink-dim); line-height: 1.78; max-width: 560px; }
+.btn-hero:hover{background:#162e4d;transform:translateY(-2px);box-shadow:0 8px 24px rgba(30,58,95,.28);}
+.btn-hero-ghost{
+  font-family:var(--body);font-size:15px;font-weight:500;
+  color:var(--ink-mid);background:transparent;
+  padding:14px 24px;border-radius:var(--r2);
+  border:1.5px solid var(--border-2);cursor:pointer;
+  transition:all .18s;display:inline-block;
+}
+.btn-hero-ghost:hover{border-color:var(--ink-mid);color:var(--ink);}
 
 /* ────────────────────────────────────────────────
    HERO
 ──────────────────────────────────────────────── */
-#hero {
-  padding: 130px 0 0;
-  background: linear-gradient(180deg, #f4f7fb 0%, var(--surface) 100%);
-  overflow: hidden;
-  position: relative;
+#hero{
+  padding:130px 0 0;
+  background:linear-gradient(180deg,#f4f7fb 0%,var(--surface) 100%);
+  overflow:hidden;position:relative;
 }
-/* subtle dot grid */
-#hero::before {
-  content: '';
-  position: absolute; inset: 0; pointer-events: none;
-  background-image: radial-gradient(circle, #c8d4e0 1px, transparent 1px);
-  background-size: 30px 30px;
-  opacity: .4;
-  -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,.5) 0%, transparent 60%);
-  mask-image: linear-gradient(180deg, rgba(0,0,0,.5) 0%, transparent 60%);
+#hero::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(circle,#c8d4e0 1px,transparent 1px);
+  background-size:30px 30px;opacity:.4;
+  -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.5) 0%,transparent 60%);
+  mask-image:linear-gradient(180deg,rgba(0,0,0,.5) 0%,transparent 60%);
 }
-.hero-content {
-  position: relative; z-index: 1;
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 56px;
-  align-items: center;
-  padding-bottom: 0;
+.hero-content{
+  position:relative;z-index:1;
+  display:grid;grid-template-columns:1.1fr 1fr;
+  gap:56px;align-items:center;
 }
-@media (max-width: 860px) {
-  .hero-content { grid-template-columns: 1fr; gap: 48px; }
+@media(max-width:860px){.hero-content{grid-template-columns:1fr;gap:48px;}}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:var(--mono);font-size:11px;font-weight:500;
+  color:var(--green);letter-spacing:.09em;text-transform:uppercase;
+  background:var(--green-lt);border:1px solid var(--green-bdr);
+  padding:5px 12px;border-radius:100px;margin-bottom:24px;
 }
-.hero-text {}
-.hero-badge {
-  display: inline-flex; align-items: center; gap: 7px;
-  font-family: var(--mono); font-size: 11px; font-weight: 500;
-  color: var(--green); letter-spacing: .09em; text-transform: uppercase;
-  background: var(--green-lt); border: 1px solid var(--green-bdr);
-  padding: 5px 12px; border-radius: 100px; margin-bottom: 24px;
+.badge-dot{
+  width:6px;height:6px;border-radius:50%;background:var(--green);
+  animation:pulse 2.5s ease-in-out infinite;
 }
-.badge-dot {
-  width: 6px; height: 6px; border-radius: 50%; background: var(--green);
-  animation: pulse 2.5s ease-in-out infinite;
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(.8);}}
+h1{
+  font-family:var(--head);font-size:clamp(36px,5.5vw,58px);
+  font-weight:600;color:var(--ink);letter-spacing:-1.5px;line-height:1.06;margin-bottom:22px;
 }
-@keyframes pulse {
-  0%,100% { opacity: 1; transform: scale(1); }
-  50% { opacity: .5; transform: scale(.8); }
-}
-h1 {
-  font-family: var(--head);
-  font-size: clamp(36px, 5.5vw, 58px);
-  font-weight: 600; color: var(--ink);
-  letter-spacing: -1.5px; line-height: 1.06;
-  margin-bottom: 22px;
-}
-h1 em { font-style: italic; color: var(--amber); }
-.hero-sub {
-  font-size: 17px; color: var(--ink-dim); line-height: 1.78;
-  margin-bottom: 36px; max-width: 480px;
-}
-.hero-actions {
-  display: flex; align-items: center; gap: 12px;
-  flex-wrap: wrap; margin-bottom: 36px;
-}
-.btn-hero {
-  font-family: var(--body); font-size: 15px; font-weight: 600;
-  color: #fff; background: var(--navy);
-  padding: 14px 28px; border-radius: var(--r2);
-  border: none; cursor: pointer;
-  transition: background .18s, transform .18s, box-shadow .18s;
-  box-shadow: 0 4px 16px rgba(30,58,95,.3);
-}
-.btn-hero:hover {
-  background: #162e4d; transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(30,58,95,.28);
-}
-.btn-hero-ghost {
-  font-family: var(--body); font-size: 15px; font-weight: 500;
-  color: var(--ink-mid); background: transparent;
-  padding: 14px 24px; border-radius: var(--r2);
-  border: 1.5px solid var(--border-2); cursor: pointer;
-  transition: all .18s;
-}
-.btn-hero-ghost:hover { border-color: var(--ink-mid); color: var(--ink); }
-.hero-proof {
-  display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
-}
-.proof-item {
-  display: flex; align-items: center; gap: 6px;
-  font-size: 13px; color: var(--ink-faint);
-}
-.proof-item svg { flex-shrink: 0; color: var(--green); }
+h1 em{font-style:italic;color:var(--amber);}
+.hero-sub{font-size:17px;color:var(--ink-dim);line-height:1.78;margin-bottom:36px;max-width:480px;}
+.hero-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:36px;}
+.hero-proof{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+.proof-item{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-faint);}
+.proof-item svg{flex-shrink:0;color:var(--green);}
 
-/* ── Hero visual / screenshot mock ── */
-.hero-visual {
-  position: relative;
-  display: flex;
-  flex-direction: column;
+/* Hero visual */
+.hero-visual{position:relative;display:flex;flex-direction:column;}
+.hero-visual-label{
+  display:inline-flex;align-items:center;gap:7px;align-self:flex-start;
+  font-family:var(--mono);font-size:11px;font-weight:500;color:var(--green);
+  letter-spacing:.09em;text-transform:uppercase;
+  background:var(--green-lt);border:1px solid var(--green-bdr);
+  padding:5px 12px;border-radius:100px;margin-bottom:10px;
 }
-@media (max-width: 860px) { .hero-visual { max-width: 100%; margin: 0 auto; } }
-
-.hero-visual-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  align-self: flex-start;
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--green);
-  letter-spacing: .09em;
-  text-transform: uppercase;
-  background: var(--green-lt);
-  border: 1px solid var(--green-bdr);
-  padding: 5px 12px;
-  border-radius: 100px;
-  margin-bottom: 10px;
+@media(max-width:860px){.hero-visual-label{align-self:center;}}
+.hero-screen{
+  background:var(--surface);border:1.5px solid var(--border-2);
+  border-radius:var(--r3);box-shadow:var(--shadow-lg),0 0 0 1px rgba(30,58,95,.04);
+  overflow:hidden;
+  transform:perspective(1200px) rotateY(-4deg) rotateX(2deg);
+  transform-origin:left center;transition:transform .4s var(--ease);
 }
-@media (max-width: 860px) {
-  .hero-visual-label { align-self: center; }
+@media(max-width:860px){.hero-screen{transform:none!important;}}
+.hero-screen:hover{transform:perspective(1200px) rotateY(-1deg) rotateX(0deg);}
+.hs-bar{
+  background:var(--surface-2);border-bottom:1px solid var(--border);
+  padding:12px 18px;display:flex;align-items:center;gap:8px;
 }
-.hero-screen {
-  background: var(--surface);
-  border: 1.5px solid var(--border-2);
-  border-radius: var(--r3);
-  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(30,58,95,.04);
-  overflow: hidden;
-  transform: perspective(1200px) rotateY(-4deg) rotateX(2deg);
-  transform-origin: left center;
-  transition: transform .4s var(--ease);
+.hs-dots{display:flex;gap:6px;}
+.hs-dot{width:10px;height:10px;border-radius:50%;}
+.hs-dot.r{background:#fc615d;}.hs-dot.y{background:#fdbc40;}.hs-dot.g{background:#34c759;}
+.hs-url{
+  flex:1;background:var(--surface);border:1px solid var(--border);
+  border-radius:6px;padding:5px 10px;
+  font-family:var(--mono);font-size:10px;color:var(--ink-dim);text-align:center;
 }
-@media (max-width: 860px) {
-  .hero-screen {
-    transform: none !important;
-    transform-origin: unset;
-  }
-  .hero-screen:hover {
-    transform: none !important;
-  }
+.hs-content{padding:18px;}
+.hs-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+.hs-title{font-family:var(--head);font-size:13px;font-weight:600;color:var(--ink);}
+.hs-week{font-family:var(--mono);font-size:10px;color:var(--ink-faint);background:var(--surface-2);border:1px solid var(--border);padding:3px 8px;border-radius:5px;}
+.hs-lead{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r);padding:12px 14px;margin-bottom:8px;
+  display:flex;align-items:flex-start;gap:10px;
+  transition:border-color .15s,box-shadow .15s;
 }
-.hero-screen:hover { transform: perspective(1200px) rotateY(-1deg) rotateX(0deg); }
-.hs-bar {
-  background: var(--surface-2); border-bottom: 1px solid var(--border);
-  padding: 12px 18px; display: flex; align-items: center; gap: 8px;
+.hs-lead:hover{border-color:var(--navy-bdr);box-shadow:var(--shadow-sm);}
+.hs-score{
+  font-family:var(--mono);font-size:10px;font-weight:500;
+  padding:3px 10px;border-radius:10px;flex-shrink:0;line-height:1.4;white-space:nowrap;
 }
-.hs-dots { display: flex; gap: 6px; }
-.hs-dot { width: 10px; height: 10px; border-radius: 50%; }
-.hs-dot.r { background: #fc615d; }
-.hs-dot.y { background: #fdbc40; }
-.hs-dot.g { background: #34c759; }
-.hs-url {
-  flex: 1; background: var(--surface); border: 1px solid var(--border);
-  border-radius: 6px; padding: 5px 10px;
-  font-family: var(--mono); font-size: 10px; color: var(--ink-dim);
-  text-align: center;
+.hs-score.high{background:#16a34a;color:#fff;}
+.hs-score.mid{background:var(--amber);color:#fff;}
+.hs-score.nav{background:var(--navy);color:#fff;}
+.hs-lead-body{flex:1;min-width:0;}
+.hs-lead-ref{font-family:var(--mono);font-size:10px;color:var(--ink-faint);margin-bottom:3px;}
+.hs-lead-title{font-size:11.5px;font-weight:600;color:var(--ink);line-height:1.35;margin-bottom:5px;}
+.hs-lead-tags{display:flex;gap:5px;flex-wrap:wrap;}
+.hs-tag{font-family:var(--mono);font-size:9px;font-weight:500;padding:2px 6px;border-radius:4px;}
+.hs-tag.amber{background:var(--amber-lt);color:var(--amber);border:1px solid var(--amber-bdr);}
+.hs-tag.green{background:var(--green-lt);color:var(--green);border:1px solid var(--green-bdr);}
+.hs-tag.navy{background:var(--navy-lt);color:var(--navy);border:1px solid var(--navy-bdr);}
+.hs-footer{border-top:1px solid var(--border);margin-top:4px;padding-top:10px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--ink-faint);}
+.hero-float{
+  position:absolute;bottom:-16px;right:-24px;
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:var(--r2);padding:14px 18px;
+  box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:12px;min-width:200px;
 }
-.hs-content { padding: 18px; }
-.hs-header {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 14px;
+@media(max-width:860px){.hero-float{display:none;}}
+.hf-icon{width:36px;height:36px;border-radius:10px;background:var(--amber-lt);border:1px solid var(--amber-bdr);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.hf-num{font-family:var(--head);font-size:20px;font-weight:600;color:var(--ink);line-height:1;}
+.hf-label{font-size:11px;color:var(--ink-faint);margin-top:2px;}
+.hero-strip{
+  margin-top:56px;border-top:1px solid var(--border);padding:20px 0;
+  display:flex;align-items:center;gap:32px;flex-wrap:wrap;position:relative;z-index:1;
 }
-.hs-title {
-  font-family: var(--head); font-size: 13px; font-weight: 600; color: var(--ink);
-}
-.hs-week {
-  font-family: var(--mono); font-size: 10px; color: var(--ink-faint);
-  background: var(--surface-2); border: 1px solid var(--border);
-  padding: 3px 8px; border-radius: 5px;
-}
-/* lead rows in mock */
-.hs-lead {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--r); padding: 12px 14px;
-  margin-bottom: 8px; display: flex; align-items: flex-start; gap: 10px;
-  transition: border-color .15s, box-shadow .15s;
-}
-.hs-lead:hover { border-color: var(--navy-bdr); box-shadow: var(--shadow-sm); }
-.hs-lead-score {
-  font-family: var(--mono); font-size: 11px; font-weight: 500;
-  background: var(--navy); color: #fff;
-  padding: 3px 7px; border-radius: 5px; flex-shrink: 0;
-  line-height: 1;
-}
-.hs-lead-score.high { background: #16a34a; }
-.hs-lead-score.mid { background: var(--amber); color: #fff; }
-.hs-lead-body { flex: 1; min-width: 0; }
-.hs-lead-ref { font-family: var(--mono); font-size: 10px; color: var(--ink-faint); margin-bottom: 3px; }
-.hs-lead-title {
-  font-size: 11.5px; font-weight: 600; color: var(--ink);
-  line-height: 1.35; margin-bottom: 5px;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-}
-.hs-lead-tags { display: flex; gap: 5px; flex-wrap: wrap; }
-.hs-tag {
-  font-family: var(--mono); font-size: 9px; font-weight: 500;
-  padding: 2px 6px; border-radius: 4px;
-}
-.hs-tag.amber { background: var(--amber-lt); color: var(--amber); border: 1px solid var(--amber-bdr); }
-.hs-tag.green { background: var(--green-lt); color: var(--green); border: 1px solid var(--green-bdr); }
-.hs-tag.navy { background: var(--navy-lt); color: var(--navy); border: 1px solid var(--navy-bdr); }
-.hs-footer {
-  border-top: 1px solid var(--border); margin-top: 4px; padding-top: 10px;
-  display: flex; justify-content: space-between;
-  font-family: var(--mono); font-size: 10px; color: var(--ink-faint);
-}
-/* floating card */
-.hero-float {
-  position: absolute; bottom: -16px; right: -24px;
-  background: var(--surface); border: 1.5px solid var(--border);
-  border-radius: var(--r2); padding: 14px 18px;
-  box-shadow: var(--shadow-lg);
-  display: flex; align-items: center; gap: 12px;
-  min-width: 200px;
-}
-@media (max-width: 860px) { .hero-float { display: none; } }
-.hf-icon {
-  width: 36px; height: 36px; border-radius: 10px;
-  background: var(--green-lt); border: 1px solid var(--green-bdr);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 16px; flex-shrink: 0;
-}
-.hf-text {}
-.hf-num { font-family: var(--head); font-size: 20px; font-weight: 600; color: var(--ink); line-height: 1; }
-.hf-label { font-size: 11px; color: var(--ink-faint); margin-top: 2px; }
-
-/* hero bottom strip */
-.hero-strip {
-  margin-top: 56px;
-  border-top: 1px solid var(--border);
-  padding: 20px 0;
-  display: flex; align-items: center; gap: 32px;
-  flex-wrap: wrap;
-  position: relative; z-index: 1;
-}
-.strip-label {
-  font-family: var(--mono); font-size: 10.5px; color: var(--ink-faint);
-  letter-spacing: .09em; text-transform: uppercase; flex-shrink: 0;
-}
-.strip-tags { display: flex; gap: 8px; flex-wrap: wrap; }
-.strip-tag {
-  font-family: var(--mono); font-size: 11px; color: var(--ink-dim);
-  background: var(--surface-2); border: 1px solid var(--border);
-  padding: 5px 12px; border-radius: 100px;
-}
+.strip-label{font-family:var(--mono);font-size:10.5px;color:var(--ink-faint);letter-spacing:.09em;text-transform:uppercase;flex-shrink:0;}
+.strip-tags{display:flex;gap:8px;flex-wrap:wrap;}
+.strip-tag{font-family:var(--mono);font-size:11px;color:var(--ink-dim);background:var(--surface-2);border:1px solid var(--border);padding:5px 12px;border-radius:100px;}
 
 /* ────────────────────────────────────────────────
-   STATS
+   STATS BAR
 ──────────────────────────────────────────────── */
-#stats {
-  background: var(--navy);
-  border-bottom: none;
-}
-.stats-inner {
-  display: grid; grid-template-columns: repeat(4,1fr);
-}
-@media (max-width: 640px) { .stats-inner { grid-template-columns: repeat(2,1fr); } }
-.stat-cell {
-  padding: 36px 28px; text-align: center;
-  border-right: 1px solid rgba(255,255,255,.1);
-}
-.stat-cell:last-child { border-right: none; }
-.stat-num {
-  font-family: var(--head);
-  font-size: 34px; font-weight: 600; color: #fff;
-  letter-spacing: -.5px; line-height: 1; margin-bottom: 6px;
-}
-.stat-num em { font-style: normal; color: var(--amber-md); }
-.stat-label {
-  font-family: var(--mono); font-size: 10.5px;
-  color: rgba(255,255,255,.45); letter-spacing: .09em; text-transform: uppercase;
-}
+#stats{background:var(--navy);border-bottom:none;}
+.stats-inner{display:grid;grid-template-columns:repeat(4,1fr);}
+@media(max-width:640px){.stats-inner{grid-template-columns:repeat(2,1fr);}}
+.stat-cell{padding:36px 28px;text-align:center;border-right:1px solid rgba(255,255,255,.1);}
+.stat-cell:last-child{border-right:none;}
+.stat-num{font-family:var(--head);font-size:34px;font-weight:600;color:#fff;letter-spacing:-.5px;line-height:1;margin-bottom:6px;}
+.stat-num em{font-style:normal;color:var(--amber-md);}
+.stat-label{font-family:var(--mono);font-size:10.5px;color:rgba(255,255,255,.45);letter-spacing:.09em;text-transform:uppercase;}
 
 /* ────────────────────────────────────────────────
    HOW IT WORKS
 ──────────────────────────────────────────────── */
-#how { padding: 100px 0; background: var(--surface); }
-.how-grid {
-  display: grid; grid-template-columns: repeat(3,1fr);
-  gap: 2px; background: var(--border);
-  border: 1px solid var(--border); border-radius: var(--r3);
-  overflow: hidden; margin-top: 56px;
+#how{padding:100px 0;background:var(--surface);}
+.how-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:2px;background:var(--border);
+  border:1px solid var(--border);border-radius:var(--r3);
+  overflow:hidden;margin-top:56px;
 }
-@media (max-width: 680px) { .how-grid { grid-template-columns: 1fr; } }
-.how-step {
-  background: var(--surface); padding: 40px 34px;
-  transition: background .2s;
-  position: relative;
-}
-.how-step:hover { background: var(--surface-2); }
-.step-num {
-  font-family: var(--mono); font-size: 11px; font-weight: 500;
-  color: var(--amber); letter-spacing: .12em;
-  margin-bottom: 20px; display: block;
-}
-.step-illu {
-  width: 52px; height: 52px; border-radius: var(--r2);
-  margin-bottom: 18px;
-  display: flex; align-items: center; justify-content: center;
-}
-.step-illu.navy { background: var(--navy-lt); }
-.step-illu.amber { background: var(--amber-lt); }
-.step-illu.green { background: var(--green-lt); }
-.how-step h3 {
-  font-family: var(--head); font-size: 18px; font-weight: 600;
-  color: var(--ink); margin-bottom: 10px; line-height: 1.3;
-}
-.how-step p { font-size: 14.5px; color: var(--ink-dim); line-height: 1.72; }
+@media(max-width:860px){.how-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:520px){.how-grid{grid-template-columns:1fr;}}
+.how-step{background:var(--surface);padding:36px 28px;transition:background .2s;}
+.how-step:hover{background:var(--surface-2);}
+.step-num{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--amber);letter-spacing:.12em;margin-bottom:20px;display:block;}
+.step-illu{width:48px;height:48px;border-radius:var(--r2);margin-bottom:18px;display:flex;align-items:center;justify-content:center;font-size:22px;}
+.step-illu.navy{background:var(--navy-lt);}
+.step-illu.amber{background:var(--amber-lt);}
+.step-illu.green{background:var(--green-lt);}
+.step-illu.purple{background:#f3f0ff;}
+.how-step h3{font-family:var(--head);font-size:17px;font-weight:600;color:var(--ink);margin-bottom:10px;line-height:1.3;}
+.how-step p{font-size:14px;color:var(--ink-dim);line-height:1.72;}
 
 /* ────────────────────────────────────────────────
-   USE CASES
+   FOR WHOM (USE CASES)
 ──────────────────────────────────────────────── */
-#usecases { padding: 100px 0; background: var(--surface-2); }
-.uc-header {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 80px; align-items: start; margin-bottom: 64px;
+#quienessomos{padding:100px 0;background:var(--surface-2);}
+.uc-header{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;margin-bottom:64px;}
+@media(max-width:800px){.uc-header{grid-template-columns:1fr;gap:24px;}}
+.uc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+@media(max-width:860px){.uc-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:520px){.uc-grid{grid-template-columns:1fr;}}
+.uc-card{
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:var(--r2);padding:28px 24px;
+  position:relative;overflow:hidden;
+  transition:border-color .2s,transform .2s,box-shadow .2s;
 }
-@media (max-width: 800px) { .uc-header { grid-template-columns: 1fr; gap: 24px; } }
-.uc-desc { font-size: 16px; color: var(--ink-dim); line-height: 1.8; }
-.uc-desc p + p { margin-top: 14px; }
-.uc-grid {
-  display: grid; grid-template-columns: repeat(2,1fr); gap: 14px;
+.uc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.uc-card.c1::before{background:var(--amber);}
+.uc-card.c2::before{background:var(--navy);}
+.uc-card.c3::before{background:var(--green);}
+.uc-card.c4::before{background:#e65100;}
+.uc-card.c5::before{background:#37474f;}
+.uc-card.c6::before{background:#6a1b9a;}
+.uc-card:hover{border-color:var(--border-2);transform:translateY(-3px);box-shadow:var(--shadow);}
+.uc-icon{width:44px;height:44px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:16px;}
+.uc-icon.amber{background:var(--amber-lt);}
+.uc-icon.navy{background:var(--navy-lt);}
+.uc-icon.green{background:var(--green-lt);}
+.uc-icon.orange{background:#fff3e0;}
+.uc-icon.grey{background:#eceff1;}
+.uc-icon.purple{background:#f3f0ff;}
+.uc-card h3{font-family:var(--head);font-size:17px;font-weight:600;color:var(--ink);margin-bottom:8px;line-height:1.3;}
+.uc-card p{font-size:13.5px;color:var(--ink-dim);line-height:1.7;}
+.uc-card .uc-tip{
+  margin-top:14px;font-size:12px;color:var(--amber);font-family:var(--mono);
+  background:var(--amber-lt);border:1px solid var(--amber-bdr);
+  padding:6px 10px;border-radius:6px;line-height:1.5;
 }
-@media (max-width: 560px) { .uc-grid { grid-template-columns: 1fr; } }
-.uc-card {
-  background: var(--surface); border: 1.5px solid var(--border);
-  border-radius: var(--r2); padding: 28px 26px;
-  position: relative; overflow: hidden;
-  transition: border-color .2s, transform .2s, box-shadow .2s;
-}
-.uc-card::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 3px;
-}
-.uc-card.c1::before { background: var(--amber); }
-.uc-card.c2::before { background: var(--navy); }
-.uc-card.c3::before { background: var(--green); }
-.uc-card.c4::before { background: #7c5cbf; }
-.uc-card:hover {
-  border-color: var(--border-2);
-  transform: translateY(-3px);
-  box-shadow: var(--shadow);
-}
-.uc-icon {
-  width: 44px; height: 44px; border-radius: var(--r);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 20px; margin-bottom: 16px;
-}
-.uc-icon.amber { background: var(--amber-lt); }
-.uc-icon.navy  { background: var(--navy-lt); }
-.uc-icon.green { background: var(--green-lt); }
-.uc-icon.purple { background: #f3f0ff; }
-.uc-card h3 {
-  font-family: var(--head); font-size: 17px; font-weight: 600;
-  color: var(--ink); margin-bottom: 8px; line-height: 1.3;
-}
-.uc-card p { font-size: 13.5px; color: var(--ink-dim); line-height: 1.7; }
-.uc-examples {
-  display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px;
-}
-.uc-ex {
-  font-family: var(--mono); font-size: 11px; color: var(--ink-dim);
-  background: var(--surface-2); border: 1px solid var(--border);
-  padding: 3px 9px; border-radius: 5px;
-}
+.uc-examples{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;}
+.uc-ex{font-family:var(--mono);font-size:11px;color:var(--ink-dim);background:var(--surface-2);border:1px solid var(--border);padding:3px 9px;border-radius:5px;}
 
-/* tailoring callout */
-.tailor-strip {
-  margin-top: 56px;
-  background: var(--navy);
-  border-radius: var(--r3); padding: 44px 52px;
-  display: grid; grid-template-columns: 1fr 1.2fr;
-  gap: 48px; align-items: center;
+/* Callout strip */
+.tailor-strip{
+  margin-top:56px;background:var(--navy);
+  border-radius:var(--r3);padding:44px 52px;
+  display:grid;grid-template-columns:1fr 1.2fr;gap:48px;align-items:center;
 }
-@media (max-width: 760px) { .tailor-strip { grid-template-columns: 1fr; padding: 36px 28px; gap: 28px; } }
-.ts-label {
-  font-family: var(--mono); font-size: 11px; font-weight: 500;
-  color: rgba(255,255,255,.45); letter-spacing: .12em; text-transform: uppercase;
-  margin-bottom: 14px;
-}
-.ts-head {
-  font-family: var(--head); font-size: clamp(22px,3vw,30px); font-weight: 600;
-  color: #fff; letter-spacing: -.3px; line-height: 1.2;
-}
-.ts-body { font-size: 15px; color: rgba(255,255,255,.6); line-height: 1.78; }
-.ts-points { list-style: none; display: flex; flex-direction: column; gap: 14px; }
-.ts-point {
-  display: flex; align-items: flex-start; gap: 12px;
-  font-size: 14px; color: rgba(255,255,255,.75); line-height: 1.55;
-}
-.ts-check {
-  width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0;
-  background: rgba(200,134,10,.2); border: 1px solid rgba(200,134,10,.4);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 10px; color: var(--amber-md); font-weight: 700; margin-top: 1px;
-}
+@media(max-width:760px){.tailor-strip{grid-template-columns:1fr;padding:32px 24px;gap:28px;}}
+.ts-label{font-family:var(--mono);font-size:11px;font-weight:500;color:rgba(255,255,255,.45);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;}
+.ts-head{font-family:var(--head);font-size:clamp(20px,3vw,28px);font-weight:600;color:#fff;letter-spacing:-.3px;line-height:1.2;}
+.ts-body{font-size:15px;color:rgba(255,255,255,.6);line-height:1.78;}
+.ts-points{list-style:none;display:flex;flex-direction:column;gap:14px;}
+.ts-point{display:flex;align-items:flex-start;gap:12px;font-size:14px;color:rgba(255,255,255,.75);line-height:1.55;}
+.ts-check{width:20px;height:20px;border-radius:50%;flex-shrink:0;background:rgba(200,134,10,.2);border:1px solid rgba(200,134,10,.4);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--amber-md);font-weight:700;margin-top:1px;}
 
 /* ────────────────────────────────────────────────
    WHAT YOU RECEIVE
 ──────────────────────────────────────────────── */
-#receive { padding: 100px 0; background: var(--surface); }
-.receive-grid {
-  display: grid; grid-template-columns: 1fr 1.1fr;
-  gap: 72px; align-items: center;
-}
-@media (max-width: 860px) { .receive-grid { grid-template-columns: 1fr; gap: 48px; } }
-.receive-list { list-style: none; display: flex; flex-direction: column; gap: 16px; margin-top: 28px; }
-.rl-item { display: flex; gap: 14px; align-items: flex-start; }
-.rl-dot {
-  width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
-  background: var(--navy-lt); border: 1.5px solid var(--navy-bdr);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 10px; color: var(--navy); font-weight: 700; margin-top: 2px;
-}
-.rl-content {}
-.rl-title { font-weight: 600; color: var(--ink); font-size: 14.5px; margin-bottom: 2px; }
-.rl-desc { font-size: 13.5px; color: var(--ink-dim); line-height: 1.6; }
+#receive{padding:100px 0;background:var(--surface);}
+.receive-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:72px;align-items:center;}
+@media(max-width:860px){.receive-grid{grid-template-columns:1fr;gap:48px;}}
+.receive-list{list-style:none;display:flex;flex-direction:column;gap:16px;margin-top:28px;}
+.rl-item{display:flex;gap:14px;align-items:flex-start;}
+.rl-dot{width:22px;height:22px;border-radius:50%;flex-shrink:0;background:var(--navy-lt);border:1.5px solid var(--navy-bdr);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--navy);font-weight:700;margin-top:2px;}
+.rl-title{font-weight:600;color:var(--ink);font-size:14.5px;margin-bottom:2px;}
+.rl-desc{font-size:13.5px;color:var(--ink-dim);line-height:1.6;}
 
-/* ── Lead card (detailed) ── */
-.lead-card {
-  background: var(--surface);
-  border: 1.5px solid var(--border-2);
-  border-radius: var(--r3);
-  overflow: hidden;
-  box-shadow: var(--shadow-lg);
-}
-.lc-head {
-  background: var(--surface-2); border-bottom: 1px solid var(--border);
-  padding: 16px 22px;
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 12px;
-}
-.lc-council {
-  display: flex; align-items: center; gap: 8px;
-  font-size: 13px; font-weight: 600; color: var(--ink);
-}
-.lc-council-dot {
-  width: 8px; height: 8px; border-radius: 50%; background: var(--amber);
-}
-.lc-score-wrap { display: flex; align-items: center; gap: 8px; }
-.lc-score {
-  font-family: var(--mono); font-size: 12px; font-weight: 500;
-  background: var(--navy); color: #fff;
-  padding: 4px 12px; border-radius: 100px;
-}
-.lc-decision {
-  font-family: var(--mono); font-size: 10px; font-weight: 500;
-  background: #fef2f2; color: #dc2626;
-  border: 1px solid #fecaca;
-  padding: 4px 10px; border-radius: 100px;
-}
-.lc-body { padding: 22px; }
-.lc-ref { font-family: var(--mono); font-size: 10.5px; color: var(--ink-faint); margin-bottom: 6px; }
-.lc-title {
-  font-family: var(--head); font-size: 16px; font-weight: 600;
-  color: var(--ink); line-height: 1.4; margin-bottom: 4px;
-}
-.lc-address { font-size: 13px; color: var(--ink-dim); margin-bottom: 20px; display: flex; align-items: center; gap: 5px; }
-.lc-address svg { color: var(--ink-faint); flex-shrink: 0; }
-.lc-table { border: 1.5px solid var(--border); border-radius: var(--r2); overflow: hidden; }
-.lc-row {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 11px 16px; border-bottom: 1px solid var(--border); gap: 16px;
-}
-.lc-row:last-child { border-bottom: none; }
-.lc-key {
-  font-family: var(--mono); font-size: 10.5px; color: var(--ink-faint);
-  text-transform: uppercase; letter-spacing: .08em; flex-shrink: 0;
-}
-.lc-val { font-size: 13px; color: var(--ink-mid); text-align: right; line-height: 1.4; }
-.lc-tags { display: flex; flex-wrap: wrap; gap: 5px; justify-content: flex-end; }
-.lc-tag {
-  font-family: var(--mono); font-size: 10.5px;
-  padding: 3px 9px; border-radius: 5px; line-height: 1;
-}
-.tag-amber { background: var(--amber-lt); color: var(--amber); border: 1px solid var(--amber-bdr); }
-.tag-green { background: var(--green-lt); color: var(--green); border: 1px solid var(--green-bdr); }
-.tag-navy  { background: var(--navy-lt); color: var(--navy); border: 1px solid var(--navy-bdr); }
-.lc-footer {
-  background: var(--surface-2); border-top: 1px solid var(--border);
-  padding: 14px 22px; display: flex; justify-content: space-between; align-items: center;
-}
-.lc-link {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-size: 13px; font-weight: 600; color: var(--navy);
-  background: var(--navy-lt); border: 1.5px solid var(--navy-bdr);
-  padding: 7px 16px; border-radius: var(--r);
-  transition: background .15s;
-}
-.lc-link:hover { background: #dce8f5; }
-.lc-note { font-family: var(--mono); font-size: 10px; color: var(--ink-faint); }
-
-/* GDPR note */
-.gdpr-note {
-  margin-top: 12px;
-  display: flex; align-items: center; gap: 8px;
-  font-size: 12.5px; color: var(--ink-faint);
-  background: var(--surface-2); border: 1px solid var(--border);
-  padding: 10px 14px; border-radius: var(--r);
-}
-.gdpr-note svg { flex-shrink: 0; color: var(--ink-faint); }
+/* Lead card detail */
+.lead-card{background:var(--surface);border:1.5px solid var(--border-2);border-radius:var(--r3);overflow:hidden;box-shadow:var(--shadow-lg);}
+.lc-head{background:var(--surface-2);border-bottom:1px solid var(--border);padding:16px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.lc-council{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--ink);}
+.lc-council-dot{width:8px;height:8px;border-radius:50%;background:var(--green);}
+.lc-score-wrap{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.lc-score{font-family:var(--mono);font-size:12px;font-weight:500;background:var(--navy);color:#fff;padding:4px 12px;border-radius:100px;}
+.lc-decision{font-family:var(--mono);font-size:10px;font-weight:500;background:var(--green-lt);color:var(--green);border:1px solid var(--green-bdr);padding:4px 10px;border-radius:100px;}
+.lc-body{padding:22px;}
+.lc-ref{font-family:var(--mono);font-size:10.5px;color:var(--ink-faint);margin-bottom:6px;}
+.lc-title{font-family:var(--head);font-size:16px;font-weight:600;color:var(--ink);line-height:1.4;margin-bottom:4px;}
+.lc-address{font-size:13px;color:var(--ink-dim);margin-bottom:20px;display:flex;align-items:center;gap:5px;}
+.lc-table{border:1.5px solid var(--border);border-radius:var(--r2);overflow:hidden;}
+.lc-row{display:flex;justify-content:space-between;align-items:center;padding:11px 16px;border-bottom:1px solid var(--border);gap:16px;}
+.lc-row:last-child{border-bottom:none;}
+.lc-key{font-family:var(--mono);font-size:10.5px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.08em;flex-shrink:0;}
+.lc-val{font-size:13px;color:var(--ink-mid);text-align:right;line-height:1.4;}
+.lc-tags{display:flex;flex-wrap:wrap;gap:5px;justify-content:flex-end;}
+.lc-tag{font-family:var(--mono);font-size:10.5px;padding:3px 9px;border-radius:5px;line-height:1;}
+.tag-amber{background:var(--amber-lt);color:var(--amber);border:1px solid var(--amber-bdr);}
+.tag-green{background:var(--green-lt);color:var(--green);border:1px solid var(--green-bdr);}
+.tag-navy{background:var(--navy-lt);color:var(--navy);border:1px solid var(--navy-bdr);}
+.lc-footer{background:var(--surface-2);border-top:1px solid var(--border);padding:14px 22px;display:flex;justify-content:space-between;align-items:center;}
+.lc-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--navy);background:var(--navy-lt);border:1.5px solid var(--navy-bdr);padding:7px 16px;border-radius:var(--r);transition:background .15s;}
+.lc-link:hover{background:#dce8f5;}
+.lc-note{font-family:var(--mono);font-size:10px;color:var(--ink-faint);}
 
 /* ────────────────────────────────────────────────
-   PRACTICE AREAS
+   TIME SAVINGS CALLOUT
 ──────────────────────────────────────────────── */
-#coverage { 
-  padding: 100px 0; 
-  background: var(--surface-2); 
+#tiempo{padding:80px 0;background:var(--surface-3);}
+.tiempo-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
+@media(max-width:760px){.tiempo-inner{grid-template-columns:1fr;gap:36px;}}
+.tiempo-numbers{display:flex;flex-direction:column;gap:20px;}
+.tiempo-stat{
+  display:flex;align-items:center;gap:16px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r2);padding:20px 24px;
+  box-shadow:var(--shadow-sm);
 }
+.tiempo-stat-num{font-family:var(--head);font-size:36px;font-weight:600;color:var(--navy);min-width:80px;letter-spacing:-1px;}
+.tiempo-stat-num em{font-style:normal;color:var(--amber);}
+.tiempo-stat-desc{font-size:14px;color:var(--ink-dim);line-height:1.55;}
+.tiempo-stat-desc strong{color:var(--ink);font-weight:600;}
 
-.cov-intro {
-  display: block; 
-  margin: 0 auto 80px auto; /* Increased bottom margin for better separation */
-  max-width: 800px; 
-  text-align: center;
-}
-
-.cov-intro .eyebrow {
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.cov-grid {
-  display: grid; 
-  grid-template-columns: repeat(3, 1fr); 
-  gap: 24px; /* Space between cards */
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.cov-card {
-  background: #ffffff; 
-  border: 1px solid var(--border);
-  border-radius: 16px; 
-  padding: 32px 24px; /* More internal padding for a luxury feel */
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.cov-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 24px rgba(0,0,0,0.04);
-}
-
-.cov-icon { 
-  font-size: 28px; 
-  margin-bottom: 20px; 
-}
-
-.cov-name {
-  font-family: var(--head); 
-  font-size: 18px; 
-  font-weight: 600;
-  color: var(--ink); 
-  margin-bottom: 16px; 
-}
-
-.cov-keywords { 
-  display: flex; 
-  flex-wrap: wrap; 
-  gap: 8px; 
-}
-
-.kw {
-  font-family: var(--mono); 
-  font-size: 11px; 
-  color: var(--ink-dim);
-  background: #f8fafc; 
-  border: 1px solid #e2e8f0;
-  padding: 4px 10px; 
-  border-radius: 6px;
-}
-
-/* Mobile Fixes */
-@media (max-width: 900px) { 
-  .cov-grid { grid-template-columns: 1fr 1fr; } 
-}
-@media (max-width: 600px) { 
-  .cov-grid { grid-template-columns: 1fr; padding: 0 20px; } 
-}
 /* ────────────────────────────────────────────────
    TESTIMONIAL
 ──────────────────────────────────────────────── */
-#testimonial { padding: 100px 0; background: var(--surface); }
-.testi-inner { max-width: 780px; margin: 0 auto; text-align: center; }
-.testi-stars { display: flex; gap: 4px; justify-content: center; margin-bottom: 28px; }
-.testi-stars span { color: var(--amber); font-size: 18px; }
-.testi-quote {
-  font-family: var(--head); font-style: italic;
-  font-size: clamp(18px,2.5vw,24px); font-weight: 400;
-  color: var(--ink); line-height: 1.65;
-  margin-bottom: 36px;
+#testimonial{padding:100px 0;background:var(--surface);}
+.testi-inner{max-width:780px;margin:0 auto;text-align:center;}
+.testi-stars{display:flex;gap:4px;justify-content:center;margin-bottom:28px;}
+.testi-stars span{color:var(--amber);font-size:18px;}
+.testi-quote{
+  font-family:var(--head);font-style:italic;
+  font-size:clamp(18px,2.5vw,24px);font-weight:400;
+  color:var(--ink);line-height:1.65;margin-bottom:36px;
 }
-.testi-quote::before { content: '\201C'; }
-.testi-quote::after  { content: '\201D'; }
-.testi-attr { display: flex; align-items: center; justify-content: center; gap: 14px; }
-.testi-av {
-  width: 50px; height: 50px; border-radius: 8px; flex-shrink: 0;
-  background: white; /* Clean white background for the logo */
-  border: 1px solid var(--border); /* Light border to make it pop */
-  display: flex; align-items: center; justify-content: center;
-  overflow: hidden; /* Clips the image to the box */
-  padding: 4px; /* Keeps the logo from touching the edges */
-}
-.testi-av img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain; /* Ensures the logo isn't stretched */
-}
-.testi-name {
-  font-family: var(--head); font-size: 16px; font-weight: 600;
-  color: var(--ink); text-align: left;
-}
-.testi-role {
-  font-family: var(--mono); font-size: 11px; color: var(--ink-faint);
-  text-align: left; letter-spacing: .05em; margin-top: 3px;
-}
+.testi-quote::before{content:'\201C';}
+.testi-quote::after{content:'\201D';}
+.testi-attr{display:flex;align-items:center;justify-content:center;gap:14px;}
+.testi-av{width:50px;height:50px;border-radius:8px;flex-shrink:0;background:white;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;overflow:hidden;padding:4px;}
+.testi-av img{width:100%;height:100%;object-fit:contain;}
+.testi-name{font-family:var(--head);font-size:16px;font-weight:600;color:var(--ink);text-align:left;}
+.testi-role{font-family:var(--mono);font-size:11px;color:var(--ink-faint);text-align:left;letter-spacing:.05em;margin-top:3px;}
 
 /* ────────────────────────────────────────────────
    PRICING
 ──────────────────────────────────────────────── */
-#pricing { padding: 100px 0; background: var(--surface-2); }
-.pricing-layout {
-  display: grid; grid-template-columns: 1fr 1.1fr;
-  gap: 72px; align-items: start;
-}
-@media (max-width: 860px) { .pricing-layout { grid-template-columns: 1fr; gap: 48px; } }
-.pricing-copy {}
-.pricing-copy h2 { margin-bottom: 14px; }
-.pricing-copy .lead { margin-bottom: 28px; }
-.trial-pill {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-family: var(--mono); font-size: 12px; color: var(--green);
-  background: var(--green-lt); border: 1px solid var(--green-bdr);
-  padding: 7px 16px; border-radius: 100px; margin-bottom: 28px;
-}
-.trial-pill svg { flex-shrink: 0; }
-.pricing-card {
-  background: var(--surface); border: 2px solid var(--navy);
-  border-radius: var(--r3); overflow: hidden;
-  box-shadow: var(--shadow-lg);
-}
-.pc-top { background: var(--navy); padding: 36px 36px 32px; }
-.pc-plan {
-  font-family: var(--mono); font-size: 11px;
-  color: rgba(255,255,255,.5); letter-spacing: .13em; text-transform: uppercase;
-  margin-bottom: 16px;
-}
-.pc-price {
-  font-family: var(--head); font-size: 56px; font-weight: 600;
-  color: #fff; letter-spacing: -1.5px; line-height: 1;
-}
-.pc-price sup { font-size: 24px; font-weight: 400; vertical-align: super; letter-spacing: 0; }
-.pc-cycle { font-size: 14px; color: rgba(255,255,255,.5); margin-top: 8px; }
-.pc-trial-badge {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-family: var(--mono); font-size: 11px; font-weight: 500;
-  color: var(--amber-md); background: rgba(200,134,10,.15);
-  border: 1px solid rgba(200,134,10,.3);
-  padding: 5px 12px; border-radius: 100px; margin-top: 16px;
-}
-.pc-body { padding: 32px 36px 36px; }
-.pc-blurb { font-size: 14px; color: var(--ink-dim); font-style: italic; line-height: 1.6; margin-bottom: 24px; }
-.pc-feats { list-style: none; display: flex; flex-direction: column; }
-.pc-feat {
-  display: flex; gap: 12px; align-items: flex-start;
-  padding: 11px 0; border-bottom: 1px solid var(--border);
-  font-size: 14px; color: var(--ink-mid); line-height: 1.45;
-}
-.pc-feat:last-child { border-bottom: none; }
-.feat-ck {
-  width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0;
-  background: var(--navy-lt); border: 1px solid var(--navy-bdr);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 9px; color: var(--navy); font-weight: 700; margin-top: 1px;
-}
-.pc-cta {
-  display: block; width: 100%; margin-top: 28px;
-  font-family: var(--body); font-size: 15px; font-weight: 600;
-  color: #fff; background: var(--navy); text-align: center;
-  padding: 14px; border-radius: var(--r2); border: none; cursor: pointer;
-  transition: background .18s, box-shadow .18s;
-  box-shadow: 0 4px 16px rgba(30,58,95,.25);
-}
-.pc-cta:hover { background: #162e4d; box-shadow: 0 8px 24px rgba(30,58,95,.28); }
-.pc-note {
-  text-align: center; margin-top: 14px;
-  font-family: var(--mono); font-size: 11px; color: var(--ink-faint);
-  line-height: 1.7;
-}
+#pricing{padding:100px 0;background:var(--surface-2);}
+.pricing-layout{display:grid;grid-template-columns:1fr 1.1fr;gap:72px;align-items:start;}
+@media(max-width:860px){.pricing-layout{grid-template-columns:1fr;gap:48px;}}
+.trial-pill{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;color:var(--green);background:var(--green-lt);border:1px solid var(--green-bdr);padding:7px 16px;border-radius:100px;margin-bottom:28px;}
+.pricing-card{background:var(--surface);border:2px solid var(--navy);border-radius:var(--r3);overflow:hidden;box-shadow:var(--shadow-lg);}
+.pc-top{background:var(--navy);padding:36px 36px 32px;}
+.pc-plan{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.13em;text-transform:uppercase;margin-bottom:16px;}
+.pc-price{font-family:var(--head);font-size:56px;font-weight:600;color:#fff;letter-spacing:-1.5px;line-height:1;}
+.pc-price sup{font-size:24px;font-weight:400;vertical-align:super;letter-spacing:0;}
+.pc-cycle{font-size:14px;color:rgba(255,255,255,.5);margin-top:8px;}
+.pc-trial-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;font-weight:500;color:var(--amber-md);background:rgba(200,134,10,.15);border:1px solid rgba(200,134,10,.3);padding:5px 12px;border-radius:100px;margin-top:16px;}
+.pc-body{padding:32px 36px 36px;}
+.pc-blurb{font-size:14px;color:var(--ink-dim);font-style:italic;line-height:1.6;margin-bottom:24px;}
+.pc-feats{list-style:none;display:flex;flex-direction:column;}
+.pc-feat{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px;color:var(--ink-mid);line-height:1.45;}
+.pc-feat:last-child{border-bottom:none;}
+.feat-ck{width:18px;height:18px;border-radius:50%;flex-shrink:0;background:var(--navy-lt);border:1px solid var(--navy-bdr);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--navy);font-weight:700;margin-top:1px;}
+.pc-cta{display:block;width:100%;margin-top:28px;font-family:var(--body);font-size:15px;font-weight:600;color:#fff;background:var(--navy);text-align:center;padding:14px;border-radius:var(--r2);border:none;cursor:pointer;transition:background .18s,box-shadow .18s;box-shadow:0 4px 16px rgba(30,58,95,.25);}
+.pc-cta:hover{background:#162e4d;box-shadow:0 8px 24px rgba(30,58,95,.28);}
+.pc-note{text-align:center;margin-top:14px;font-family:var(--mono);font-size:11px;color:var(--ink-faint);line-height:1.7;}
 
 /* ────────────────────────────────────────────────
    FAQ
 ──────────────────────────────────────────────── */
-#faq { padding: 100px 0; background: var(--surface); }
-.faq-layout {
-  display: grid; grid-template-columns: 1fr 2fr;
-  gap: 80px; align-items: start;
-}
-@media (max-width: 800px) { .faq-layout { grid-template-columns: 1fr; gap: 40px; } }
-.faq-intro .lead { margin-top: 14px; }
-.faq-list { display: flex; flex-direction: column; gap: 0; }
-.faq-item { border-bottom: 1px solid var(--border); }
-.faq-item:first-child { border-top: 1px solid var(--border); }
-.faq-q {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 20px 0; cursor: pointer; gap: 20px;
-  transition: color .15s;
-}
-.faq-q:hover .faq-q-txt { color: var(--ink); }
-.faq-q-txt {
-  font-family: var(--head); font-size: 16px; font-weight: 600;
-  color: var(--ink-mid); line-height: 1.4;
-  transition: color .15s;
-}
-.faq-item.open .faq-q-txt { color: var(--ink); }
-.faq-icon {
-  width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
-  background: var(--surface-2); border: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 13px; color: var(--ink-dim);
-  transition: background .2s, transform .3s;
-}
-.faq-item.open .faq-icon {
-  background: var(--navy); color: #fff; border-color: var(--navy);
-  transform: rotate(180deg);
-}
-.faq-a {
-  max-height: 0; overflow: hidden;
-  transition: max-height .35s ease, padding .3s ease;
-  padding: 0;
-}
-.faq-item.open .faq-a { max-height: 800px; padding-bottom: 20px; }
-.faq-a p { font-size: 14px; color: var(--ink-dim); line-height: 1.78; }
+#faq{padding:100px 0;background:var(--surface);}
+.faq-layout{display:grid;grid-template-columns:1fr 2fr;gap:80px;align-items:start;}
+@media(max-width:800px){.faq-layout{grid-template-columns:1fr;gap:40px;}}
+.faq-list{display:flex;flex-direction:column;gap:0;}
+.faq-item{border-bottom:1px solid var(--border);}
+.faq-item:first-child{border-top:1px solid var(--border);}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:20px 0;cursor:pointer;gap:20px;transition:color .15s;}
+.faq-q-txt{font-family:var(--head);font-size:16px;font-weight:600;color:var(--ink-mid);line-height:1.4;transition:color .15s;}
+.faq-item.open .faq-q-txt{color:var(--ink);}
+.faq-icon{width:22px;height:22px;border-radius:50%;flex-shrink:0;background:var(--surface-2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--ink-dim);transition:background .2s,transform .3s;}
+.faq-item.open .faq-icon{background:var(--navy);color:#fff;border-color:var(--navy);transform:rotate(180deg);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .3s ease;padding:0;}
+.faq-item.open .faq-a{max-height:500px;padding-bottom:20px;}
+.faq-a p{font-size:14px;color:var(--ink-dim);line-height:1.78;}
 
 /* ────────────────────────────────────────────────
    CTA
 ──────────────────────────────────────────────── */
-#cta {
-  padding: 100px 0;
-  background: linear-gradient(135deg, var(--navy) 0%, #1a3a6e 100%);
-  position: relative; overflow: hidden;
+#cta{
+  padding:100px 0;
+  background:linear-gradient(135deg,var(--navy) 0%,#1a3a6e 100%);
+  position:relative;overflow:hidden;
 }
-#cta::before {
-  content: '';
-  position: absolute; inset: 0; pointer-events: none;
-  background-image: radial-gradient(circle, rgba(255,255,255,.06) 1px, transparent 1px);
-  background-size: 28px 28px;
+#cta::before{content:'';position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle,rgba(255,255,255,.06) 1px,transparent 1px);background-size:28px 28px;}
+.cta-inner{max-width:560px;margin:0 auto;text-align:center;position:relative;}
+.cta-eyebrow{font-family:var(--mono);font-size:11px;color:var(--amber-md);letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px;}
+.cta-h{font-family:var(--head);font-size:clamp(28px,4.5vw,44px);font-weight:600;color:#fff;letter-spacing:-.5px;line-height:1.12;margin-bottom:16px;}
+.cta-sub{font-size:17px;color:rgba(255,255,255,.65);line-height:1.75;margin-bottom:40px;}
+.cta-btn{
+  display:inline-block;
+  font-family:var(--body);font-size:16px;font-weight:600;
+  color:var(--navy);background:#fff;
+  padding:16px 40px;border-radius:var(--r2);border:none;cursor:pointer;
+  transition:background .18s,transform .18s,box-shadow .18s;
+  box-shadow:0 4px 20px rgba(0,0,0,.2);
 }
-.cta-inner { max-width: 580px; margin: 0 auto; text-align: center; position: relative; }
-.cta-eyebrow {
-  font-family: var(--mono); font-size: 11px; color: var(--amber-md);
-  letter-spacing: .12em; text-transform: uppercase; margin-bottom: 20px;
-}
-.cta-h {
-  font-family: var(--head);
-  font-size: clamp(28px,4.5vw,44px);
-  font-weight: 600; color: #fff; letter-spacing: -.5px;
-  line-height: 1.12; margin-bottom: 16px;
-}
-.cta-sub {
-  font-size: 17px; color: rgba(255,255,255,.65); line-height: 1.75;
-  margin-bottom: 40px;
-}
-.email-form {
-  background: rgba(255,255,255,.08); border: 1.5px solid rgba(255,255,255,.2);
-  border-radius: var(--r2); overflow: hidden; display: flex;
-  backdrop-filter: blur(10px);
-  transition: border-color .2s, box-shadow .2s;
-}
-.email-form:focus-within {
-  border-color: rgba(255,255,255,.45);
-  box-shadow: 0 0 0 4px rgba(255,255,255,.06);
-}
-.email-in {
-  flex: 1; background: transparent; border: none; outline: none;
-  padding: 15px 18px; font-family: var(--body); font-size: 16px; /* 16px minimum prevents iOS auto-zoom */
-  color: #fff;
-  -webkit-appearance: none; /* removes iOS inner shadow */
-  border-radius: 0; /* prevents iOS rounding the left side */
-}
-.email-in::placeholder { color: rgba(255,255,255,.4); }
-.email-btn {
-  font-family: var(--body); font-size: 14px; font-weight: 600;
-  color: var(--navy); background: #fff;
-  border: none; padding: 15px 26px; cursor: pointer;
-  flex-shrink: 0; white-space: nowrap;
-  transition: background .18s;
-}
-.email-btn:hover { background: var(--amber-lt); }
-.email-note { margin-top: 14px; font-family: var(--mono); font-size: 11px; color: rgba(255,255,255,.4); letter-spacing: .04em; }
-#msg { min-height: 20px; margin-top: 12px; font-family: var(--mono); font-size: 12px; }
+.cta-btn:hover{background:var(--amber-lt);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.25);}
+.email-note{margin-top:16px;font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.4);letter-spacing:.04em;}
 
 /* ────────────────────────────────────────────────
    FOOTER
 ──────────────────────────────────────────────── */
-footer {
-  background: var(--ink); padding: 32px 0;
+footer{background:var(--ink);padding:32px 0;}
+.foot-inner{max-width:1080px;margin:0 auto;padding:0 36px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.foot-links{display:flex;gap:20px;align-items:center;}
+.foot-links a{font-family:var(--mono);font-size:12px;color:rgba(255,255,255,.4);transition:color .15s;}
+.foot-links a:hover{color:rgba(255,255,255,.8);}
+.foot-copy{font-family:var(--mono);font-size:12px;color:rgba(255,255,255,.3);}
+
+/* ────────────────────────────────────────────────
+   POPUP MODAL — sign-up before dashboard access
+──────────────────────────────────────────────── */
+.popup-overlay{
+  position:fixed;inset:0;z-index:999;
+  background:rgba(13,26,43,.7);backdrop-filter:blur(8px);
+  display:none;align-items:center;justify-content:center;padding:20px;
 }
-.foot-inner {
-  max-width: 1080px; margin: 0 auto; padding: 0 36px;
-  display: flex; align-items: center;
-  justify-content: space-between; flex-wrap: wrap; gap: 16px;
+.popup-overlay.open{display:flex;}
+.popup-card{
+  background:var(--surface);border-radius:var(--r3);
+  width:100%;max-width:480px;
+  box-shadow:0 24px 64px rgba(0,0,0,.25),0 0 0 1px rgba(0,0,0,.05);
+  overflow:hidden;animation:popIn .3s var(--ease);
 }
-.foot-logo { display: flex; align-items: center; gap: 9px; }
-.foot-logo-mark {
-  width: 30px; height: 30px; border-radius: 8px;
-  background: rgba(255,255,255,.1);
-  display: flex; align-items: center; justify-content: center;
+@keyframes popIn{from{opacity:0;transform:scale(.95) translateY(10px);}to{opacity:1;transform:none;}}
+.popup-head{
+  background:var(--navy);padding:24px 28px;
+  display:flex;justify-content:space-between;align-items:flex-start;
 }
-.foot-logo-txt {
-  font-family: var(--head); font-size: 15px; font-weight: 600;
-  color: rgba(255,255,255,.8);
+.popup-head-text h3{font-family:var(--head);font-size:20px;font-weight:600;color:#fff;margin-bottom:6px;}
+.popup-head-text p{font-size:13px;color:rgba(255,255,255,.65);line-height:1.55;max-width:340px;}
+.popup-close{
+  width:32px;height:32px;border-radius:8px;border:none;cursor:pointer;
+  background:rgba(255,255,255,.1);color:#fff;font-size:18px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:background .15s;margin-left:12px;margin-top:-2px;
 }
-.foot-logo-txt span { color: var(--amber); }
-.foot-links { display: flex; gap: 20px; align-items: center; }
-.foot-links a {
-  font-family: var(--mono); font-size: 12px;
-  color: rgba(255,255,255,.4);
-  transition: color .15s;
+.popup-close:hover{background:rgba(255,255,255,.2);}
+.popup-body{padding:28px;}
+.form-group{margin-bottom:18px;}
+.form-group label{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:7px;}
+.form-group input,
+.form-group select,
+.form-group textarea{
+  width:100%;padding:11px 14px;
+  font-family:var(--body);font-size:15px;color:var(--ink);
+  background:var(--surface);border:1.5px solid var(--border-2);
+  border-radius:var(--r);outline:none;
+  transition:border-color .2s,box-shadow .2s;
+  -webkit-appearance:none;appearance:none;
 }
-.foot-links a:hover { color: rgba(255,255,255,.8); }
-.foot-copy {
-  font-family: var(--mono); font-size: 12px; color: rgba(255,255,255,.3);
+.form-group input:focus,
+.form-group select:focus{
+  border-color:var(--navy);
+  box-shadow:0 0 0 3px rgba(30,58,95,.12);
+}
+.form-group input::placeholder{color:var(--ink-faint);}
+.form-group .select-wrap{position:relative;}
+.form-group .select-wrap::after{
+  content:'▾';position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  color:var(--ink-dim);pointer-events:none;font-size:14px;
+}
+.form-group select{cursor:pointer;padding-right:36px;}
+#otroField{display:none;margin-top:10px;}
+.form-note{font-size:12px;color:var(--ink-faint);margin-top:6px;line-height:1.5;}
+.popup-submit{
+  width:100%;padding:14px;margin-top:6px;
+  font-family:var(--body);font-size:15px;font-weight:600;
+  color:#fff;background:var(--navy);border:none;border-radius:var(--r2);
+  cursor:pointer;transition:background .18s,box-shadow .18s;
+  box-shadow:0 4px 16px rgba(30,58,95,.25);
+}
+.popup-submit:hover{background:#162e4d;box-shadow:0 8px 24px rgba(30,58,95,.3);}
+#popupMsg{min-height:18px;margin-top:10px;font-family:var(--mono);font-size:12px;text-align:center;}
+.popup-footer-note{
+  margin-top:16px;padding-top:16px;border-top:1px solid var(--border);
+  font-size:12px;color:var(--ink-faint);text-align:center;line-height:1.6;
 }
 
 /* ────────────────────────────────────────────────
-   ROI CALLOUT (pricing section)
+   REVEAL ANIMATIONS
 ──────────────────────────────────────────────── */
-.roi-callout {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  background: linear-gradient(135deg, #f0fdf4, #ecfdf5);
-  border: 1.5px solid rgba(22,163,74,.25);
-  border-radius: var(--r2);
-  padding: 20px 22px;
-  margin: 20px 0 0;
-}
-.roi-callout-icon {
-  font-size: 26px;
-  flex-shrink: 0;
-  line-height: 1;
-  margin-top: 2px;
-}
-.roi-callout-headline {
-  font-family: var(--head);
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--ink);
-  margin-bottom: 6px;
-  line-height: 1.3;
-}
-.roi-callout-body {
-  font-size: 13.5px;
-  color: var(--ink-dim);
-  line-height: 1.65;
-}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease;}
+.reveal.d1{transition-delay:.08s;}.reveal.d2{transition-delay:.16s;}
+.reveal.d3{transition-delay:.24s;}.reveal.d4{transition-delay:.32s;}
+.reveal.vis{opacity:1;transform:none;}
 
 /* ────────────────────────────────────────────────
-   REVEAL
+   MOBILE
 ──────────────────────────────────────────────── */
-.reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
-.reveal.d1 { transition-delay: .08s; }
-.reveal.d2 { transition-delay: .16s; }
-.reveal.d3 { transition-delay: .24s; }
-.reveal.d4 { transition-delay: .32s; }
-.reveal.vis { opacity: 1; transform: none; }
-
-   @media (max-width: 500px) { .nav-hide-mobile { display: none; } }
-
-
-/* ════════════════ MOBILE RESPONSIVENESS ════════════════ */
-
-/* Prevent horizontal overflow — scoped, not global */
-img, video, iframe, svg { max-width: 100%; }
-   
-/* ── Hero visual: no 3D transform, no scale hack ── */
-@media (max-width: 860px) {
-  .hero-visual {
-    width: 100%;
-    max-width: 100%;
-    margin: 0 !important;
-    transform: none !important;
-    overflow: hidden;
-  }
-}
-
-/* ── Stats: 2-column on small screens, shrink text ── */
-@media (max-width: 640px) {
-  .stats-inner { grid-template-columns: repeat(2, 1fr); }
-  .stat-cell { padding: 22px 14px; }
-  .stat-cell:nth-child(3),
-  .stat-cell:nth-child(4) { border-top: 1px solid rgba(255,255,255,.1); }
-  .stat-num { font-size: 20px; }
-  .stat-label { font-size: 9px; }
-}
-
-/* ── General mobile (≤ 768px) ── */
-@media (max-width: 768px) {
-
-  /* Typography */
-  h1 {
-    font-size: clamp(30px, 9vw, 42px) !important;
-    line-height: 1.08;
-    letter-spacing: -1px;
-  }
-  h2 { font-size: clamp(24px, 7vw, 32px) !important; }
-
-  /* Nav */
-  .nav-inner { padding: 0 16px; gap: 8px; }
-  .nav-links { display: none; }
-  .btn-outline-nav { display: none; }
-  .btn-primary { font-size: 13px; padding: 8px 14px; }
-
-  /* Hero */
-  #hero { padding-top: 88px; }
-  .hero-sub { font-size: 15px; max-width: 100%; }
-  .hero-actions { flex-direction: column; align-items: stretch; gap: 10px; }
-  .btn-hero, .btn-hero-ghost { text-align: center; width: 100%; }
-  .hero-proof { gap: 8px 14px; }
-  .proof-item { font-size: 12px; }
-  .hero-strip { flex-direction: column; align-items: flex-start; gap: 10px; margin-top: 28px; }
-  .strip-tags { gap: 5px; }
-  .strip-tag { font-size: 10px; padding: 4px 10px; }
-
-  /* How it works */
-  .how-grid { grid-template-columns: 1fr; }
-  .how-step { padding: 28px 22px; }
-
-  /* Use cases */
-  .uc-header { grid-template-columns: 1fr; gap: 20px; }
-  .uc-grid { grid-template-columns: 1fr; }
-  .tailor-strip {
-    grid-template-columns: 1fr;
-    padding: 28px 22px;
-    gap: 24px;
-  }
-
-  /* What you receive */
-  .receive-grid { grid-template-columns: 1fr; gap: 28px; }
-
-  /* Lead card rows: stack on mobile */
-  .lc-head { flex-direction: column; align-items: flex-start; gap: 10px; }
-  .lc-score-wrap { flex-wrap: wrap; }
-  .lc-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 5px;
-    padding: 10px 14px;
-  }
-  .lc-val, .lc-tags {
-    text-align: left;
-    justify-content: flex-start;
-  }
-
-  /* Coverage grid */
-  .cov-grid { grid-template-columns: 1fr 1fr; }
-  .cov-intro { padding: 0; }
-
-  /* Pricing */
-  .pricing-layout { grid-template-columns: 1fr; gap: 28px; }
-  .pc-top, .pc-body { padding: 22px 18px; }
-  .pc-price { font-size: 44px; }
-
-  /* ROI callout box */
-  .roi-callout { flex-direction: column; gap: 10px; padding: 18px; }
-
-  /* FAQ */
-  .faq-layout { grid-template-columns: 1fr; gap: 20px; }
-  .faq-item.open .faq-a { max-height: 800px; } /* was 300px — answers were cut off */
-  .faq-q-txt { font-size: 14px; }
-
-  /* CTA email form: stack button below input */
-  .email-form { flex-direction: column; border-radius: var(--r); }
-  .email-in { padding: 14px 16px; font-size: 14px; }
-  .email-btn {
-    padding: 14px;
-    border-top: 1px solid rgba(255,255,255,.15);
-    font-size: 14px;
-  }
-
-  /* Footer */
-  .foot-inner {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 0 20px;
-    gap: 10px;
-  }
-}
-
-/* ── Very small phones (≤ 400px) ── */
-@media (max-width: 400px) {
-  .wrap { padding: 0 14px; }
-  .hs-content { padding: 10px; }
-  .hs-lead { flex-direction: column; gap: 6px; }
-  .hs-lead-score { align-self: flex-start; }
-  .cov-grid { grid-template-columns: 1fr; }
-  .nav-cta { gap: 6px; }
+img,video,iframe,svg{max-width:100%;}
+@media(max-width:768px){
+  h1{font-size:clamp(30px,9vw,42px)!important;line-height:1.08;letter-spacing:-1px;}
+  h2{font-size:clamp(24px,7vw,32px)!important;}
+  #hero{padding-top:88px;}
+  .hero-sub{font-size:15px;max-width:100%;}
+  .hero-actions{flex-direction:column;align-items:stretch;gap:10px;}
+  .btn-hero,.btn-hero-ghost{text-align:center;width:100%;}
+  .hero-strip{flex-direction:column;align-items:flex-start;gap:10px;margin-top:28px;}
+  .how-grid{grid-template-columns:1fr;}
+  .receive-grid{grid-template-columns:1fr;gap:28px;}
+  .pricing-layout{grid-template-columns:1fr;gap:28px;}
+  .pc-top,.pc-body{padding:22px 18px;}
+  .pc-price{font-size:44px;}
+  .faq-layout{grid-template-columns:1fr;gap:20px;}
+  .foot-inner{flex-direction:column;align-items:center;text-align:center;padding:0 20px;}
+  .tiempo-inner{grid-template-columns:1fr;gap:28px;}
+  .stat-cell{padding:22px 14px;}
+  .stat-num{font-size:24px;}
+  .popup-card{border-radius:var(--r2);}
+  .popup-head{padding:20px 20px;}
+  .popup-body{padding:20px;}
 }
 </style>
 </head>
 <body>
 
+<!-- ════ POPUP MODAL ════ -->
+<div class="popup-overlay" id="popupOverlay">
+  <div class="popup-card">
+    <div class="popup-head">
+      <div class="popup-head-text">
+        <h3>Accede a tu mes gratuito</h3>
+        <p>Cuéntanos en qué sector trabajas y configuramos el radar con los leads más relevantes para ti.</p>
+      </div>
+      <button class="popup-close" onclick="closePopup()" aria-label="Cerrar">✕</button>
+    </div>
+    <div class="popup-body">
+      <div class="form-group">
+        <label for="popNombre">Nombre completo *</label>
+        <input type="text" id="popNombre" placeholder="Ej. Carlos García" autocomplete="name">
+      </div>
+      <div class="form-group">
+        <label for="popEmail">Email profesional *</label>
+        <input type="email" id="popEmail" placeholder="carlos@empresa.com" autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label for="popSector">Tu sector *</label>
+        <div class="select-wrap">
+          <select id="popSector" onchange="handleSectorChange(this)">
+            <option value="">— Selecciona tu sector —</option>
+            <option value="mep">🔧 Instalaciones MEP (ascensores, HVAC, PCI)</option>
+            <option value="expansion">🏪 Expansión retail / restauración</option>
+            <option value="promotor">📐 Promotor / Inversión inmobiliaria</option>
+            <option value="constructora">🏢 Gran constructora / infraestructuras</option>
+            <option value="industrial">🏭 Industrial / logística</option>
+            <option value="compras">🛒 Compras / proveedores de materiales</option>
+            <option value="otro">Otro (cuéntanos)</option>
+          </select>
+        </div>
+        <p class="form-note">Así filtramos el radar para que solo veas los proyectos relevantes para tu negocio.</p>
+      </div>
+      <div class="form-group" id="otroField">
+        <label for="popOtro">¿En qué sector trabajas?</label>
+        <input type="text" id="popOtro" placeholder="Describe brevemente tu actividad">
+      </div>
+      <button class="popup-submit" onclick="handleSignup()">
+        Acceder al radar gratis →
+      </button>
+      <div id="popupMsg"></div>
+      <div class="popup-footer-note">
+        Sin tarjeta de crédito · Sin compromiso · Cancela cuando quieras<br>
+        Datos solo para configurar tu perfil. Nunca los compartimos.
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ════ NAV ════ -->
 <nav id="nav">
   <div class="nav-inner">
-<a href="#" class="logo" style="display: flex; align-items: center;">
-      <img src="navbar.png" alt="PlanningScout" style="height: 42px; width: auto; object-fit: contain; background: transparent;">
+    <a href="#" class="logo">
+      <img src="navbar.png" alt="PlanningScout" style="height:40px;width:auto;object-fit:contain;">
     </a>
     <ul class="nav-links">
-      <li><a href="#how">How it works</a></li>
-      <li><a href="#usecases">Use cases</a></li>
-      <li><a href="#receive">What you receive</a></li>
-      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#how">Cómo funciona</a></li>
+      <li><a href="#quienessomos">Para quién</a></li>
+      <li><a href="#receive">Qué recibes</a></li>
+      <li><a href="#pricing">Precios</a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
     <div class="nav-cta">
-      <a href="#cta" class="btn-primary">Try free →</a>
+      <button class="btn-primary" onclick="openPopup()">Prueba gratis →</button>
     </div>
-    <!-- Hamburger — shows on tablet and mobile -->
-    <button class="nav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false">
-      <span id="b1"></span>
-      <span id="b2"></span>
-      <span id="b3"></span>
+    <button class="nav-burger" id="navBurger" aria-label="Abrir menú" aria-expanded="false">
+      <span id="b1"></span><span id="b2"></span><span id="b3"></span>
     </button>
   </div>
 </nav>
 
-<!-- Mobile/tablet navigation drawer -->
-<div class="nav-drawer" id="navDrawer" role="navigation" aria-label="Mobile menu">
-  <a href="#how" onclick="closeNav()">How it works</a>
-  <a href="#usecases" onclick="closeNav()">Use cases</a>
-  <a href="#receive" onclick="closeNav()">What you receive</a>
-  <a href="#pricing" onclick="closeNav()">Pricing</a>
+<div class="nav-drawer" id="navDrawer">
+  <a href="#how" onclick="closeNav()">Cómo funciona</a>
+  <a href="#quienessomos" onclick="closeNav()">Para quién</a>
+  <a href="#receive" onclick="closeNav()">Qué recibes</a>
+  <a href="#pricing" onclick="closeNav()">Precios</a>
   <a href="#faq" onclick="closeNav()">FAQ</a>
   <div class="drawer-divider"></div>
-  <a href="#cta" class="drawer-cta" onclick="closeNav()">Start free — no card needed →</a>
+  <a href="#" class="drawer-cta" onclick="closeNav();openPopup();">Prueba gratuita — sin tarjeta →</a>
 </div>
 
 <!-- ════ HERO ════ -->
 <section id="hero">
   <div class="wrap">
     <div class="hero-content">
-
       <div class="hero-text">
-<h1 class="reveal d1" style="line-height: 1.1;">
-  Stop hunting for<br>
-  planning work.<br>
-  <em style="color: var(--amber); font-style: italic;">Let it find you.</em>
-</h1>
+        <div class="hero-badge reveal">
+          <span class="badge-dot"></span>
+          En vivo · BOCM actualizado cada día laborable a las 7:00h
+        </div>
+        <h1 class="reveal d1">
+          El BOCM publica<br>
+          200 páginas al día.<br>
+          <em>Nosotros las leemos por ti.</em>
+        </h1>
         <p class="hero-sub reveal d2">
-          PlanningScout monitors thousands of council decisions notices daily, delivering a scored, ranked shortlist of leads matched to your practice - complete with the exact phrases that make each case worth pursuing.
+          PlanningScout detecta automáticamente licencias de obra mayor, urbanizaciones y planes especiales en Madrid — antes de que tu competencia lo sepa. Filtrado por perfil, listo para actuar.
         </p>
         <div class="hero-actions reveal d3">
-          <a href="#cta" class="btn-hero">Start free — no card needed</a>
-        <a href="#receive" class="btn-hero-ghost">See what a lead looks like ↓</a>
+          <button class="btn-hero" onclick="openPopup()">Accede a tu mes gratis →</button>
+          <a href="#receive" class="btn-hero-ghost">Ver un lead real ↓</a>
         </div>
         <div class="hero-proof reveal d4">
           <div class="proof-item">
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.3" stroke="currentColor" stroke-width="1.2"/><path d="M4.2 7l2 2 3.6-3.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            1 month free
+            1 mes gratis
           </div>
           <div class="proof-item">
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.3" stroke="currentColor" stroke-width="1.2"/><path d="M4.2 7l2 2 3.6-3.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            No card required
+            Sin tarjeta
           </div>
           <div class="proof-item">
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.3" stroke="currentColor" stroke-width="1.2"/><path d="M4.2 7l2 2 3.6-3.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            First leads within 7 days
+            Primeros leads en 48h
           </div>
           <div class="proof-item">
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.3" stroke="currentColor" stroke-width="1.2"/><path d="M4.2 7l2 2 3.6-3.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Cancel anytime
+            Cancela cuando quieras
           </div>
         </div>
       </div>
 
-      <!-- Dashboard mock -->
+      <!-- Dashboard browser mock with real Madrid data -->
       <div class="hero-visual reveal d2">
         <div class="hero-visual-label">
           <span class="badge-dot"></span>
-          Live · 44+ UK councils · New leads delivered daily or weekly
+          En directo · 72+ municipios de Madrid · Leads diarios
         </div>
         <div class="hero-screen">
           <div class="hs-bar">
             <div class="hs-dots">
-              <div class="hs-dot r"></div>
-              <div class="hs-dot y"></div>
-              <div class="hs-dot g"></div>
+              <div class="hs-dot r"></div><div class="hs-dot y"></div><div class="hs-dot g"></div>
             </div>
-            <div class="hs-url">planningscout.com · Weekly Digest · w/c 10 Mar 2026</div>
+            <div class="hs-url">planningscout.streamlit.app · Semana 07 Abr 2026</div>
           </div>
           <div class="hs-content">
             <div class="hs-header">
-              <span class="hs-title">Your leads this week — 8 matches</span>
-              <span class="hs-week">Manchester, Woking, Leeds…</span>
+              <span class="hs-title">Tus leads esta semana — 18 proyectos</span>
+              <span class="hs-week">Madrid · Paracuellos · Getafe…</span>
             </div>
 
-<div class="hs-lead">
-              <span class="hs-lead-score high" style="width: auto; padding: 0 10px; border-radius: 10px; font-size: 10px; white-space: nowrap;">Score: 95% Match</span>
+            <div class="hs-lead">
+              <span class="hs-score high">75 pts</span>
               <div class="hs-lead-body">
-                <div class="hs-lead-ref">25/01104/FUL · Woking Borough Council</div>
-                <div class="hs-lead-title">55 Dwellings: Sustainable "Grey Belt" Extension</div>
+                <div class="hs-lead-ref">BOCM 27-Mar-2026 · Paracuellos de Jarama</div>
+                <div class="hs-lead-title">Reparcelación AD-10 · PEM €74M · Junta de Compensación</div>
                 <div class="hs-lead-tags">
-                  <span class="hs-tag navy" style="font-weight: 700;">Action: Appeal Potential</span>
-                  <span class="hs-tag amber">NPPF Para 155</span>
-                  <span class="hs-tag amber">Grey Belt Criteria</span>
-               </div>
-             </div>
-           </div>
-
-<div class="hs-lead">
-              <span class="hs-lead-score high" style="width: auto; padding: 0 10px; border-radius: 10px; font-size: 10px; white-space: nowrap;">Score: 89% Match</span>
-              <div class="hs-lead-body">
-                <div class="hs-lead-ref">25/02110/FUL · Leeds City Council</div>
-                <div class="hs-lead-title">Major Residential: 24 Dwellings, Access &amp; Infrastructure — Headingley</div>
-                <div class="hs-lead-tags">
-                  <span class="hs-tag navy" style="font-weight: 700;">Action: New Instruction</span>
-                  <span class="hs-tag amber">Ecology/BNG required</span>
-                  <span class="hs-tag amber">Heritage Impact</span>
+                  <span class="hs-tag navy">Urbanización</span>
+                  <span class="hs-tag green">Aprobación definitiva</span>
+                  <span class="hs-tag amber">€74.1M PEM</span>
                 </div>
               </div>
             </div>
 
-<div class="hs-lead">
-              <span class="hs-lead-score mid" style="width: auto; padding: 0 10px; border-radius: 10px; font-size: 10px; white-space: nowrap;">Score: 82% Match</span>
+            <div class="hs-lead">
+              <span class="hs-score mid">58 pts</span>
               <div class="hs-lead-body">
-                <div class="hs-lead-ref">25/04401/OR · Manchester City Council</div>
-                <div class="hs-lead-title">Class Q: Barn to 4 Dwellings — Rural Fringe</div>
+                <div class="hs-lead-ref">BOCM 25-Mar-2026 · Madrid · Distrito Fuencarral</div>
+                <div class="hs-lead-title">Plan Especial UE.5 López de Hoyos 220 · Nueva construcción</div>
                 <div class="hs-lead-tags">
-                  <span class="hs-tag navy" style="font-weight: 700;">Action: Appeal Potential</span>
-                  <span class="hs-tag amber">Green Belt</span>
-                  <span class="hs-tag amber">Sustainability grounds</span>
+                  <span class="hs-tag navy">Plan Especial</span>
+                  <span class="hs-tag amber">Obra nueva residencial</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="hs-lead">
+              <span class="hs-score nav">42 pts</span>
+              <div class="hs-lead-body">
+                <div class="hs-lead-ref">BOCM 24-Mar-2026 · Alcobendas</div>
+                <div class="hs-lead-title">Licencia obra mayor nave industrial 8.500m² · Polígono Norte</div>
+                <div class="hs-lead-tags">
+                  <span class="hs-tag navy">Industrial</span>
+                  <span class="hs-tag amber">€3.2M PEM</span>
                 </div>
               </div>
             </div>
 
             <div class="hs-footer">
-              <span>↗ View all 8 leads in Google Sheet</span>
+              <span>↗ Ver los 18 proyectos en el radar completo</span>
+              <span>Score ≥ 40</span>
             </div>
           </div>
         </div>
         <div class="hero-float">
           <div class="hf-icon">📬</div>
           <div class="hf-text">
-            <div class="hf-num">Daily or Weekly</div>
-            <div class="hf-label">In your inbox, ready to act on</div>
+            <div class="hf-num">Cada lunes 8h</div>
+            <div class="hf-label">Digest semanal en tu email</div>
           </div>
         </div>
       </div>
     </div>
 
     <div class="hero-strip reveal">
-      <span class="strip-label">Practice areas monitored</span>
+      <span class="strip-label">Tipos de proyecto monitorizados</span>
       <div class="strip-tags">
-        <span class="strip-tag">Residential</span>
-        <span class="strip-tag">Transport</span>
-        <span class="strip-tag">Industrial &amp; B-Use</span>
-        <span class="strip-tag">Prior Approvals</span>
-        <span class="strip-tag">Heritage</span>
-        <span class="strip-tag">Green Belt</span>
+        <span class="strip-tag">Obra mayor nueva</span>
+        <span class="strip-tag">Rehabilitación integral</span>
+        <span class="strip-tag">Urbanizaciones</span>
+        <span class="strip-tag">Planes especiales</span>
+        <span class="strip-tag">Naves industriales</span>
+        <span class="strip-tag">Cambios de uso</span>
+        <span class="strip-tag">Reparcelaciones</span>
+        <span class="strip-tag">1ª ocupación</span>
       </div>
     </div>
   </div>
 </section>
-
 
 <!-- ════ STATS ════ -->
 <section id="stats">
   <div class="wrap">
     <div class="stats-inner">
       <div class="stat-cell reveal">
-        <div class="stat-num">44<em>+</em></div>
-        <div class="stat-label">UK councils scanned</div>
+        <div class="stat-num">72<em>+</em></div>
+        <div class="stat-label">Municipios de Madrid</div>
       </div>
-    <div class="stat-cell reveal d1">
-        <div class="stat-num">Daily/Weekly</div>
-        <div class="stat-label">Fresh leads, no manual searching</div>
+      <div class="stat-cell reveal d1">
+        <div class="stat-num">200<em>+</em></div>
+        <div class="stat-label">Páginas BOCM leídas cada día</div>
       </div>
       <div class="stat-cell reveal d2">
-        <div class="stat-num">8<em>AM</em></div>
-        <div class="stat-label">Leads in your inbox daily or weekly</div>
+        <div class="stat-num">5<em>días</em></div>
+        <div class="stat-label">Actualización semanal automática</div>
       </div>
       <div class="stat-cell reveal d3">
-        <div class="stat-num">8–15<em>×</em></div>
-        <div class="stat-label">More leads than manual search</div>
+        <div class="stat-num">€5<em>B+</em></div>
+        <div class="stat-label">PEM detectado este mes</div>
       </div>
     </div>
   </div>
 </section>
-
 
 <!-- ════ HOW IT WORKS ════ -->
 <section id="how">
   <div class="wrap">
     <div style="text-align:center;max-width:620px;margin:0 auto;">
-      <span class="eyebrow reveal">How it works</span>
-      <h2 class="reveal d1">Three steps.<br>Zero manual searching.</h2>
-      <p class="lead reveal d2" style="margin:0 auto;">We do the monitoring, reading, and scoring. You focus on making the calls and winning the work.</p>
+      <span class="eyebrow reveal">Cómo funciona</span>
+      <h2 class="reveal d1">Cuatro pasos.<br>Cero búsqueda manual.</h2>
+      <p class="lead reveal d2" style="margin:0 auto;">Nosotros hacemos la monitorización, lectura y clasificación. Tú te centras en hacer la llamada y cerrar el trato.</p>
     </div>
-    <div class="how-grid">
+    <div class="how-grid" style="margin-top:56px;">
       <div class="how-step reveal">
-        <span class="step-num">Step 01</span>
-        <div class="step-illu navy">
-          <!-- scan icon -->
-          <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><rect x="3" y="3" width="9" height="9" rx="2" stroke="#1e3a5f" stroke-width="1.8"/><rect x="14" y="3" width="9" height="9" rx="2" stroke="#1e3a5f" stroke-width="1.8"/><rect x="3" y="14" width="9" height="9" rx="2" stroke="#1e3a5f" stroke-width="1.8"/><circle cx="18.5" cy="18.5" r="3.5" stroke="#1e3a5f" stroke-width="1.8"/><line x1="21" y1="21" x2="23" y2="23" stroke="#1e3a5f" stroke-width="1.8" stroke-linecap="round"/></svg>
-        </div>
-        <h3>We scan 44+ UK planning portals</h3>
-        <p><p>Every day, PlanningScout automatically searches the planning registers of 44+ UK councils.</p>
+        <span class="step-num">Paso 01</span>
+        <div class="step-illu navy">📡</div>
+        <h3>Lectura diaria del BOCM</h3>
+        <p>Cada mañana a las 7h, el sistema descarga y procesa todas las páginas del Boletín Oficial de la Comunidad de Madrid. Los 72+ municipios, sin excepción.</p>
       </div>
       <div class="how-step reveal d1">
-        <span class="step-num">Step 02</span>
-        <div class="step-illu amber">
-          <!-- document-read icon -->
-          <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><rect x="4" y="2" width="14" height="18" rx="2" stroke="#c8860a" stroke-width="1.8"/><line x1="7" y1="7" x2="15" y2="7" stroke="#c8860a" stroke-width="1.5" stroke-linecap="round"/><line x1="7" y1="11" x2="15" y2="11" stroke="#c8860a" stroke-width="1.5" stroke-linecap="round"/><line x1="7" y1="15" x2="11" y2="15" stroke="#c8860a" stroke-width="1.5" stroke-linecap="round"/><circle cx="19" cy="19" r="4" stroke="#c8860a" stroke-width="1.8"/><line x1="22" y1="22" x2="24" y2="24" stroke="#c8860a" stroke-width="1.8" stroke-linecap="round"/></svg>
-        </div>
-        <h3>We read every decision notice and relevant document</h3>
-        <p>For each application, PlanningScout opens the decision notice and any other relevant documents — then scans for the exact trigger phrases, keywords, and signals that define a good lead for your practice. Refused applications, approved ones, or both. Whatever your brief says.</p>
+        <span class="step-num">Paso 02</span>
+        <div class="step-illu amber">🧠</div>
+        <h3>Clasificación con IA</h3>
+        <p>Cada anuncio es analizado para identificar: tipo de proyecto, promotor, dirección, PEM (presupuesto de ejecución material) y tipo de aprobación. Solo pasan los que son concesiones reales.</p>
       </div>
       <div class="how-step reveal d2">
-        <span class="step-num">Step 03</span>
-        <div class="step-illu green">
-          <!-- inbox icon -->
-          <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><rect x="2" y="6" width="22" height="16" rx="2" stroke="#16a34a" stroke-width="1.8"/><path d="M2 10l11 7 11-7" stroke="#16a34a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <h3>Your shortlist arrives any day of the week you choose</h3>
-        <p>A scored, ranked digest of that week's or day's best matches — with application reference, location, use class, description, and the trigger phrases found. Direct link to the council portal. Ready on your desk at the start of the work.</p>
+        <span class="step-num">Paso 03</span>
+        <div class="step-illu purple">🎯</div>
+        <h3>Filtrado por tu perfil</h3>
+        <p>Cada lead recibe una puntuación 0-100 y se filtra según tu sector. Un instalador de ascensores ve solo edificios plurifamiliares. FCC ve solo proyectos &gt;€2M.</p>
+      </div>
+      <div class="how-step reveal d3">
+        <span class="step-num">Paso 04</span>
+        <div class="step-illu green">📬</div>
+        <h3>Tu radar y tu digest</h3>
+        <p>Accedes al dashboard en tiempo real y recibes un digest por email cada lunes a las 8h con los mejores leads de la semana. Con enlace directo al BOCM y al mapa.</p>
       </div>
     </div>
   </div>
 </section>
 
-
-<!-- ════ USE CASES ════ -->
-<section id="usecases">
+<!-- ════ FOR WHOM ════ -->
+<section id="quienessomos">
   <div class="wrap">
     <div class="uc-header">
       <div>
-        <span class="eyebrow reveal">Use cases</span>
-        <h2 class="reveal d1">Approved applications.<br>Refused applications.<br>Built around your practice.</h2>
+        <span class="eyebrow reveal">Para quién</span>
+        <h2 class="reveal d1">Un radar distinto<br>para cada negocio.</h2>
       </div>
       <div class="reveal d2">
-        <p class="uc-desc">
-          <p>PlanningScout monitors the full planning register — not just refusals, not just approvals. Whether you're looking for appeals to win, new major applications that need a specialist consultant, prior approval opportunities, or market intelligence on a particular area — the system is configured around what <strong style="color:var(--ink)">you</strong> actually need.</p>
-          <p style="margin-top:14px">After an onboarding call where we understand exactly how your practice finds work today, we configure your monitoring brief precisely — the councils, keywords, decision types, trigger phrases, and scoring thresholds that define a qualified lead for you.</p>
+        <p style="font-size:16px;color:var(--ink-dim);line-height:1.8;">
+          PlanningScout no es un buscador genérico. Cada tipo de empresa ve solo los proyectos que le importan — filtrados por tipo de obra, presupuesto mínimo y municipio.
+        </p>
+        <p style="font-size:16px;color:var(--ink-dim);line-height:1.8;margin-top:14px;">
+          El mismo proyecto que para un instalador de ascensores es un lead de €200K en instalaciones, para una gran constructora puede ser una licitación de €50M. Tú ves lo que te interesa.
         </p>
       </div>
     </div>
 
     <div class="uc-grid">
       <div class="uc-card c1 reveal">
-        <div class="uc-icon amber">⚖️</div>
-        <h3>Appeal leads — refused applications with winnable grounds</h3>
-        <p>Sequential test failures, lack of evidence, out-of-centre refusals — cases where a well-prepared appeal has a strong chance of success. We find them before anyone else calls the client.</p>
-        <div class="uc-examples">
-          <span class="uc-ex">Residential</span>
-          <span class="uc-ex">Industrial</span>
-          <span class="uc-ex">Prior approvals</span>
-        </div>
+        <div class="uc-icon amber">🔧</div>
+        <h3>Instaladores MEP</h3>
+        <p>Ascensores, HVAC, climatización y protección contra incendios. Encuentra el edificio antes de que empiece la obra — antes de que el promotor cierre contratos con tus competidores.</p>
+        <div class="uc-tip">💡 Un edificio plurifamiliar de 40 viviendas = 4 ascensores + HVAC + PCI</div>
+        <div class="uc-examples"><span class="uc-ex">Orona</span><span class="uc-ex">ELEVALIA</span><span class="uc-ex">Groupe Atlantic</span><span class="uc-ex">Geoclima</span></div>
       </div>
       <div class="uc-card c2 reveal d1">
-        <div class="uc-icon navy">🏗️</div>
-        <h3>New instructions — approved or live applications needing specialist input</h3>
-        <p>Large or complex applications in your sector — transport, viability, heritage, ecology — where a specialist consultant hasn't yet been appointed. Get in early.</p>
-        <div class="uc-examples">
-          <span class="uc-ex">Transport</span>
-          <span class="uc-ex">Viability</span>
-          <span class="uc-ex">Heritage</span>
-          <span class="uc-ex">Ecology</span>
-        </div>
+        <div class="uc-icon navy">🏪</div>
+        <h3>Expansión Retail y Restauración</h3>
+        <p>Una urbanización aprobada = un nuevo barrio en 2-3 años = 10.000 nuevos residentes. Encuentra las ubicaciones de tu próxima apertura antes de que el suelo suba de precio.</p>
+        <div class="uc-tip">💡 AD-10 Paracuellos: 2.500 viviendas nuevas → ¿ya buscas local?</div>
+        <div class="uc-examples"><span class="uc-ex">Auto1</span><span class="uc-ex">Miss Sushi</span><span class="uc-ex">INMOVERSE</span></div>
       </div>
       <div class="uc-card c3 reveal d2">
-        <div class="uc-icon green">🏢</div>
-        <h3>Prior approval work — Class MA, Class Q, and conversion refusals</h3>
-        <p>Office-to-residential and agricultural conversions — new applications and refused prior approvals with appeal potential. High volume, repeatable work.</p>
-        <div class="uc-examples">
-          <span class="uc-ex">Class MA</span>
-          <span class="uc-ex">Class Q</span>
-          <span class="uc-ex">PD appeals</span>
-        </div>
+        <div class="uc-icon green">📐</div>
+        <h3>Promotores e Inversión Inmobiliaria</h3>
+        <p>Una reparcelación aprobada hoy es suelo urbanizable. Contacta a la Junta de Compensación antes de que la operación salga al mercado. La información es la ventaja competitiva.</p>
+        <div class="uc-tip">💡 Reparcelación AD-10 €74M PEM → suelo para 2.500 viviendas</div>
+        <div class="uc-examples"><span class="uc-ex">Kategora</span><span class="uc-ex">Peterland</span><span class="uc-ex">SUMA Inmobiliaria</span></div>
       </div>
-      <div class="uc-card c4 reveal d3">
-        <div class="uc-icon purple">📍</div>
-        <h3>Market &amp; site intelligence — tracking areas, sectors, or specific sites</h3>
-        <p>Monitor planning activity near a client's land, track applications in a target sector, or watch competitor sites for development signals. Intelligence that shapes strategy.</p>
-        <div class="uc-examples">
-          <span class="uc-ex">Site watch</span>
-          <span class="uc-ex">Area tracking</span>
-          <span class="uc-ex">Sector trends</span>
-        </div>
+      <div class="uc-card c4 reveal">
+        <div class="uc-icon orange">🏢</div>
+        <h3>Grandes Constructoras e Infraestructuras</h3>
+        <p>La aprobación definitiva de un plan = licitación en 12-18 meses. Identifícalo ahora para preparar equipos técnicos, alianzas y propuestas antes que cualquier competidor.</p>
+        <div class="uc-tip">💡 Las Tablas Oeste €106M PEM → licitación prevista 2026</div>
+        <div class="uc-examples"><span class="uc-ex">FCC</span><span class="uc-ex">ACR</span><span class="uc-ex">Artelia</span><span class="uc-ex">CALTER</span></div>
+      </div>
+      <div class="uc-card c5 reveal d1">
+        <div class="uc-icon grey">🏭</div>
+        <h3>Industrial y Logística</h3>
+        <p>Naves industriales, centros de distribución, parques empresariales. Detecta los proyectos en el momento de la concesión de licencia para ser el primero en llamar al promotor.</p>
+        <div class="uc-tip">💡 Nave Alcobendas 8.500m² → demolición + obra nueva en 6 meses</div>
+        <div class="uc-examples"><span class="uc-ex">Norton Edificios</span><span class="uc-ex">Avintia</span><span class="uc-ex">RAFE</span></div>
+      </div>
+      <div class="uc-card c6 reveal d2">
+        <div class="uc-icon purple">🛒</div>
+        <h3>Compras y Proveedores de Materiales</h3>
+        <p>Acero, cemento, fachadas, instalaciones. Todos los proyectos grandes son tu oportunidad. Presentate antes de que la constructora adjudique los suministros.</p>
+        <div class="uc-tip">💡 18 proyectos esta semana = €5.6B en materiales potenciales</div>
+        <div class="uc-examples"><span class="uc-ex">METALUSA</span><span class="uc-ex">ITEVELESA</span><span class="uc-ex">Grupo Avintia</span></div>
       </div>
     </div>
 
-    <!-- Tailoring callout -->
     <div class="tailor-strip reveal">
       <div>
-        <div class="ts-label">Your brief. Your criteria.</div>
-        <div class="ts-head">You speak to our expert. We configure everything. First digest follows within the week.</div>
-        <div class="ts-body" style="margin-top:14px">
-          Every PlanningScout subscriber starts with a 30-minute onboarding call. We ask the questions most tools ignore.
-        </div>
+        <div class="ts-label">Tu perfil. Tu criterio.</div>
+        <div class="ts-head">Configuras tu perfil una vez. El sistema te trae solo lo que necesitas.</div>
+        <div class="ts-body" style="margin-top:14px;">Cada usuario ve una vista filtrada según su sector, con el mínimo de PEM y el tipo de proyecto que le interesa.</div>
       </div>
       <ul class="ts-points">
-        <li class="ts-point">
-          <span class="ts-check">✓</span>
-          <div>What does your best current lead look like? What made you take the case?</div>
-        </li>
-        <li class="ts-point">
-          <span class="ts-check">✓</span>
-          <div>What types of applications are a waste of your time? We'll filter those out.</div>
-        </li>
-        <li class="ts-point">
-          <span class="ts-check">✓</span>
-          <div>Which councils, regions, or use classes matter most to your practice?</div>
-        </li>
-        <li class="ts-point">
-          <span class="ts-check">✓</span>
-          <div>We then configure your keywords, trigger words, scoring thresholds, and council list — precisely. Your digest reflects your practice, not a generic template.</div>
-        </li>
+        <li class="ts-point"><span class="ts-check">✓</span><div>Filtra por tipo de proyecto: urbanización, obra mayor, industrial, cambio de uso…</div></li>
+        <li class="ts-point"><span class="ts-check">✓</span><div>Define un PEM mínimo para no ver proyectos demasiado pequeños para tu negocio.</div></li>
+        <li class="ts-point"><span class="ts-check">✓</span><div>Elige el período de búsqueda: últimos 7, 14, 30 o 90 días.</div></li>
+        <li class="ts-point"><span class="ts-check">✓</span><div>Puntuación 0-100 en cada lead para ordenar por oportunidad real, no por fecha.</div></li>
       </ul>
     </div>
   </div>
 </section>
-
 
 <!-- ════ WHAT YOU RECEIVE ════ -->
 <section id="receive">
   <div class="wrap">
     <div class="receive-grid">
       <div>
-        <span class="eyebrow reveal">The output</span>
-        <h2 class="reveal d1">Everything you need.<br>Nothing you don't.</h2>
-        <p class="lead reveal d2">Each lead in your weekly digest is pre-read, pre-scored, and pre-qualified. A quick go/no-go decision without opening a single portal.</p>
+        <span class="eyebrow reveal">El resultado</span>
+        <h2 class="reveal d1">Todo lo que necesitas.<br>Nada que no sirva.</h2>
+        <p class="lead reveal d2">Cada lead llega pre-leído, pre-puntuado y pre-filtrado. Decisión de actuar o no en 10 segundos, sin abrir ningún boletín.</p>
         <ul class="receive-list">
           <li class="rl-item reveal">
             <span class="rl-dot">✓</span>
             <div>
-              <div class="rl-title">First-seen advantage</div>
-              <div class="rl-desc">Leads are delivered before most consultancies have even opened their browser. Depending on your preference, the gap between decision date and your daily or weekly digest is minimal — most often before competitors have found it manually.</div>
+              <div class="rl-title">Ventaja de ser el primero</div>
+              <div class="rl-desc">El BOCM se publica a primera hora. Tu digest llega el mismo día. La mayoría de tus competidores no tienen este radar — o lo buscan a mano, horas después.</div>
             </div>
           </li>
           <li class="rl-item reveal d1">
             <span class="rl-dot">✓</span>
             <div>
-              <div class="rl-title">Application reference, council &amp; direct portal link</div>
-              <div class="rl-desc">One click to the public planning portal page — always current, always public.</div>
+              <div class="rl-title">Promotor, dirección y enlace directo al BOCM</div>
+              <div class="rl-desc">El nombre de quien ha solicitado o recibido la licencia, la dirección exacta y el enlace al anuncio oficial. Un clic a la fuente.</div>
             </div>
           </li>
           <li class="rl-item reveal d1">
             <span class="rl-dot">✓</span>
             <div>
-              <div class="rl-title">Location and full project description</div>
-              <div class="rl-desc">Address and the full application description exactly as submitted.</div>
+              <div class="rl-title">PEM y valor estimado de obra</div>
+              <div class="rl-desc">El Presupuesto de Ejecución Material oficial (base imponible del ICIO) y el valor total estimado del proyecto. Sabes de qué tamaño es antes de hacer ninguna llamada.</div>
             </div>
           </li>
           <li class="rl-item reveal d2">
             <span class="rl-dot">✓</span>
             <div>
-              <div class="rl-title">Keywords &amp; trigger phrases found</div>
-              <div class="rl-desc">The exact phrases from the decision notice or application documents that triggered your brief — so you immediately understand why it was flagged.</div>
+              <div class="rl-title">Puntuación de oportunidad 0–100</div>
+              <div class="rl-desc">Calculada según tipo de proyecto, presupuesto y completitud de datos. Ordena tu lista de llamadas por potencial real, no por fecha de publicación.</div>
             </div>
           </li>
           <li class="rl-item reveal d3">
             <span class="rl-dot">✓</span>
             <div>
-              <div class="rl-title">Lead score 0–100</div>
-              <div class="rl-desc">How strongly the match aligns with your brief and how strong the opportunity looks.</div>
+              <div class="rl-title">Enlace a Google Maps</div>
+              <div class="rl-desc">Localiza el proyecto en el mapa en un clic. Comprueba la zona, el acceso y el entorno antes de llamar.</div>
             </div>
           </li>
           <li class="rl-item reveal d4">
             <span class="rl-dot">✓</span>
             <div>
-              <div class="rl-title">Agent name &amp; address (where available)</div>
-              <div class="rl-desc">The planning agent on the application — your most direct route to a conversation.</div>
-            </div>
-          </li>
-          <li class="rl-item reveal d4">
-            <span class="rl-dot">✓</span>
-            <div>
-              <div class="rl-title">Estimated project value</div>
-              <div class="rl-desc">Construction value estimate based on use class and application scale.</div>
+              <div class="rl-title">Expediente y número de resolución</div>
+              <div class="rl-desc">El número de expediente del Ayuntamiento. Puedes verificar el estado directamente en el registro urbanístico municipal.</div>
             </div>
           </li>
         </ul>
       </div>
 
-      <!-- Lead card -->
-<div class="lead-card reveal d1">
+      <!-- Real lead card: Paracuellos AD-10 -->
+      <div class="lead-card reveal d1">
         <div class="lc-head">
           <div class="lc-council">
             <div class="lc-council-dot"></div>
-            Manchester City Council
+            Ayuntamiento de Paracuellos de Jarama
           </div>
           <div class="lc-score-wrap">
-            <span class="lc-decision">Refused</span>
-            <span class="lc-score">Score 94/100</span>
+            <span class="lc-decision">Aprobación definitiva</span>
+            <span class="lc-score">75 / 100</span>
           </div>
         </div>
         <div class="lc-body">
-          <div class="lc-ref">Application ref: 25/00412/P3PA · Decided: 18 Feb 2026</div>
-          <div class="lc-title">Prior Approval: Class MA — Office to 24 Apartments</div>
+          <div class="lc-ref">BOCM-20260327 · Publicado: 27 Mar 2026</div>
+          <div class="lc-title">Reparcelación Área de Desarrollo AD-10</div>
           <div class="lc-address">
             <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1.5C4.29 1.5 2.5 3.29 2.5 5.5c0 3 4 6 4 6s4-3 4-6c0-2.21-1.79-4-4-4z" stroke="currentColor" stroke-width="1.2"/><circle cx="6.5" cy="5.5" r="1.2" stroke="currentColor" stroke-width="1.2"/></svg>
-            12-14 Deansgate, Manchester M3 3BQ
+            Área de Desarrollo AD-10, Paracuellos de Jarama, Madrid
           </div>
           <div class="lc-table">
             <div class="lc-row">
-              <span class="lc-key">Application type</span>
-              <span class="lc-val">Prior Approval · Class MA</span>
+              <span class="lc-key">Tipo</span>
+              <span class="lc-val">Urbanización · Reparcelación</span>
             </div>
             <div class="lc-row">
-              <span class="lc-key">Trigger phrases found</span>
+              <span class="lc-key">PEM total</span>
+              <span class="lc-val" style="color:var(--navy);font-weight:700;">€74.101.363</span>
+            </div>
+            <div class="lc-row">
+              <span class="lc-key">Etapas</span>
               <div class="lc-tags">
-                <span class="lc-tag tag-amber">Technical Refusal</span>
-                <span class="lc-tag tag-amber">Noise Impact</span>
-                <span class="lc-tag tag-green">Transport Mitigation</span>
+                <span class="lc-tag tag-amber">Etapa 1: €25M</span>
+                <span class="lc-tag tag-amber">Etapa 2: €49M</span>
               </div>
             </div>
             <div class="lc-row">
-              <span class="lc-key">Keyword match</span>
-              <span class="lc-val">Office to Residential · Class MA · PDR Appeal</span>
+              <span class="lc-key">Promotor</span>
+              <span class="lc-val">Junta de Compensación AD-10</span>
             </div>
             <div class="lc-row">
-              <span class="lc-key">Est. project value</span>
-              <span class="lc-val" style="color:var(--green);font-weight:600">£1,200,000 – £2,500,000</span>
-            </div>
-            <div class="lc-row">
-              <span class="lc-key">Agent</span>
+              <span class="lc-key">Estado</span>
               <div class="lc-tags">
-                <span class="lc-tag tag-navy">Available on portal ↗</span>
+                <span class="lc-tag tag-green">Aprobación definitiva</span>
               </div>
             </div>
           </div>
         </div>
         <div class="lc-footer">
-          <a href="#" class="lc-link">
+          <a href="https://www.bocm.es" target="_blank" class="lc-link">
             <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 2h4v1.5H3.5V10h6.5V7H11v4.5H2V2z" fill="currentColor" opacity=".7"/><path d="M8 2h3v3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><line x1="11" y1="2" x2="6" y2="7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-            View on Planning Portal
+            Ver en el BOCM
           </a>
-          <span class="lc-note">Public data</span>
+          <span class="lc-note">Datos públicos oficiales</span>
         </div>
       </div>
-    </div> </div> </section>
-   
-<!-- ════ PRACTICE AREA COVERAGE ════ -->
-<section id="coverage">
-  <div class="wrap">
-    
-    <div class="cov-intro" style="text-align: center; margin: 0 auto 60px auto; max-width: 850px;">
-      <span class="eyebrow reveal" style="justify-content: center;">Deep-Level Detection</span>
-      <h2 class="reveal d1">
-        We scan the fine print.<br>
-        You win the instruction.
-      </h2>
-      <p class="lead reveal d2" style="margin: 0 auto;">
-        Planning portals show you a title. PlanningScout reads the documents — every decision notice, every reason for refusal, every specialist requirement buried in the applications. That's where the real leads are, and that's what most consultancies are missing every single day.
-      </p>
-      <p style="font-size: 14px; opacity: 0.7; margin-top: 20px;" class="reveal d3">
-        Below are example keyword sets for the most common practice areas we configure. Your actual brief is built with you — these are starting points, not constraints.
-      </p>
     </div>
-     
-    <div class="cov-grid">
-      
-      <div class="cov-card reveal d1">
-        <div class="cov-icon">🏘️</div>
-        <div class="cov-name">Residential Development</div>
-        <div class="cov-keywords">
-          <span class="kw">5-year housing supply</span>
-          <span class="kw">Tilted balance</span>
-          <span class="kw">NPPF para 11d</span>
-          <span class="kw">Affordable housing</span>
-          <span class="kw">Overdevelopment</span>
+  </div>
+</section>
+
+<!-- ════ TIME SAVINGS ════ -->
+<section id="tiempo">
+  <div class="wrap">
+    <div class="tiempo-inner">
+      <div>
+        <span class="eyebrow reveal">El tiempo que recuperas</span>
+        <h2 class="reveal d1">2-3 horas al día<br>haciendo algo repetible<br><em>que una máquina hace mejor.</em></h2>
+        <p class="lead reveal d2" style="margin-top:16px;">
+          Buscar manualmente en el BOCM tiene coste directo: tiempo de un profesional cualificado haciendo una tarea de bajo valor. PlanningScout lo automatiza completamente.
+        </p>
+      </div>
+      <div class="tiempo-numbers">
+        <div class="tiempo-stat reveal d1">
+          <div class="tiempo-stat-num">200<em>+</em></div>
+          <div class="tiempo-stat-desc"><strong>Páginas del BOCM</strong> procesadas cada día laborable automáticamente.</div>
+        </div>
+        <div class="tiempo-stat reveal d2">
+          <div class="tiempo-stat-num">0</div>
+          <div class="tiempo-stat-desc"><strong>Horas</strong> que dedicas a buscar. El sistema trabaja mientras tú duermes.</div>
+        </div>
+        <div class="tiempo-stat reveal d3">
+          <div class="tiempo-stat-num">8<em>h</em></div>
+          <div class="tiempo-stat-desc"><strong>Lunes a las 8h</strong> los leads de la semana en tu bandeja de entrada.</div>
+        </div>
+        <div class="tiempo-stat reveal d4">
+          <div class="tiempo-stat-num">1<em>clic</em></div>
+          <div class="tiempo-stat-desc"><strong>Para ir al BOCM oficial</strong>, al mapa o al LinkedIn del promotor desde el dashboard.</div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
 
-      <div class="cov-card reveal d2">
-        <div class="cov-icon">🚦</div>
-        <div class="cov-name">Transport & Highways</div>
-        <div class="cov-keywords">
-          <span class="kw">Transport assessment</span>
-          <span class="kw">Highways impact</span>
-          <span class="kw">Trip generation</span>
-          <span class="kw">Safe access</span>
-          <span class="kw">Travel plan</span>
-        </div>
-      </div>
-
-      <div class="cov-card reveal">
-        <div class="cov-icon">🏭</div>
-        <div class="cov-name">Industrial & Logistics</div>
-        <div class="cov-keywords">
-          <span class="kw">Class B2 / B8</span>
-          <span class="kw">Employment land</span>
-          <span class="kw">Sequential approach</span>
-          <span class="kw">Insufficient evidence</span>
-          <span class="kw">HGV routing</span>
-        </div>
-      </div>
-
-      <div class="cov-card reveal d1">
-        <div class="cov-icon">🏗️</div>
-        <div class="cov-name">Permitted Development</div>
-        <div class="cov-keywords">
-          <span class="kw">Prior approval refused</span>
-          <span class="kw">Class MA</span>
-          <span class="kw">Class Q agricultural</span>
-          <span class="kw">Flood risk</span>
-          <span class="kw">Natural light</span>
-        </div>
-      </div>
-
-      <div class="cov-card reveal d2">
-        <div class="cov-icon">🏛️</div>
-        <div class="cov-name">Heritage & Conservation</div>
-        <div class="cov-keywords">
-          <span class="kw">Listed building</span>
-          <span class="kw">Conservation area</span>
-          <span class="kw">Heritage asset setting</span>
-          <span class="kw">Less than substantial harm</span>
-          <span class="kw">Historic England</span>
-        </div>
-      </div>
-
-      <div class="cov-card reveal">
-        <div class="cov-icon">🌳</div>
-        <div class="cov-name">Green & Grey Belt</div>
-        <div class="cov-keywords">
-          <span class="kw">Paragraph 152</span>
-          <span class="kw">Very Special Circumstances</span>
-          <span class="kw">Previously Developed Land</span>
-          <span class="kw">Limited Contribution</span>
-        </div>
-      </div>
-
-    </div> </div> </section>
-   
 <!-- ════ TESTIMONIAL ════ -->
 <section id="testimonial">
   <div class="wrap">
@@ -1793,40 +1146,39 @@ img, video, iframe, svg { max-width: 100%; }
         <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
       </div>
       <p class="testi-quote reveal d1">
-        We've essentially automated our lead generation. PlanningScout pays for itself many times over with just a single instruction. If I continued to manually monitor council portals, I would keep losing money. It’s that simple.
+        Hemos automatizado por completo nuestra captación de leads. PlanningScout se paga sola muchas veces con una sola instrucción. Si tuviera que seguir monitorizando los portales manualmente, estaría perdiendo dinero. Así de sencillo.
       </p>
-      <div class="testi-attr">
-  <div class="testi-av">
-    <img src="MAPlanning logo.png" alt="MA Planning Logo">
-  </div>
-  <div class="testi-info">
-    <div class="testi-name">Mark A.</div>
-    <div class="testi-role">DIRECTOR, MAPLANNING · RTPI CHARTERED PLANNER</div>
-  </div>
-</div>
+      <div class="testi-attr reveal d2">
+        <div class="testi-av">
+          <img src="MAPlanning logo.png" alt="MAPlanning">
+        </div>
+        <div>
+          <div class="testi-name">Mark A.</div>
+          <div class="testi-role">Director · MAPlanning · Consultor Urbanístico Colegiado (RTPI)</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
-
 
 <!-- ════ PRICING ════ -->
 <section id="pricing">
   <div class="wrap">
     <div class="pricing-layout">
       <div class="pricing-copy">
-        <span class="eyebrow reveal">Pricing</span>
-        <h2 class="reveal d1">One plan.<br>Everything included.<br>Free for a month.</h2>
-        <p class="lead reveal d2">
-          Start with a full month free — no credit card, no commitment. See real leads from your target councils before you spend a penny. If it works for you, continue at £149/month.
-        </p>
-        <div class="pricing-callout reveal d3" style="background: var(--amber-lt); border: 1px solid var(--amber-bdr); border-left: 4px solid var(--amber); padding: 20px 24px; border-radius: var(--r); margin-top: 24px; margin-bottom: 24px; box-shadow: var(--shadow-sm);">
-          <strong style="display: block; font-family: var(--head); font-size: 18px; color: #9a6200; margin-bottom: 8px; line-height: 1.3;">One appeal instruction pays for 30+ months of PlanningScout.</strong>
-          <p style="color: var(--ink-dim); font-size: 14.5px; line-height: 1.6; margin: 0;">At £149/month, you break even with a single instruction — which most clients find within their first week.</p>
+        <span class="eyebrow reveal">Precios</span>
+        <h2 class="reveal d1">Un plan.<br>Todo incluido.<br>Gratis el primer mes.</h2>
+        <p class="lead reveal d2">Empieza con un mes completo gratis — sin tarjeta, sin compromiso. Ve leads reales antes de gastar un euro. Si funciona para ti, continúa a partir de ahí.</p>
+        <div style="margin-top:24px;" class="reveal d3">
+          <div style="background:var(--amber-lt);border:1px solid var(--amber-bdr);border-left:4px solid var(--amber);padding:20px 24px;border-radius:var(--r);box-shadow:var(--shadow-sm);">
+            <strong style="display:block;font-family:var(--head);font-size:18px;color:#9a6200;margin-bottom:8px;line-height:1.3;">Una sola instrucción paga meses de PlanningScout.</strong>
+            <p style="color:var(--ink-dim);font-size:14px;line-height:1.6;margin:0;">El retorno no es una promesa — es aritmética. La mayoría de clientes recuperan la inversión en la primera semana de uso.</p>
+          </div>
         </div>
-        <div style="margin-top:32px" class="reveal d3">
+        <div style="margin-top:28px;" class="reveal d3">
           <div class="trial-pill">
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.3" stroke="currentColor" stroke-width="1.2"/><path d="M4.2 7l2 2 3.6-3.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Try free for 1 full month · No card required
+            Prueba gratuita 1 mes completo · Sin tarjeta
           </div>
         </div>
       </div>
@@ -1834,31 +1186,30 @@ img, video, iframe, svg { max-width: 100%; }
       <div class="reveal d1">
         <div class="pricing-card">
           <div class="pc-top">
-            <div class="pc-plan">Professional Plan</div>
-            <div class="pc-price"><sup>£</sup>149</div>
-            <div class="pc-cycle">per month · cancel anytime</div>
+            <div class="pc-plan">Plan Profesional</div>
+            <div class="pc-price"><sup>€</sup>299</div>
+            <div class="pc-cycle">al mes · cancela cuando quieras</div>
             <div class="pc-trial-badge">
               <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><circle cx="5.5" cy="5.5" r="4.8" stroke="currentColor" stroke-width="1.1"/><path d="M3.3 5.5l1.6 1.6 2.8-2.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              First month completely free
+              Primer mes completamente gratis
             </div>
           </div>
           <div class="pc-body">
-            <div class="pc-blurb">Everything you need to run a professional planning intelligence operation for your consultancy.</div>
+            <div class="pc-blurb">Todo lo que necesitas para convertir el BOCM en tu ventaja competitiva.</div>
             <ul class="pc-feats">
-              <li class="pc-feat"><span class="feat-ck">✓</span>Daily or weekly scored lead digest</li>
-              <li class="pc-feat"><span class="feat-ck">✓</span>44+ UK councils</li>
-              <li class="pc-feat"><span class="feat-ck">✓</span>30-minute onboarding call to configure your exact brief</li>
-              <li class="pc-feat"><span class="feat-ck">✓</span>Custom keywords, trigger phrases &amp; scoring thresholds</li>
-              <li class="pc-feat"><span class="feat-ck">✓</span>Decision notice scanning — trigger words found in documents</li>
-              <li class="pc-feat"><span class="feat-ck">✓</span>Application reference, location, description &amp; portal link</li>
-              <li class="pc-feat"><span class="feat-ck">✓</span>Estimated project value per lead</li>
-              <li class="pc-feat"><span class="feat-ck">✓</span>Live Google Sheets dashboard — full history</li>
-              <li class="pc-feat"><span class="feat-ck">✓</span>Customizable updates anytime — we adjust within 48 hours</li>
+              <li class="pc-feat"><span class="feat-ck">✓</span>Dashboard de leads en tiempo real</li>
+              <li class="pc-feat"><span class="feat-ck">✓</span>72+ municipios de la Comunidad de Madrid</li>
+              <li class="pc-feat"><span class="feat-ck">✓</span>Digest semanal por email cada lunes a las 8h</li>
+              <li class="pc-feat"><span class="feat-ck">✓</span>Perfil configurado a tu sector y criterios</li>
+              <li class="pc-feat"><span class="feat-ck">✓</span>PEM, tipo de proyecto, promotor y dirección</li>
+              <li class="pc-feat"><span class="feat-ck">✓</span>Puntuación de oportunidad 0–100 por lead</li>
+              <li class="pc-feat"><span class="feat-ck">✓</span>Enlace directo a BOCM y Google Maps</li>
+              <li class="pc-feat"><span class="feat-ck">✓</span>Exportación CSV para tu CRM</li>
             </ul>
-            <a href="#cta" class="pc-cta">Start free trial →</a>
+            <button class="pc-cta" onclick="openPopup()">Empezar prueba gratuita →</button>
             <div class="pc-note">
-              No credit card · 1 month free · then £149/month excl. VAT<br>
-              Cancel anytime · Annual billing saves 2 months
+              Sin tarjeta · 1 mes gratis · luego €299/mes sin IVA<br>
+              Cancela cuando quieras · Facturación anual: 2 meses de regalo
             </div>
           </div>
         </div>
@@ -1866,171 +1217,142 @@ img, video, iframe, svg { max-width: 100%; }
     </div>
   </div>
 </section>
-
 
 <!-- ════ FAQ ════ -->
 <section id="faq">
   <div class="wrap">
     <div class="faq-layout">
-      <div class="faq-intro">
+      <div>
         <span class="eyebrow reveal">FAQ</span>
-        <h2 class="reveal d1">Common questions.</h2>
-        <p class="lead reveal d2" style="max-width:none">Anything else? Email us at <a href="mailto:hello@planningscout.com" style="color:var(--navy);font-weight:500">hello@planningscout.com</a></p>
+        <h2 class="reveal d1">Preguntas frecuentes.</h2>
+        <p class="lead reveal d2" style="max-width:none;">¿Más dudas? Escríbenos a <a href="mailto:hola@planningscout.com" style="color:var(--navy);font-weight:500;">hola@planningscout.com</a></p>
       </div>
       <div class="faq-list">
-
         <div class="faq-item reveal">
           <div class="faq-q" onclick="faqToggle(this)">
-            <span class="faq-q-txt">How does the free trial work?</span>
+            <span class="faq-q-txt">¿Cómo funciona la prueba gratuita?</span>
             <span class="faq-icon">▾</span>
           </div>
-          <div class="faq-a"><p>You get one full month free with no credit card required. We start with an onboarding call, configure your brief, run the first scan, and send you a real digest within a week. After the month, choose to continue at £149/month or simply walk away. There's no cancellation process, no awkward conversation, and nothing to cancel if you never subscribed in the first place.</p></div>
+          <div class="faq-a"><p>Tienes un mes completo gratis sin tarjeta de crédito. Al registrarte, configuras tu perfil (sector, municipios, PEM mínimo), accedes al dashboard y recibes tu primer digest de la semana. Después del mes, decides si continuar a €299/mes o simplemente no haces nada — no hay nada que cancelar.</p></div>
         </div>
-
         <div class="faq-item reveal d1">
           <div class="faq-q" onclick="faqToggle(this)">
-            <span class="faq-q-txt">What if the leads coming through aren't right for my practice?</span>
+            <span class="faq-q-txt">¿Los datos son realmente del BOCM oficial?</span>
             <span class="faq-icon">▾</span>
           </div>
-          <div class="faq-a"><p>Your brief is fully adjustable — that's exactly what the onboarding call is for. If after your first digest the leads aren't hitting the mark, just tell us what's wrong: too broad, wrong use class, wrong region, wrong decision type. We'll refine the keywords and thresholds within 48 hours. The trial period exists precisely so you can assess quality and calibrate before you commit.</p></div>
+          <div class="faq-a"><p>Sí. Todos los datos provienen directamente del Boletín Oficial de la Comunidad de Madrid — registros públicos oficiales. La misma información que cualquier ciudadano puede consultar en bocm.es. Nosotros la leemos, la clasificamos y la estructuramos automáticamente. Cada lead incluye un enlace directo al anuncio original para que puedas verificarlo.</p></div>
         </div>
-
         <div class="faq-item reveal d1">
           <div class="faq-q" onclick="faqToggle(this)">
-            <span class="faq-q-txt">Is this only for appeal consultants?</span>
+            <span class="faq-q-txt">¿Los leads son licencias ya concedidas o solo solicitudes?</span>
             <span class="faq-icon">▾</span>
           </div>
-          <div class="faq-a"><p>No. PlanningScout can be configured for any planning intelligence need — new major applications where you can offer specialist consultancy, prior approval monitoring, site-specific watching, or market intelligence in a target sector. We configure the system around what you actually do.</p></div>
+          <div class="faq-a"><p>Solo concesiones reales. El sistema filtra activamente los anuncios de solicitud (que dicen "se ha solicitado licencia" + "plazo de veinte días para observaciones") y solo guarda los documentos que contienen "se concede", "se otorga", "aprobación definitiva" o equivalentes. Una solicitud no es un lead — una concesión sí lo es.</p></div>
         </div>
-
         <div class="faq-item reveal d2">
           <div class="faq-q" onclick="faqToggle(this)">
-            <span class="faq-q-txt">Which councils are covered?</span>
+            <span class="faq-q-txt">¿Puedo ver leads de toda la Comunidad de Madrid?</span>
             <span class="faq-icon">▾</span>
           </div>
-          <div class="faq-a"><p>44+ councils across England — Greater Manchester (including Tameside, Manchester, Salford, Bolton, Bury, Rochdale, Trafford, Oldham), West Yorkshire (Leeds, Bradford, Wakefield, Calderdale, Wigan), London boroughs, South East, East Midlands, West Midlands, East of England, South West, and North East. We're adding more councils regularly. If a council you need isn't covered yet, let us know — we prioritise by demand.</p></div>
+          <div class="faq-a"><p>Sí. El sistema monitoriza los 72+ municipios que publican en el BOCM: Madrid capital, Paracuellos, Getafe, Alcobendas, Tres Cantos, Alcalá de Henares, Torrejón, Leganés, Fuenlabrada, Móstoles, Alcorcón, Pozuelo, Las Rozas y muchos más. Puedes filtrar por municipios específicos en el dashboard.</p></div>
         </div>
-
         <div class="faq-item reveal d3">
           <div class="faq-q" onclick="faqToggle(this)">
-            <span class="faq-q-txt">How is the lead score calculated?</span>
+            <span class="faq-q-txt">¿Cómo se calcula la puntuación de cada lead?</span>
             <span class="faq-icon">▾</span>
           </div>
-          <div class="faq-a"><p>Each application is scored based on how strongly it matches your brief. For appeal leads, the score weights the strength of the refusal grounds — "lack of evidence" refusals score highest (easiest wins on appeal), sequential test failures score strongly, and generic boilerplate citations score low. The scoring logic is fully configurable per client. Applications below your minimum threshold are never shown to you.</p></div>
+          <div class="faq-a"><p>La puntuación 0-100 combina: tipo de proyecto (urbanización = +40 pts, nave industrial = +35 pts, obra mayor nueva = +28 pts), PEM declarado (>€10M = +35 pts, >€2M = +28 pts), y completitud de datos (dirección, promotor, expediente). Un lead sin dirección ni promotor puntuará más bajo aunque el proyecto sea grande.</p></div>
         </div>
-
         <div class="faq-item reveal">
           <div class="faq-q" onclick="faqToggle(this)">
-            <span class="faq-q-txt">Where does the data come from?</span>
+            <span class="faq-q-txt">¿Con qué frecuencia se actualiza el dashboard?</span>
             <span class="faq-icon">▾</span>
           </div>
-          <div class="faq-a"><p>Entirely from public UK planning portals — the same pages any member of the public can access. Application details, decision notices, and agent names are all publicly available. We read and process that data automatically, at scale, every week. No private data systems, no GDPR concerns around what we provide to you.</p></div>
+          <div class="faq-a"><p>El scraper se ejecuta cada día laborable a las 7h de la mañana, procesando el BOCM publicado ese mismo día. El dashboard refleja los datos actualizados en tiempo real. El digest por email se envía cada lunes a las 8h con los mejores leads de la semana anterior.</p></div>
         </div>
-
         <div class="faq-item reveal d1">
           <div class="faq-q" onclick="faqToggle(this)">
-            <span class="faq-q-txt">What format does the digest come in?</span>
+            <span class="faq-q-txt">¿Puedo cambiar mi perfil después de registrarme?</span>
             <span class="faq-icon">▾</span>
           </div>
-          <div class="faq-a"><p>A formatted email every morning or Monday morning (depending on your setup), plus a live Google Sheet updated daily or weekly with your full lead history. The sheet is searchable, sortable, and has a column for your own notes and status tracking. If you choose the weekly option, high-score matches also trigger an immediate email alert so nothing urgent waits.</p></div>
+          <div class="faq-a"><p>Sí. En el dashboard puedes cambiar en cualquier momento el perfil activo, el PEM mínimo, el período de búsqueda y el municipio. Los cambios se aplican inmediatamente a la vista filtrada.</p></div>
         </div>
-
         <div class="faq-item reveal d2">
           <div class="faq-q" onclick="faqToggle(this)">
-            <span class="faq-q-txt">Can I change my brief after we've set it up?</span>
+            <span class="faq-q-txt">Mi sector no está en la lista. ¿Podéis adaptarlo?</span>
             <span class="faq-icon">▾</span>
           </div>
-          <div class="faq-a"><p>Yes — your brief is a living configuration. If you expand into new sectors, want to add councils, or want to refine your trigger set based on what's coming through, just let us know. We update it within 48 hours and it takes effect on the next weekly run.</p></div>
+          <div class="faq-a"><p>Sí. En el formulario de registro hay un campo "Otro" donde puedes describir tu actividad. Si hay suficientes usuarios de un mismo sector que no está cubierto, lo añadimos como perfil dedicado. Cuéntanos qué tipo de proyectos necesitas y lo valoramos juntos.</p></div>
         </div>
-
-        <div class="faq-item reveal d3">
-          <div class="faq-q" onclick="faqToggle(this)">
-            <span class="faq-q-txt">Why don't you include applicant contact details?</span>
-            <span class="faq-icon">▾</span>
-          </div>
-          <div class="faq-a"><p>In line with GDPR best practice, we don't include applicant names or personal contact information in your digest. We do include agent details and a direct link to the public portal page — where the full application, including any agent and applicant contact information, is publicly accessible and updated by the council.</p></div>
-        </div>
-
       </div>
     </div>
   </div>
 </section>
-
 
 <!-- ════ CTA ════ -->
 <section id="cta">
   <div class="wrap">
     <div class="cta-inner">
-      <div class="cta-eyebrow reveal">No card. No commitment. Real leads.</div>
-      <h2 class="cta-h reveal d1">See real leads before<br>you spend a penny.</h2>
+      <div class="cta-eyebrow reveal">Sin tarjeta. Sin compromiso. Leads reales.</div>
+      <h2 class="cta-h reveal d1">Ve proyectos reales<br>antes de gastar un euro.</h2>
       <p class="cta-sub reveal d2">
-        Enter your email and we'll send you a real sample digest — the format your practice would receive daily or weekly. No card, no commitment.
+        Regístrate y accede al radar con los leads de esta semana. Filtrado para tu sector. Sin compromisos. Solo tu opinión al final del mes.
       </p>
-      <div class="email-form reveal d3">
-        <input class="email-in" type="email" id="emailInput" placeholder="you@consultancy.co.uk">
-        <button class="email-btn" onclick="handleSub()">Get free sample →</button>
-      </div>
-      <div id="msg"></div>
-      <p class="email-note reveal d4">Free · No credit card</p>
+      <button class="cta-btn reveal d3" onclick="openPopup()">
+        Acceder al radar gratis →
+      </button>
+      <p class="email-note reveal d4">Gratis · Sin tarjeta de crédito · Cancela cuando quieras</p>
     </div>
   </div>
 </section>
 
-
 <!-- ════ FOOTER ════ -->
 <footer>
   <div class="foot-inner">
-<a href="#" class="foot-logo" style="display: flex; align-items: center;">
-      <img src="navbar-dark mode.png" style="height: 38px; width: auto; object-fit: contain; background: transparent;">
+    <a href="#">
+      <img src="navbar-dark mode.png" alt="PlanningScout" style="height:36px;width:auto;object-fit:contain;">
     </a>
     <div class="foot-links">
-      <a href="mailto:hello@planningscout.com">hello@planningscout.com</a>
-      <a href="https://www.planningscout.com/privacy-policy.html" target="_blank">Privacy Policy</a>
+      <a href="mailto:hola@planningscout.com">hola@planningscout.com</a>
+      <a href="/privacy-policy.html">Política de privacidad</a>
     </div>
-    <span class="foot-copy">© 2026 PlanningScout. All rights reserved.</span>
+    <span class="foot-copy">© 2026 PlanningScout. Todos los derechos reservados.</span>
   </div>
 </footer>
 
-
+<!-- ════ SCRIPTS ════ -->
 <script>
-/* Nav scroll */
+// ── Nav scroll shadow ────────────────────────────────
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 40);
 }, { passive: true });
 
-/* Mobile nav drawer */
+// ── Mobile nav drawer ────────────────────────────────
 const burger = document.getElementById('navBurger');
 const drawer = document.getElementById('navDrawer');
-let navOpen = false;
+let navOpen  = false;
 
 function openNav() {
   navOpen = true;
   drawer.classList.add('open');
   burger.setAttribute('aria-expanded', 'true');
-  // Animate spans into X
   document.getElementById('b1').style.transform = 'translateY(6.5px) rotate(45deg)';
-  document.getElementById('b2').style.opacity = '0';
+  document.getElementById('b2').style.opacity   = '0';
   document.getElementById('b3').style.transform = 'translateY(-6.5px) rotate(-45deg)';
-  document.getElementById('b1').style.background = 'var(--ink)';
-  document.getElementById('b3').style.background = 'var(--ink)';
 }
 function closeNav() {
   navOpen = false;
   drawer.classList.remove('open');
   burger.setAttribute('aria-expanded', 'false');
   document.getElementById('b1').style.transform = '';
-  document.getElementById('b2').style.opacity = '';
+  document.getElementById('b2').style.opacity   = '';
   document.getElementById('b3').style.transform = '';
-  document.getElementById('b1').style.background = '';
-  document.getElementById('b3').style.background = '';
 }
 burger.addEventListener('click', () => navOpen ? closeNav() : openNav());
-// Close drawer on scroll (good UX — user started scrolling, dismiss menu)
 window.addEventListener('scroll', () => { if (navOpen) closeNav(); }, { passive: true });
-/* Scroll reveal */
-// Reduced threshold + no negative rootMargin = reliable on iOS/Android
-// Also: if IntersectionObserver isn't supported or fails, show everything
+
+// ── Reveal on scroll ─────────────────────────────────
 function revealAll() {
   document.querySelectorAll('.reveal').forEach(el => el.classList.add('vis'));
 }
@@ -2039,15 +1361,14 @@ if ('IntersectionObserver' in window) {
     entries.forEach(e => {
       if (e.isIntersecting) { e.target.classList.add('vis'); ro.unobserve(e.target); }
     });
-  }, { threshold: 0.04, rootMargin: '0px 0px 0px 0px' });
+  }, { threshold: 0.04 });
   document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
-  // Fallback: after 2s, show anything still hidden (catches iOS Safari edge cases)
   setTimeout(revealAll, 2000);
 } else {
   revealAll();
 }
 
-/* FAQ */
+// ── FAQ accordion ────────────────────────────────────
 function faqToggle(btn) {
   const item = btn.closest('.faq-item');
   const wasOpen = item.classList.contains('open');
@@ -2055,44 +1376,98 @@ function faqToggle(btn) {
   if (!wasOpen) item.classList.add('open');
 }
 
-/* Email submit */
-/* Updated handleSub Function */
-async function handleSub() {
-  const inp = document.getElementById('emailInput');
-  const msg = document.getElementById('msg');
-  const email = inp.value.trim();
-
-  // Basic validation
-  if (!email || !email.includes('@')) {
-    msg.style.color = '#dc2626';
-    msg.textContent = '⚠ Please enter a valid email address.';
-    return;
-  }
-
-  msg.style.color = '#1e3a5f';
-  msg.textContent = 'Connecting to server...';
-
-  try {
-    const response = await fetch("https://planningscout-handler.inger-balaj.workers.dev", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: email })
-    });
-
-    if (response.ok) {
-      msg.style.color = '#16a34a';
-      msg.textContent = '✓ Success! Check your inbox in a few minutes.';
-      inp.value = ''; 
-    } else {
-      throw new Error('Worker error');
-    }
-  } catch (error) {
-    msg.style.color = '#dc2626';
-    msg.textContent = '⚠ Something went wrong. Please try again.';
-  }
+// ── POPUP ───────────────────────────────────────────
+function openPopup() {
+  document.getElementById('popupOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => document.getElementById('popNombre').focus(), 100);
 }
-document.getElementById('emailInput').addEventListener('keydown', e => {
-  if (e.key === 'Enter') handleSub();
+function closePopup() {
+  document.getElementById('popupOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+// Close on overlay click
+document.getElementById('popupOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closePopup();
+});
+// Close on Escape
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePopup(); });
+
+// Show/hide "otro" field
+function handleSectorChange(sel) {
+  document.getElementById('otroField').style.display =
+    sel.value === 'otro' ? 'block' : 'none';
+}
+
+// Sector → dashboard profile mapping
+const sectorMap = {
+  mep:          'instaladores',
+  expansion:    'expansion',
+  promotor:     'promotores',
+  constructora: 'constructora',
+  industrial:   'industrial',
+  compras:      'compras',
+  otro:         'general',
+};
+
+// ── Form submission ──────────────────────────────────
+async function handleSignup() {
+  const nombre  = document.getElementById('popNombre').value.trim();
+  const email   = document.getElementById('popEmail').value.trim();
+  const sector  = document.getElementById('popSector').value;
+  const otro    = document.getElementById('popOtro').value.trim();
+  const msg     = document.getElementById('popupMsg');
+
+  // Validation
+  if (!nombre) { showMsg('⚠ Por favor, introduce tu nombre.', 'red'); return; }
+  if (!email || !email.includes('@')) { showMsg('⚠ Email no válido.', 'red'); return; }
+  if (!sector) { showMsg('⚠ Por favor, selecciona tu sector.', 'red'); return; }
+
+  showMsg('Configurando tu acceso…', 'var(--navy)');
+
+  // Send to Cloudflare Worker (same endpoint as UK site)
+  try {
+    await fetch('https://planningscout-handler.inger-balaj.workers.dev', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        nombre, email, sector,
+        otro: sector === 'otro' ? otro : '',
+        source: 'planningscout-es'
+      }),
+    });
+  } catch (e) {
+    // Don't block on worker errors — still redirect
+    console.warn('Worker error (non-blocking):', e);
+  }
+
+  showMsg('✓ ¡Perfecto! Abriendo tu radar…', 'var(--green)');
+
+  // Redirect to dashboard with profile pre-selected
+  const profile = sectorMap[sector] || 'general';
+  setTimeout(() => {
+    window.open(
+      `https://planningscout.streamlit.app?perfil=${profile}`,
+      '_blank'
+    );
+    closePopup();
+  }, 800);
+}
+
+function showMsg(text, color) {
+  const msg = document.getElementById('popupMsg');
+  msg.textContent  = text;
+  msg.style.color  = color;
+}
+
+// Allow Enter key in form
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && document.getElementById('popupOverlay').classList.contains('open')) {
+    const active = document.activeElement;
+    if (active && active.tagName !== 'BUTTON' && active.tagName !== 'SELECT') {
+      handleSignup();
+    }
+  }
 });
 </script>
 </body>
