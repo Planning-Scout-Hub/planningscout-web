@@ -1226,7 +1226,7 @@ img,video,iframe,svg{max-width:100%;}
       <div>
         <span class="eyebrow reveal">FAQ</span>
         <h2 class="reveal d1">Preguntas frecuentes.</h2>
-        <p class="lead reveal d2" style="max-width:none;">¿Más dudas? Escríbenos a <a href="mailto:hola@planningscout.com" style="color:var(--navy);font-weight:500;">hola@planningscout.com</a></p>
+        <p class="lead reveal d2" style="max-width:none;">¿Más dudas? Escríbenos a <a href="/cdn-cgi/l/email-protection#4d2522212c0d3d212c232324232a3e2e223839632e2220" style="color:var(--navy);font-weight:500;"><span class="__cf_email__" data-cfemail="1d7572717c5d6d717c737374737a6e7e726869337e7270">[email&#160;protected]</span></a></p>
       </div>
       <div class="faq-list">
         <div class="faq-item reveal">
@@ -1314,7 +1314,7 @@ img,video,iframe,svg{max-width:100%;}
       <img src="navbar-dark mode.png" alt="PlanningScout" style="height:36px;width:auto;object-fit:contain;">
     </a>
     <div class="foot-links">
-      <a href="mailto:hola@planningscout.com">hola@planningscout.com</a>
+      <a href="/cdn-cgi/l/email-protection#60080f0c0120100c010e0e090e0713030f15144e030f0d"><span class="__cf_email__" data-cfemail="365e595a5776465a5758585f585145555943421855595b">[email&#160;protected]</span></a>
       <a href="/privacy-policy.html">Política de privacidad</a>
     </div>
     <span class="foot-copy">© 2026 PlanningScout. Todos los derechos reservados.</span>
@@ -1322,7 +1322,7 @@ img,video,iframe,svg{max-width:100%;}
 </footer>
 
 <!-- ════ SCRIPTS ════ -->
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ── Nav scroll shadow ────────────────────────────────
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
@@ -1400,17 +1400,18 @@ function handleSectorChange(sel) {
     sel.value === 'otro' ? 'block' : 'none';
 }
 
-// Sector → dashboard profile mapping
+// Sector → dashboard profile key mapping
+// Values must match the "key" field in dashboard.py PROFILES exactly.
 const sectorMap = {
-    'mep': '🔧 Instaladores MEP',
-    'retail': '🏪 Expansión Retail',
-    'promotor': '📐 Promotores / RE',
-    'constructora': '🏢 Gran Constructora',
-    'infra': '🏗️ Gran Infraestructura',
-    'industrial': '🏭 Industrial / Log.',
-    'maquinaria': '🚧 Alquiler Maquinaria',
-    'materiales': '🛒 Compras / Materiales',
-    'otro': 'general'
+    'mep':          'instaladores',
+    'retail':       'expansion',
+    'promotor':     'promotores',
+    'constructora': 'constructora',
+    'infra':        'fcc',
+    'industrial':   'industrial',
+    'maquinaria':   'kiloutou',
+    'materiales':   'compras',
+    'otro':         'general'
   };
 
 // ── Form submission ──────────────────────────────────
@@ -1459,19 +1460,4 @@ async function handleSignup() {
 
 function showMsg(text, color) {
   const msg = document.getElementById('popupMsg');
-  msg.textContent  = text;
-  msg.style.color  = color;
-}
-
-// Allow Enter key in form
-document.addEventListener('keydown', e => {
-  if (e.key === 'Enter' && document.getElementById('popupOverlay').classList.contains('open')) {
-    const active = document.activeElement;
-    if (active && active.tagName !== 'BUTTON' && active.tagName !== 'SELECT') {
-      handleSignup();
-    }
-  }
-});
-</script>
-</body>
-</html>
+  msg.textContent  = 
