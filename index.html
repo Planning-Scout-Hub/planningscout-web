@@ -663,13 +663,12 @@ img,video,iframe,svg{max-width:100%;}
         <label for="popSector">Tu sector *</label>
         <div class="select-wrap">
           <select id="popSector" onchange="handleSectorChange(this)">
-            <option value="">— Selecciona tu sector —</option>
             <option value="mep">🔧 Instaladores MEP</option>
             <option value="retail">🏪 Expansión Retail</option>
             <option value="promotor">📐 Promotores / RE</option>
-            <option value="constructora">🏢 Gran constructora</option>
+            <option value="constructora">🏢 Gran Constructora</option>
             <option value="infra">🏗️ Gran Infraestructura</option>
-            <option value="industrial">🏭 Industrial / logística</option>
+            <option value="industrial">🏭 Industrial / Log.</option>
             <option value="maquinaria">🚧 Alquiler Maquinaria</option>
             <option value="materiales">🛒 Compras / Materiales</option>
             <option value="otro">Otro (cuéntanos)</option>
@@ -1403,14 +1402,16 @@ function handleSectorChange(sel) {
 
 // Sector → dashboard profile mapping
 const sectorMap = {
-  mep:          'instaladores',
-  expansion:    'expansion',
-  promotor:     'promotores',
-  constructora: 'constructora',
-  industrial:   'industrial',
-  compras:      'compras',
-  otro:         'general',
-};
+    'mep': 'Instaladores MEP',
+    'retail': 'Expansión Retail',
+    'promotor': 'Promotores / RE',
+    'constructora': 'Gran Constructora',
+    'infra': 'Gran Infraestructura',
+    'industrial': 'Industrial / Log.',
+    'maquinaria': 'Alquiler Maquinaria',
+    'materiales': 'Compras / Materiales',
+    'otro': 'general'
+  };
 
 // ── Form submission ──────────────────────────────────
 async function handleSignup() {
