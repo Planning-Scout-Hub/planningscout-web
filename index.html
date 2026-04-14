@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PlanningScout Madrid — Radar de Proyectos de Construcción | Prueba Gratuita</title>
 <meta name="description" content="Detectamos licencias de obra mayor, urbanizaciones y planes especiales en Madrid directamente del BOCM. Para instaladores, promotores, grandes constructoras y directores de expansión. Primer mes gratis.">
-<link rel="icon" type="image/png" href="fav icon.png">
+<link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -611,6 +611,31 @@ footer{background:var(--ink);padding:32px 0;}
 .reveal.vis{opacity:1;transform:none;}
 
 /* ────────────────────────────────────────────────
+   MOBILE NAV FIXES
+──────────────────────────────────────────────── */
+/* On mobile: hide the CTA button in nav (drawer has its own CTA) */
+@media(max-width:860px){
+  .nav-cta{display:none;}
+  .nav-inner{padding:0 16px;}
+  .nav-drawer{
+    padding-left:max(16px,env(safe-area-inset-left));
+    padding-right:max(16px,env(safe-area-inset-right));
+  }
+}
+/* Return user popup styles */
+.popup-return-row{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  margin-top:16px;padding-top:14px;border-top:1px solid var(--border);
+}
+.popup-return-or{font-size:12px;color:var(--ink-faint);}
+.popup-return-btn{
+  font-family:var(--body);font-size:12.5px;font-weight:600;
+  color:var(--navy);background:transparent;border:none;cursor:pointer;
+  padding:4px 0;text-decoration:underline;text-underline-offset:2px;
+}
+.popup-return-btn:hover{color:#162e4d;}
+
+/* ────────────────────────────────────────────────
    MOBILE
 ──────────────────────────────────────────────── */
 img,video,iframe,svg{max-width:100%;}
@@ -635,6 +660,8 @@ img,video,iframe,svg{max-width:100%;}
   .popup-card{border-radius:var(--r2);}
   .popup-head{padding:20px 20px;}
   .popup-body{padding:20px;}
+  /* Hero float card can overflow on small screens */
+  .hero-float{display:none;}
 }
 </style>
 </head>
@@ -688,6 +715,22 @@ img,video,iframe,svg{max-width:100%;}
       <div class="popup-footer-note">
         Sin tarjeta de crédito · Sin compromiso · Cancela cuando quieras<br>
         Datos solo para configurar tu perfil. Nunca los compartimos.
+      </div>
+      <div class="popup-return-row">
+        <span class="popup-return-or">¿Ya tienes cuenta?</span>
+        <button class="popup-return-btn" onclick="switchToLogin()" type="button">Acceder con tu email →</button>
+      </div>
+    </div>
+    <!-- Login panel for returning users -->
+    <div class="popup-body" id="loginPanel" style="display:none">
+      <div class="form-group">
+        <label for="loginEmail">Tu email de acceso</label>
+        <input type="email" id="loginEmail" placeholder="carlos@empresa.com" autocomplete="email">
+      </div>
+      <button class="popup-submit" onclick="handleLogin()">Acceder al radar →</button>
+      <div id="loginMsg" style="min-height:18px;margin-top:10px;font-family:var(--mono);font-size:12px;text-align:center;"></div>
+      <div class="popup-return-row" style="margin-top:16px;">
+        <button class="popup-return-btn" onclick="switchToSignup()" type="button">← Primera vez · Registrarse</button>
       </div>
     </div>
   </div>
@@ -1401,17 +1444,17 @@ function handleSectorChange(sel) {
     sel.value === 'otro' ? 'block' : 'none';
 }
 
-// Sector → dashboard profile mapping
+// Sector → dashboard profile key mapping
 const sectorMap = {
-    'mep': '🔧 Instaladores MEP',
-    'retail': '🏪 Expansión Retail',
-    'promotor': '📐 Promotores / RE',
-    'constructora': '🏢 Gran Constructora',
-    'infra': '🏗️ Gran Infraestructura',
-    'industrial': '🏭 Industrial / Log.',
-    'maquinaria': '🚧 Alquiler Maquinaria',
-    'materiales': '🛒 Compras / Materiales',
-    'otro': 'general'
+    'mep':          'instaladores',
+    'retail':       'expansion',
+    'promotor':     'promotores',
+    'constructora': 'constructora',
+    'infra':        'fcc',
+    'industrial':   'industrial',
+    'maquinaria':   'kiloutou',
+    'materiales':   'compras',
+    'otro':         'general'
   };
 
 // ── Form submission ──────────────────────────────────
@@ -1445,6 +1488,9 @@ async function handleSignup() {
     console.warn('Worker error (non-blocking):', e);
   }
 
+  // Save for return visits
+  try { localStorage.setItem('ps_user', JSON.stringify({nombre, email, sector})); } catch(e) {}
+
   showMsg('✓ ¡Perfecto! Abriendo tu radar…', 'var(--green)');
 
   // Redirect to dashboard with profile pre-selected.
@@ -1473,6 +1519,58 @@ document.addEventListener('keydown', e => {
     }
   }
 });
+
+// ── Return user: switch between signup and login panels ──────────────
+function switchToLogin() {
+  document.getElementById('loginPanel').style.display = 'block';
+  document.querySelector('.popup-body:not(#loginPanel)').style.display = 'none';
+  setTimeout(() => document.getElementById('loginEmail').focus(), 50);
+}
+function switchToSignup() {
+  document.getElementById('loginPanel').style.display = 'none';
+  document.querySelector('.popup-body:not(#loginPanel)').style.display = 'block';
+  setTimeout(() => document.getElementById('popNombre').focus(), 50);
+}
+
+// ── Return user login using localStorage ─────────────────────────────
+async function handleLogin() {
+  var loginEmail = document.getElementById('loginEmail').value.trim();
+  var lmsg = document.getElementById('loginMsg');
+  if (!loginEmail || !loginEmail.includes('@')) {
+    lmsg.textContent = 'Introduce un email valido.';
+    lmsg.style.color = 'red';
+    return;
+  }
+  lmsg.textContent = 'Buscando tu perfil...';
+  lmsg.style.color = 'var(--navy)';
+  var profileKey = 'general';
+  try {
+    var stored = JSON.parse(localStorage.getItem('ps_user') || '{}');
+    if (stored.email === loginEmail && stored.sector) {
+      profileKey = sectorMap[stored.sector] || 'general';
+    }
+  } catch(err) {}
+  lmsg.textContent = 'Accediendo...';
+  lmsg.style.color = 'var(--green)';
+  setTimeout(function() {
+    window.location.href = 'https://planningscout.streamlit.app?perfil=' + encodeURIComponent(profileKey);
+    closePopup();
+  }, 600);
+}
+
+// ── Pre-fill form if returning user ──────────────────────────────────
+var _origOpen = openPopup;
+openPopup = function() {
+  _origOpen();
+  try {
+    var stored = JSON.parse(localStorage.getItem('ps_user') || '{}');
+    if (stored.email) {
+      document.getElementById('popEmail').value = stored.email;
+      if (stored.nombre) document.getElementById('popNombre').value = stored.nombre;
+      if (stored.sector) document.getElementById('popSector').value = stored.sector;
+    }
+  } catch(err) {}
+};
 </script>
 </body>
 </html>
