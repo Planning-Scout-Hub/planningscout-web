@@ -610,10 +610,7 @@ footer{background:var(--ink);padding:32px 0;}
 .reveal.d3{transition-delay:.24s;}.reveal.d4{transition-delay:.32s;}
 .reveal.vis{opacity:1;transform:none;}
 
-/* ────────────────────────────────────────────────
-   MOBILE NAV FIXES
-──────────────────────────────────────────────── */
-/* On mobile: hide the CTA button in nav (drawer has its own CTA) */
+/* ── Mobile nav ── */
 @media(max-width:860px){
   .nav-cta{display:none;}
   .nav-inner{padding:0 16px;}
@@ -622,7 +619,7 @@ footer{background:var(--ink);padding:32px 0;}
     padding-right:max(16px,env(safe-area-inset-right));
   }
 }
-/* Return user popup styles */
+/* ── Return-user row ── */
 .popup-return-row{
   display:flex;align-items:center;justify-content:center;gap:10px;
   margin-top:16px;padding-top:14px;border-top:1px solid var(--border);
@@ -660,7 +657,6 @@ img,video,iframe,svg{max-width:100%;}
   .popup-card{border-radius:var(--r2);}
   .popup-head{padding:20px 20px;}
   .popup-body{padding:20px;}
-  /* Hero float card can overflow on small screens */
   .hero-float{display:none;}
 }
 </style>
@@ -713,26 +709,32 @@ img,video,iframe,svg{max-width:100%;}
       </button>
       <div id="popupMsg"></div>
       <div class="popup-footer-note">
-        Sin tarjeta de crédito · Sin compromiso · Cancela cuando quieras<br>
+        Sin tarjeta de cr&eacute;dito &middot; Sin compromiso &middot; Cancela cuando quieras<br>
         Datos solo para configurar tu perfil. Nunca los compartimos.
       </div>
       <div class="popup-return-row">
-        <span class="popup-return-or">¿Ya tienes cuenta?</span>
-        <button class="popup-return-btn" onclick="switchToLogin()" type="button">Acceder con tu email →</button>
+        <span class="popup-return-or">&iquest;Ya tienes cuenta?</span>
+        <button class="popup-return-btn" onclick="switchToLogin()" type="button">Acceder con tu email &rarr;</button>
       </div>
     </div>
-    <!-- Login panel for returning users -->
-    <div class="popup-body" id="loginPanel" style="display:none">
+
+    <!-- Panel de acceso para usuarios ya registrados -->
+    <div class="popup-body" id="loginPanel" style="display:none;border-top:1px solid var(--border);">
+      <div style="margin-bottom:18px;">
+        <div style="font-size:16px;font-weight:700;font-family:var(--head);color:var(--ink);margin-bottom:4px;">Acceder a tu cuenta</div>
+        <div style="font-size:13px;color:var(--ink-dim);">Introduce el email con el que te registraste.</div>
+      </div>
       <div class="form-group">
-        <label for="loginEmail">Tu email de acceso</label>
+        <label for="loginEmail">Email de acceso</label>
         <input type="email" id="loginEmail" placeholder="carlos@empresa.com" autocomplete="email">
       </div>
-      <button class="popup-submit" onclick="handleLogin()">Acceder al radar →</button>
-      <div id="loginMsg" style="min-height:18px;margin-top:10px;font-family:var(--mono);font-size:12px;text-align:center;"></div>
-      <div class="popup-return-row" style="margin-top:16px;">
-        <button class="popup-return-btn" onclick="switchToSignup()" type="button">← Primera vez · Registrarse</button>
+      <button class="popup-submit" onclick="handleLogin()">Acceder al radar &rarr;</button>
+      <div id="loginMsg" style="min-height:20px;margin-top:12px;font-size:13px;text-align:center;line-height:1.6;"></div>
+      <div class="popup-return-row" style="margin-top:12px;">
+        <button class="popup-return-btn" onclick="switchToSignup()" type="button">&larr; Primera vez &middot; Registrarse</button>
       </div>
     </div>
+
   </div>
 </div>
 
@@ -765,7 +767,7 @@ img,video,iframe,svg{max-width:100%;}
   <a href="#pricing" onclick="closeNav()">Precios</a>
   <a href="#faq" onclick="closeNav()">FAQ</a>
   <div class="drawer-divider"></div>
-  <a href="#" class="drawer-cta" onclick="closeNav();openPopup();">Prueba gratuita →</a>
+  <a href="#" class="drawer-cta" onclick="closeNav();openPopup();">Prueba gratuita — sin tarjeta →</a>
 </div>
 
 <!-- ════ HERO ════ -->
@@ -1421,156 +1423,192 @@ function faqToggle(btn) {
   if (!wasOpen) item.classList.add('open');
 }
 
-// ── POPUP ───────────────────────────────────────────
+// ── POPUP ────────────────────────────────────────────
 function openPopup() {
+  // Always start on signup panel
+  const signupPanel = document.querySelector('.popup-body:not(#loginPanel)');
+  const loginPanel  = document.getElementById('loginPanel');
+  if (signupPanel) signupPanel.style.display = 'block';
+  if (loginPanel)  loginPanel.style.display  = 'none';
+
   document.getElementById('popupOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
-  setTimeout(() => document.getElementById('popNombre').focus(), 100);
-}
-function closePopup() {
-  document.getElementById('popupOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-// Close on overlay click
-document.getElementById('popupOverlay').addEventListener('click', function(e) {
-  if (e.target === this) closePopup();
-});
-// Close on Escape
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closePopup(); });
 
-// Show/hide "otro" field
-function handleSectorChange(sel) {
-  document.getElementById('otroField').style.display =
-    sel.value === 'otro' ? 'block' : 'none';
-}
-
-// Sector → dashboard profile key mapping
-const sectorMap = {
-    'mep':          'instaladores',
-    'retail':       'expansion',
-    'promotor':     'promotores',
-    'constructora': 'constructora',
-    'infra':        'fcc',
-    'industrial':   'industrial',
-    'maquinaria':   'kiloutou',
-    'materiales':   'compras',
-    'otro':         'general'
-  };
-
-// ── Form submission ──────────────────────────────────
-async function handleSignup() {
-  const nombre  = document.getElementById('popNombre').value.trim();
-  const email   = document.getElementById('popEmail').value.trim();
-  const sector  = document.getElementById('popSector').value;
-  const otro    = document.getElementById('popOtro').value.trim();
-  const msg     = document.getElementById('popupMsg');
-
-  // Validation
-  if (!nombre) { showMsg('⚠ Por favor, introduce tu nombre.', 'red'); return; }
-  if (!email || !email.includes('@')) { showMsg('⚠ Email no válido.', 'red'); return; }
-  if (!sector) { showMsg('⚠ Por favor, selecciona tu sector.', 'red'); return; }
-
-  showMsg('Configurando tu acceso…', 'var(--navy)');
-
-  // Send to Cloudflare Worker (same endpoint as UK site)
+  // Pre-fill form for returning users
   try {
-    await fetch('https://planningscout-handler.inger-balaj.workers.dev', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        nombre, email, sector,
-        otro: sector === 'otro' ? otro : '',
-        source: 'planningscout-es'
-      }),
-    });
-  } catch (e) {
-    // Don't block on worker errors — still redirect
-    console.warn('Worker error (non-blocking):', e);
-  }
-
-  // Save for return visits
-  try { localStorage.setItem('ps_user', JSON.stringify({nombre, email, sector})); } catch(e) {}
-
-  showMsg('✓ ¡Perfecto! Abriendo tu radar…', 'var(--green)');
-
-  // Redirect to dashboard with profile pre-selected.
-  // IMPORTANT: window.open('_blank') gets silently blocked by popup blockers
-  // when called after an await (browser loses the "user gesture" context).
-  // window.location.href is never blocked by any browser.
-  const profile = sectorMap[sector] || 'general';
-  setTimeout(() => {
-    window.location.href = `https://planningscout.streamlit.app?perfil=${encodeURIComponent(profile)}`;
-    closePopup();
-  }, 800);
-}
-
-function showMsg(text, color) {
-  const msg = document.getElementById('popupMsg');
-  msg.textContent  = text;
-  msg.style.color  = color;
-}
-
-// Allow Enter key in form
-document.addEventListener('keydown', e => {
-  if (e.key === 'Enter' && document.getElementById('popupOverlay').classList.contains('open')) {
-    const active = document.activeElement;
-    if (active && active.tagName !== 'BUTTON' && active.tagName !== 'SELECT') {
-      handleSignup();
-    }
-  }
-});
-
-// ── Return user: switch between signup and login panels ──────────────
-function switchToLogin() {
-  document.getElementById('loginPanel').style.display = 'block';
-  document.querySelector('.popup-body:not(#loginPanel)').style.display = 'none';
-  setTimeout(() => document.getElementById('loginEmail').focus(), 50);
-}
-function switchToSignup() {
-  document.getElementById('loginPanel').style.display = 'none';
-  document.querySelector('.popup-body:not(#loginPanel)').style.display = 'block';
-  setTimeout(() => document.getElementById('popNombre').focus(), 50);
-}
-
-// ── Return user login using localStorage ─────────────────────────────
-async function handleLogin() {
-  var loginEmail = document.getElementById('loginEmail').value.trim();
-  var lmsg = document.getElementById('loginMsg');
-  if (!loginEmail || !loginEmail.includes('@')) {
-    lmsg.textContent = 'Introduce un email valido.';
-    lmsg.style.color = 'red';
-    return;
-  }
-  lmsg.textContent = 'Buscando tu perfil...';
-  lmsg.style.color = 'var(--navy)';
-  var profileKey = 'general';
-  try {
-    var stored = JSON.parse(localStorage.getItem('ps_user') || '{}');
-    if (stored.email === loginEmail && stored.sector) {
-      profileKey = sectorMap[stored.sector] || 'general';
-    }
-  } catch(err) {}
-  lmsg.textContent = 'Accediendo...';
-  lmsg.style.color = 'var(--green)';
-  setTimeout(function() {
-    window.location.href = 'https://planningscout.streamlit.app?perfil=' + encodeURIComponent(profileKey);
-    closePopup();
-  }, 600);
-}
-
-// ── Pre-fill form if returning user ──────────────────────────────────
-var _origOpen = openPopup;
-openPopup = function() {
-  _origOpen();
-  try {
-    var stored = JSON.parse(localStorage.getItem('ps_user') || '{}');
+    const stored = JSON.parse(localStorage.getItem('ps_user') || '{}');
     if (stored.email) {
       document.getElementById('popEmail').value = stored.email;
       if (stored.nombre) document.getElementById('popNombre').value = stored.nombre;
       if (stored.sector) document.getElementById('popSector').value = stored.sector;
     }
   } catch(err) {}
+
+  setTimeout(() => {
+    const f = document.getElementById('popNombre');
+    if (f) f.focus();
+  }, 100);
+}
+
+function closePopup() {
+  document.getElementById('popupOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Switch to login panel
+function switchToLogin() {
+  const signupPanel = document.querySelector('.popup-body:not(#loginPanel)');
+  const loginPanel  = document.getElementById('loginPanel');
+  if (signupPanel) signupPanel.style.display = 'none';
+  if (loginPanel)  loginPanel.style.display  = 'block';
+  setTimeout(() => { const f = document.getElementById('loginEmail'); if (f) f.focus(); }, 50);
+}
+
+// Switch back to signup panel
+function switchToSignup() {
+  const signupPanel = document.querySelector('.popup-body:not(#loginPanel)');
+  const loginPanel  = document.getElementById('loginPanel');
+  if (loginPanel)  loginPanel.style.display  = 'none';
+  if (signupPanel) signupPanel.style.display = 'block';
+  setTimeout(() => { const f = document.getElementById('popNombre'); if (f) f.focus(); }, 50);
+}
+
+// Close on overlay click / Escape
+document.getElementById('popupOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closePopup();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePopup(); });
+
+// Show/hide "otro" field
+function handleSectorChange(sel) {
+  document.getElementById('otroField').style.display = sel.value === 'otro' ? 'block' : 'none';
+}
+
+// ── Sector => dashboard profile key ──────────────────
+// CRITICAL: must be ASCII-only. Emoji in ?perfil= param is silently dropped by Streamlit Cloud
+// Each value matches p["key"] in PROFILES in dashboard.py
+const sectorMap = {
+  'mep':          'instaladores',
+  'retail':       'expansion',
+  'promotor':     'promotores',
+  'constructora': 'constructora',
+  'infra':        'fcc',
+  'industrial':   'industrial',
+  'maquinaria':   'kiloutou',
+  'materiales':   'compras',
+  'otro':         'general'
 };
+
+// ── Signup ───────────────────────────────────────────
+async function handleSignup() {
+  const nombre  = document.getElementById('popNombre').value.trim();
+  const email   = document.getElementById('popEmail').value.trim();
+  const sector  = document.getElementById('popSector').value;
+  const otro    = document.getElementById('popOtro').value.trim();
+
+  if (!nombre) { showMsg('⚠ Por favor, introduce tu nombre.', 'red'); return; }
+  if (!email || !email.includes('@')) { showMsg('⚠ Email no válido.', 'red'); return; }
+  if (!sector) { showMsg('⚠ Por favor, selecciona tu sector.', 'red'); return; }
+
+  showMsg('Configurando tu acceso…', 'var(--navy)');
+
+  // Notify you via Cloudflare Worker — triggers your signup email
+  try {
+    await fetch('https://planningscout-handler.inger-balaj.workers.dev', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nombre, email, sector,
+        otro: sector === 'otro' ? otro : '',
+        source: 'planningscout-es' })
+    });
+  } catch(e) { console.warn('Worker error:', e); }
+
+  // Save to localStorage so return-user login works
+  try { localStorage.setItem('ps_user', JSON.stringify({ nombre, email, sector })); } catch(e) {}
+
+  showMsg('✓ ¡Perfecto! Abriendo tu radar…', 'var(--green)');
+
+  const profileKey = sectorMap[sector] || 'general';
+  setTimeout(() => {
+    window.location.href = 'https://planningscout.streamlit.app?perfil=' + encodeURIComponent(profileKey);
+    closePopup();
+  }, 800);
+}
+
+// ── Return-user login ────────────────────────────────
+async function handleLogin() {
+  const loginEmail = document.getElementById('loginEmail').value.trim();
+  const lmsg = document.getElementById('loginMsg');
+
+  if (!loginEmail || !loginEmail.includes('@')) {
+    lmsg.textContent = '⚠ Introduce un email válido.';
+    lmsg.style.color = 'red';
+    return;
+  }
+
+  lmsg.textContent = 'Buscando tu perfil…';
+  lmsg.style.color = 'var(--navy)';
+  lmsg.style.fontFamily = '';
+
+  // Check localStorage
+  let stored = null;
+  try {
+    const raw = localStorage.getItem('ps_user');
+    if (raw) stored = JSON.parse(raw);
+  } catch(err) {}
+
+  // Email not found in localStorage
+  if (!stored || stored.email !== loginEmail) {
+    lmsg.innerHTML = '❌ Este email no está registrado.<br>'
+      + '<span style="font-size:12px;color:var(--ink-dim);">Por favor, '
+      + '<button onclick="switchToSignup()" style="color:var(--navy);font-weight:600;'
+      + 'background:none;border:none;cursor:pointer;text-decoration:underline;'
+      + 'font-size:12px;padding:0;">regístrate aquí</button>.</span>';
+    lmsg.style.color = '#b91c1c';
+    return;
+  }
+
+  // Found — notify Worker so you get a login email too
+  try {
+    await fetch('https://planningscout-handler.inger-balaj.workers.dev', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        nombre: stored.nombre || loginEmail,
+        email:  loginEmail,
+        sector: stored.sector || 'desconocido',
+        otro:   '',
+        source: 'planningscout-es-login'   // distinguishes login from new signup in your inbox
+      })
+    });
+  } catch(e) {}
+
+  lmsg.textContent = '✓ Accediendo…';
+  lmsg.style.color = 'var(--green)';
+
+  const profileKey = sectorMap[stored.sector] || 'general';
+  setTimeout(() => {
+    window.location.href = 'https://planningscout.streamlit.app?perfil=' + encodeURIComponent(profileKey);
+    closePopup();
+  }, 600);
+}
+
+function showMsg(text, color) {
+  const msg = document.getElementById('popupMsg');
+  msg.textContent = text;
+  msg.style.color = color;
+}
+
+// Enter key: routes to correct handler based on visible panel
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && document.getElementById('popupOverlay').classList.contains('open')) {
+    const active = document.activeElement;
+    if (!active || active.tagName === 'BUTTON' || active.tagName === 'SELECT') return;
+    const loginPanel = document.getElementById('loginPanel');
+    const loginVisible = loginPanel && loginPanel.style.display !== 'none';
+    if (loginVisible) { handleLogin(); } else { handleSignup(); }
+  }
+});
 </script>
 </body>
 </html>
