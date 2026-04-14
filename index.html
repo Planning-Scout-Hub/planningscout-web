@@ -1447,13 +1447,13 @@ async function handleSignup() {
 
   showMsg('✓ ¡Perfecto! Abriendo tu radar…', 'var(--green)');
 
-  // Redirect to dashboard with profile pre-selected
+  // Redirect to dashboard with profile pre-selected.
+  // IMPORTANT: window.open('_blank') gets silently blocked by popup blockers
+  // when called after an await (browser loses the "user gesture" context).
+  // window.location.href is never blocked by any browser.
   const profile = sectorMap[sector] || 'general';
   setTimeout(() => {
-    window.open(
-      `https://planningscout.streamlit.app?perfil=${profile}`,
-      '_blank'
-    );
+    window.location.href = `https://planningscout.streamlit.app?perfil=${encodeURIComponent(profile)}`;
     closePopup();
   }, 800);
 }
