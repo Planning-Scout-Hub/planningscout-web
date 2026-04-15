@@ -546,11 +546,14 @@ footer{background:var(--ink);padding:32px 0;}
   width:100%;max-width:480px;
   box-shadow:0 24px 64px rgba(0,0,0,.25),0 0 0 1px rgba(0,0,0,.05);
   overflow:hidden;animation:popIn .3s var(--ease);
+  max-height:calc(100vh - 48px);
+  display:flex;flex-direction:column;
 }
 @keyframes popIn{from{opacity:0;transform:scale(.95) translateY(10px);}to{opacity:1;transform:none;}}
 .popup-head{
-  background:var(--navy);padding:24px 28px;
+  background:var(--navy);padding:20px 24px;
   display:flex;justify-content:space-between;align-items:flex-start;
+  flex-shrink:0;
 }
 .popup-head-text h3{font-family:var(--head);font-size:20px;font-weight:600;color:#fff;margin-bottom:6px;}
 .popup-head-text p{font-size:13px;color:rgba(255,255,255,.65);line-height:1.55;max-width:340px;}
@@ -561,8 +564,8 @@ footer{background:var(--ink);padding:32px 0;}
   flex-shrink:0;transition:background .15s;margin-left:12px;margin-top:-2px;
 }
 .popup-close:hover{background:rgba(255,255,255,.2);}
-.popup-body{padding:28px;}
-.form-group{margin-bottom:18px;}
+.popup-body{padding:24px 28px;overflow-y:auto;flex:1;}
+.form-group{margin-bottom:14px;}
 .form-group label{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:7px;}
 .form-group input,
 .form-group select,
@@ -709,16 +712,16 @@ img,video,iframe,svg{max-width:100%;}
         <input type="text" id="popOtro" placeholder="Describe brevemente tu actividad">
       </div>
       <button class="popup-submit" onclick="handleSignup()">
-        Acceder al radar gratis →
+        Solicitar acceso gratuito →
       </button>
       <div id="popupMsg"></div>
       <div class="popup-footer-note">
-        Sin tarjeta de cr&eacute;dito &middot; Sin compromiso &middot; Cancela cuando quieras<br>
+        Sin tarjeta de cr&eacute;dito &middot; Sin compromiso<br>
         Datos solo para configurar tu perfil. Nunca los compartimos.
       </div>
       <div class="popup-return-row">
-        <span class="popup-return-or">&iquest;Ya tienes acceso?</span>
-        <button class="popup-return-btn" onclick="switchToLogin()" type="button">Acceder al dashboard &rarr;</button>
+        <span class="popup-return-or">&iquest;Ya tienes credenciales?</span>
+        <button class="popup-return-btn" onclick="switchToLogin()" type="button">Ir al dashboard &rarr;</button>
       </div>
     </div>
 
@@ -741,22 +744,27 @@ img,video,iframe,svg{max-width:100%;}
     </div>
 
     <!-- Panel de acceso para usuarios ya registrados -->
-    <div class="popup-body" id="loginPanel" style="display:none;border-top:1px solid var(--border);">
-      <div style="text-align:center;padding:8px 0 4px;">
-        <div style="font-size:16px;font-weight:700;font-family:var(--head);color:var(--ink);margin-bottom:10px;">
-          &iquest;Ya tienes acceso?
-        </div>
-        <p style="font-size:13px;color:var(--ink-dim);line-height:1.6;margin-bottom:20px;">
-          Accede directamente al dashboard con las credenciales que te enviamos por email.
+    <div class="popup-body" id="loginPanel" style="display:none;">
+      <div style="text-align:center;padding:12px 0 8px;">
+        <div style="width:48px;height:48px;border-radius:50%;background:var(--navy-lt);
+             display:flex;align-items:center;justify-content:center;
+             margin:0 auto 16px;font-size:22px;">🔑</div>
+        <div style="font-size:18px;font-weight:700;font-family:var(--head);
+             color:var(--ink);margin-bottom:8px;">Accede a tu radar</div>
+        <p style="font-size:13px;color:var(--ink-dim);line-height:1.6;margin-bottom:24px;max-width:280px;margin-left:auto;margin-right:auto;">
+          Usa las credenciales que te enviamos por email para entrar directamente.
         </p>
         <a href="https://planningscout.streamlit.app"
-           style="display:block;background:var(--navy);color:#fff;padding:13px 0;border-radius:var(--r2);
-                  font-size:15px;font-weight:600;text-decoration:none;text-align:center;
-                  box-shadow:0 4px 16px rgba(30,58,95,.25);">
+           style="display:block;background:var(--navy);color:#fff;padding:14px 0;
+                  border-radius:var(--r2);font-size:15px;font-weight:600;
+                  text-decoration:none;text-align:center;
+                  box-shadow:0 4px 20px rgba(30,58,95,.3);">
           Ir al dashboard &rarr;
         </a>
-        <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border);">
-          <button class="popup-return-btn" onclick="switchToSignup()" type="button">&larr; Solicitar acceso</button>
+        <div style="margin-top:18px;padding-top:16px;border-top:1px solid var(--border);text-align:center;">
+          <span style="font-size:12px;color:var(--ink-faint);">¿Aún no tienes acceso? </span>
+          <button class="popup-return-btn" onclick="switchToSignup()" type="button"
+                  style="font-size:12px;">Solicitarlo aquí &rarr;</button>
         </div>
       </div>
     </div>
