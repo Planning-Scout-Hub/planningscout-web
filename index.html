@@ -668,15 +668,19 @@ img,video,iframe,svg{max-width:100%;}
   <div class="popup-card">
     <div class="popup-head">
       <div class="popup-head-text">
-        <h3>Accede a tu mes gratuito</h3>
-        <p>Cuéntanos en qué sector trabajas y configuramos el radar con los leads más relevantes para ti.</p>
+        <h3>Solicitar acceso anticipado</h3>
+        <p>Cuéntanos sobre tu empresa y te enviamos tus credenciales en horas.</p>
       </div>
       <button class="popup-close" onclick="closePopup()" aria-label="Cerrar">✕</button>
     </div>
-    <div class="popup-body">
+    <div class="popup-body" id="signupBody">
       <div class="form-group">
         <label for="popNombre">Nombre completo *</label>
         <input type="text" id="popNombre" placeholder="Ej. Carlos García" autocomplete="name">
+      </div>
+      <div class="form-group">
+        <label for="popEmpresa">Empresa <span style="font-weight:400;color:var(--ink-faint)">(opcional)</span></label>
+        <input type="text" id="popEmpresa" placeholder="Ej. Grupo Constructor XYZ" autocomplete="organization">
       </div>
       <div class="form-group">
         <label for="popEmail">Email profesional *</label>
@@ -713,25 +717,47 @@ img,video,iframe,svg{max-width:100%;}
         Datos solo para configurar tu perfil. Nunca los compartimos.
       </div>
       <div class="popup-return-row">
-        <span class="popup-return-or">&iquest;Ya tienes cuenta?</span>
-        <button class="popup-return-btn" onclick="switchToLogin()" type="button">Acceder con tu email &rarr;</button>
+        <span class="popup-return-or">&iquest;Ya tienes acceso?</span>
+        <button class="popup-return-btn" onclick="switchToLogin()" type="button">Acceder al dashboard &rarr;</button>
       </div>
+    </div>
+
+    <!-- ── Confirmation panel (shown after successful request) ── -->
+    <div class="popup-body" id="confirmPanel" style="display:none;text-align:center;padding:32px 28px 28px;">
+      <div style="font-size:52px;margin-bottom:18px;">✅</div>
+      <h3 style="font-family:var(--head);font-size:20px;font-weight:700;color:var(--ink);margin-bottom:10px;">¡Solicitud recibida!</h3>
+      <p style="font-size:14px;color:var(--ink-dim);line-height:1.65;margin-bottom:6px;">
+        Revisaremos tu perfil y te enviaremos las credenciales de acceso a
+      </p>
+      <p style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:20px;" id="confirmEmailDisplay"></p>
+      <p style="font-size:13px;color:var(--ink-faint);margin-bottom:20px;">Tiempo de respuesta habitual: menos de 24&nbsp;h.</p>
+      <a href="https://planningscout.streamlit.app"
+         style="display:block;background:var(--navy);color:#fff;padding:13px 0;border-radius:var(--r2);
+                font-size:14px;font-weight:600;text-decoration:none;text-align:center;">
+        &iquest;Ya tienes credenciales? Acceder al radar &rarr;
+      </a>
+      <button onclick="closePopup()" style="margin-top:14px;background:none;border:none;cursor:pointer;
+              font-size:13px;color:var(--ink-faint);font-family:var(--body);">Cerrar</button>
     </div>
 
     <!-- Panel de acceso para usuarios ya registrados -->
     <div class="popup-body" id="loginPanel" style="display:none;border-top:1px solid var(--border);">
-      <div style="margin-bottom:18px;">
-        <div style="font-size:16px;font-weight:700;font-family:var(--head);color:var(--ink);margin-bottom:4px;">Acceder a tu cuenta</div>
-        <div style="font-size:13px;color:var(--ink-dim);">Introduce el email con el que te registraste.</div>
-      </div>
-      <div class="form-group">
-        <label for="loginEmail">Email de acceso</label>
-        <input type="email" id="loginEmail" placeholder="carlos@empresa.com" autocomplete="email">
-      </div>
-      <button class="popup-submit" onclick="handleLogin()">Acceder al radar &rarr;</button>
-      <div id="loginMsg" style="min-height:20px;margin-top:12px;font-size:13px;text-align:center;line-height:1.6;"></div>
-      <div class="popup-return-row" style="margin-top:12px;">
-        <button class="popup-return-btn" onclick="switchToSignup()" type="button">&larr; Primera vez &middot; Registrarse</button>
+      <div style="text-align:center;padding:8px 0 4px;">
+        <div style="font-size:16px;font-weight:700;font-family:var(--head);color:var(--ink);margin-bottom:10px;">
+          &iquest;Ya tienes acceso?
+        </div>
+        <p style="font-size:13px;color:var(--ink-dim);line-height:1.6;margin-bottom:20px;">
+          Accede directamente al dashboard con las credenciales que te enviamos por email.
+        </p>
+        <a href="https://planningscout.streamlit.app"
+           style="display:block;background:var(--navy);color:#fff;padding:13px 0;border-radius:var(--r2);
+                  font-size:15px;font-weight:600;text-decoration:none;text-align:center;
+                  box-shadow:0 4px 16px rgba(30,58,95,.25);">
+          Ir al dashboard &rarr;
+        </a>
+        <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border);">
+          <button class="popup-return-btn" onclick="switchToSignup()" type="button">&larr; Solicitar acceso</button>
+        </div>
       </div>
     </div>
 
@@ -1434,16 +1460,6 @@ function openPopup() {
   document.getElementById('popupOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 
-  // Pre-fill form for returning users
-  try {
-    const stored = JSON.parse(localStorage.getItem('ps_user') || '{}');
-    if (stored.email) {
-      document.getElementById('popEmail').value = stored.email;
-      if (stored.nombre) document.getElementById('popNombre').value = stored.nombre;
-      if (stored.sector) document.getElementById('popSector').value = stored.sector;
-    }
-  } catch(err) {}
-
   setTimeout(() => {
     const f = document.getElementById('popNombre');
     if (f) f.focus();
@@ -1453,23 +1469,31 @@ function openPopup() {
 function closePopup() {
   document.getElementById('popupOverlay').classList.remove('open');
   document.body.style.overflow = '';
+  // Reset to signup form if confirmation was showing
+  const sb = document.getElementById('signupBody');
+  const cp = document.getElementById('confirmPanel');
+  if (sb) sb.style.display = 'block';
+  if (cp) cp.style.display = 'none';
 }
 
 // Switch to login panel
 function switchToLogin() {
-  const signupPanel = document.querySelector('.popup-body:not(#loginPanel)');
-  const loginPanel  = document.getElementById('loginPanel');
-  if (signupPanel) signupPanel.style.display = 'none';
-  if (loginPanel)  loginPanel.style.display  = 'block';
-  setTimeout(() => { const f = document.getElementById('loginEmail'); if (f) f.focus(); }, 50);
+  const signupBody   = document.getElementById('signupBody');
+  const confirmPanel = document.getElementById('confirmPanel');
+  const loginPanel   = document.getElementById('loginPanel');
+  if (signupBody)   signupBody.style.display   = 'none';
+  if (confirmPanel) confirmPanel.style.display = 'none';
+  if (loginPanel)   loginPanel.style.display   = 'block';
 }
 
 // Switch back to signup panel
 function switchToSignup() {
-  const signupPanel = document.querySelector('.popup-body:not(#loginPanel)');
-  const loginPanel  = document.getElementById('loginPanel');
-  if (loginPanel)  loginPanel.style.display  = 'none';
-  if (signupPanel) signupPanel.style.display = 'block';
+  const signupBody   = document.getElementById('signupBody');
+  const confirmPanel = document.getElementById('confirmPanel');
+  const loginPanel   = document.getElementById('loginPanel');
+  if (loginPanel)   loginPanel.style.display   = 'none';
+  if (confirmPanel) confirmPanel.style.display = 'none';
+  if (signupBody)   signupBody.style.display   = 'block';
   setTimeout(() => { const f = document.getElementById('popNombre'); if (f) f.focus(); }, 50);
 }
 
@@ -1499,98 +1523,45 @@ const sectorMap = {
   'otro':         'general'
 };
 
-// ── Signup ───────────────────────────────────────────
+// ── Signup / Request access ───────────────────────────────
 async function handleSignup() {
-  const nombre  = document.getElementById('popNombre').value.trim();
-  const email   = document.getElementById('popEmail').value.trim();
-  const sector  = document.getElementById('popSector').value;
-  const otro    = document.getElementById('popOtro').value.trim();
+  const nombre   = document.getElementById('popNombre').value.trim();
+  const empresa  = document.getElementById('popEmpresa').value.trim();
+  const email    = document.getElementById('popEmail').value.trim();
+  const sector   = document.getElementById('popSector').value;
+  const otro     = document.getElementById('popOtro').value.trim();
 
   if (!nombre) { showMsg('⚠ Por favor, introduce tu nombre.', 'red'); return; }
   if (!email || !email.includes('@')) { showMsg('⚠ Email no válido.', 'red'); return; }
   if (!sector) { showMsg('⚠ Por favor, selecciona tu sector.', 'red'); return; }
 
-  showMsg('Configurando tu acceso…', 'var(--navy)');
+  showMsg('Enviando solicitud…', 'var(--navy)');
 
-  // Notify you via Cloudflare Worker — triggers your signup email
-  try {
-    await fetch('https://planningscout-handler.inger-balaj.workers.dev', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nombre, email, sector,
-        otro: sector === 'otro' ? otro : '',
-        source: 'planningscout-es' })
-    });
-  } catch(e) { console.warn('Worker error:', e); }
-
-  // Save to localStorage so return-user login works
-  try { localStorage.setItem('ps_user', JSON.stringify({ nombre, email, sector })); } catch(e) {}
-
-  showMsg('✓ ¡Perfecto! Abriendo tu radar…', 'var(--green)');
-
-  const profileKey = sectorMap[sector] || 'general';
-  setTimeout(() => {
-    window.location.href = 'https://planningscout.streamlit.app?perfil=' + encodeURIComponent(profileKey);
-    closePopup();
-  }, 800);
-}
-
-// ── Return-user login ────────────────────────────────
-async function handleLogin() {
-  const loginEmail = document.getElementById('loginEmail').value.trim();
-  const lmsg = document.getElementById('loginMsg');
-
-  if (!loginEmail || !loginEmail.includes('@')) {
-    lmsg.textContent = '⚠ Introduce un email válido.';
-    lmsg.style.color = 'red';
-    return;
-  }
-
-  lmsg.textContent = 'Buscando tu perfil…';
-  lmsg.style.color = 'var(--navy)';
-  lmsg.style.fontFamily = '';
-
-  // Check localStorage
-  let stored = null;
-  try {
-    const raw = localStorage.getItem('ps_user');
-    if (raw) stored = JSON.parse(raw);
-  } catch(err) {}
-
-  // Email not found in localStorage
-  if (!stored || stored.email !== loginEmail) {
-    lmsg.innerHTML = '❌ Este email no está registrado.<br>'
-      + '<span style="font-size:12px;color:var(--ink-dim);">Por favor, '
-      + '<button onclick="switchToSignup()" style="color:var(--navy);font-weight:600;'
-      + 'background:none;border:none;cursor:pointer;text-decoration:underline;'
-      + 'font-size:12px;padding:0;">regístrate aquí</button>.</span>';
-    lmsg.style.color = '#b91c1c';
-    return;
-  }
-
-  // Found — notify Worker so you get a login email too
+  // Notify Inga via Cloudflare Worker
   try {
     await fetch('https://planningscout-handler.inger-balaj.workers.dev', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        nombre: stored.nombre || loginEmail,
-        email:  loginEmail,
-        sector: stored.sector || 'desconocido',
-        otro:   '',
-        source: 'planningscout-es-login'   // distinguishes login from new signup in your inbox
+        nombre,
+        empresa: empresa || '—',
+        email,
+        sector,
+        otro: sector === 'otro' ? otro : '',
+        source: 'planningscout-es-request'
       })
     });
-  } catch(e) {}
+  } catch(e) { console.warn('Worker error:', e); }
 
-  lmsg.textContent = '✓ Accediendo…';
-  lmsg.style.color = 'var(--green)';
+  // Show confirmation panel — no redirect
+  document.getElementById('signupBody').style.display    = 'none';
+  document.getElementById('confirmPanel').style.display  = 'block';
+  document.getElementById('confirmEmailDisplay').textContent = email;
+}
 
-  const profileKey = sectorMap[stored.sector] || 'general';
-  setTimeout(() => {
-    window.location.href = 'https://planningscout.streamlit.app?perfil=' + encodeURIComponent(profileKey);
-    closePopup();
-  }, 600);
+// ── Return-user login — just redirect to dashboard ──────────
+function handleLogin() {
+  window.location.href = 'https://planningscout.streamlit.app';
 }
 
 function showMsg(text, color) {
@@ -1599,14 +1570,13 @@ function showMsg(text, color) {
   msg.style.color = color;
 }
 
-// Enter key: routes to correct handler based on visible panel
+// Enter key: only triggers signup handler (login panel is now just a link)
 document.addEventListener('keydown', e => {
   if (e.key === 'Enter' && document.getElementById('popupOverlay').classList.contains('open')) {
     const active = document.activeElement;
-    if (!active || active.tagName === 'BUTTON' || active.tagName === 'SELECT') return;
-    const loginPanel = document.getElementById('loginPanel');
-    const loginVisible = loginPanel && loginPanel.style.display !== 'none';
-    if (loginVisible) { handleLogin(); } else { handleSignup(); }
+    if (!active || active.tagName === 'BUTTON' || active.tagName === 'SELECT' || active.tagName === 'A') return;
+    const signupBody = document.getElementById('signupBody');
+    if (signupBody && signupBody.style.display !== 'none') { handleSignup(); }
   }
 });
 </script>
