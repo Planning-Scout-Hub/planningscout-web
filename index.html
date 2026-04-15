@@ -1460,19 +1460,12 @@ function faqToggle(btn) {
 // ── POPUP ────────────────────────────────────────────
 function openPopup() {
   // Always start on signup panel
-  var signupPanel = document.querySelector('.popup-body:not(#loginPanel)');
+  var signupBody  = document.getElementById('signupBody');
+  var confirmPanel = document.getElementById('confirmPanel');
   var loginPanel  = document.getElementById('loginPanel');
-  if (signupPanel) signupPanel.style.display = 'block';
-  if (loginPanel)  loginPanel.style.display  = 'none';
-
-  // If this user signed up before, pre-load their profile into the login panel link
-  try {
-    var saved = localStorage.getItem('ps_perfil');
-    if (saved) {
-      var ldl = document.getElementById('loginDashboardLink');
-      if (ldl) ldl.href = 'https://planningscout.streamlit.app?perfil=' + encodeURIComponent(saved);
-    }
-  } catch(e) {}
+  if (signupBody)   signupBody.style.display   = 'block';
+  if (confirmPanel) confirmPanel.style.display = 'none';
+  if (loginPanel)   loginPanel.style.display   = 'none';
 
   document.getElementById('popupOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -1501,15 +1494,6 @@ function switchToLogin() {
   if (signupBody)   signupBody.style.display   = 'none';
   if (confirmPanel) confirmPanel.style.display = 'none';
   if (loginPanel)   loginPanel.style.display   = 'block';
-
-  // Apply saved profile to the dashboard link (covers returning visitors)
-  try {
-    var saved = localStorage.getItem('ps_perfil');
-    if (saved) {
-      var ldl = document.getElementById('loginDashboardLink');
-      if (ldl) ldl.href = 'https://planningscout.streamlit.app?perfil=' + encodeURIComponent(saved);
-    }
-  } catch(e) {}
 }
 
 // Switch back to signup panel
@@ -1579,21 +1563,8 @@ async function handleSignup() {
     });
   } catch(e) { console.warn('Worker error:', e); }
 
-  // Compute the correct dashboard URL for this user's chosen sector
-  var chosenProfile  = sectorMap[sector] || 'general';
-  var dashboardUrl   = 'https://planningscout.streamlit.app?perfil=' + encodeURIComponent(chosenProfile);
-
-  // Persist the choice so returning visitors also get the right profile link
-  // Wrapped in try/catch for Safari private mode (throws SecurityError on localStorage)
-  try { localStorage.setItem('ps_perfil', chosenProfile); } catch(e) {}
-
-  // Update the "Acceder al radar" link in the confirm panel
-  var cdl = document.getElementById('confirmDashboardLink');
-  if (cdl) cdl.href = dashboardUrl;
-
-  // Also update the login panel link in case the user clicks "¿Ya tienes credenciales?" later
-  var ldl = document.getElementById('loginDashboardLink');
-  if (ldl) ldl.href = dashboardUrl;
+  // No URL-based profile redirect — profile is assigned server-side by Inga in [profiles] secrets.
+  // The dashboard login handles the correct profile automatically from credentials.
 
   // Show confirmation panel — no redirect
   document.getElementById('signupBody').style.display    = 'none';
