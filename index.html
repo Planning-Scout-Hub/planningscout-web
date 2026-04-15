@@ -734,7 +734,7 @@ img,video,iframe,svg{max-width:100%;}
       </p>
       <p style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:20px;" id="confirmEmailDisplay"></p>
       <p style="font-size:13px;color:var(--ink-faint);margin-bottom:20px;">Tiempo de respuesta habitual: menos de 24&nbsp;h.</p>
-      <a href="https://planningscout.streamlit.app"
+      <a id="confirmDashboardLink" href="https://planningscout.streamlit.app"
          style="display:block;background:var(--navy);color:#fff;padding:13px 0;border-radius:var(--r2);
                 font-size:14px;font-weight:600;text-decoration:none;text-align:center;">
         &iquest;Ya tienes credenciales? Acceder al radar &rarr;
@@ -754,7 +754,7 @@ img,video,iframe,svg{max-width:100%;}
         <p style="font-size:13px;color:var(--ink-dim);line-height:1.6;margin-bottom:24px;max-width:280px;margin-left:auto;margin-right:auto;">
           Usa las credenciales que te enviamos por email para entrar directamente.
         </p>
-        <a href="https://planningscout.streamlit.app"
+        <a id="loginDashboardLink" href="https://planningscout.streamlit.app"
            style="display:block;background:var(--navy);color:#fff;padding:14px 0;
                   border-radius:var(--r2);font-size:15px;font-weight:600;
                   text-decoration:none;text-align:center;
@@ -1460,16 +1460,25 @@ function faqToggle(btn) {
 // ── POPUP ────────────────────────────────────────────
 function openPopup() {
   // Always start on signup panel
-  const signupPanel = document.querySelector('.popup-body:not(#loginPanel)');
-  const loginPanel  = document.getElementById('loginPanel');
+  var signupPanel = document.querySelector('.popup-body:not(#loginPanel)');
+  var loginPanel  = document.getElementById('loginPanel');
   if (signupPanel) signupPanel.style.display = 'block';
   if (loginPanel)  loginPanel.style.display  = 'none';
+
+  // If this user signed up before, pre-load their profile into the login panel link
+  try {
+    var saved = localStorage.getItem('ps_perfil');
+    if (saved) {
+      var ldl = document.getElementById('loginDashboardLink');
+      if (ldl) ldl.href = 'https://planningscout.streamlit.app?perfil=' + encodeURIComponent(saved);
+    }
+  } catch(e) {}
 
   document.getElementById('popupOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 
-  setTimeout(() => {
-    const f = document.getElementById('popNombre');
+  setTimeout(function() {
+    var f = document.getElementById('popNombre');
     if (f) f.focus();
   }, 100);
 }
@@ -1486,12 +1495,21 @@ function closePopup() {
 
 // Switch to login panel
 function switchToLogin() {
-  const signupBody   = document.getElementById('signupBody');
-  const confirmPanel = document.getElementById('confirmPanel');
-  const loginPanel   = document.getElementById('loginPanel');
+  var signupBody   = document.getElementById('signupBody');
+  var confirmPanel = document.getElementById('confirmPanel');
+  var loginPanel   = document.getElementById('loginPanel');
   if (signupBody)   signupBody.style.display   = 'none';
   if (confirmPanel) confirmPanel.style.display = 'none';
   if (loginPanel)   loginPanel.style.display   = 'block';
+
+  // Apply saved profile to the dashboard link (covers returning visitors)
+  try {
+    var saved = localStorage.getItem('ps_perfil');
+    if (saved) {
+      var ldl = document.getElementById('loginDashboardLink');
+      if (ldl) ldl.href = 'https://planningscout.streamlit.app?perfil=' + encodeURIComponent(saved);
+    }
+  } catch(e) {}
 }
 
 // Switch back to signup panel
@@ -1560,6 +1578,22 @@ async function handleSignup() {
       })
     });
   } catch(e) { console.warn('Worker error:', e); }
+
+  // Compute the correct dashboard URL for this user's chosen sector
+  var chosenProfile  = sectorMap[sector] || 'general';
+  var dashboardUrl   = 'https://planningscout.streamlit.app?perfil=' + encodeURIComponent(chosenProfile);
+
+  // Persist the choice so returning visitors also get the right profile link
+  // Wrapped in try/catch for Safari private mode (throws SecurityError on localStorage)
+  try { localStorage.setItem('ps_perfil', chosenProfile); } catch(e) {}
+
+  // Update the "Acceder al radar" link in the confirm panel
+  var cdl = document.getElementById('confirmDashboardLink');
+  if (cdl) cdl.href = dashboardUrl;
+
+  // Also update the login panel link in case the user clicks "¿Ya tienes credenciales?" later
+  var ldl = document.getElementById('loginDashboardLink');
+  if (ldl) ldl.href = dashboardUrl;
 
   // Show confirmation panel — no redirect
   document.getElementById('signupBody').style.display    = 'none';
