@@ -382,7 +382,7 @@ h1 em{font-style:italic;color:var(--amber);}
 /* ────────────────────────────────────────────────
    WHAT YOU RECEIVE
 ──────────────────────────────────────────────── */
-#receive{padding:100px 0;background:var(--surface);}
+#receive{padding:96px 0 100px;background:var(--surface);}
 .receive-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:72px;align-items:center;}
 @media(max-width:860px){.receive-grid{grid-template-columns:1fr;gap:48px;}}
 .receive-list{list-style:none;display:flex;flex-direction:column;gap:16px;margin-top:28px;}
@@ -469,11 +469,11 @@ h1 em{font-style:italic;color:var(--amber);}
 .pc-price{font-family:var(--head);font-size:56px;font-weight:600;color:#fff;letter-spacing:-1.5px;line-height:1;}
 .pc-price sup{font-size:24px;font-weight:400;vertical-align:super;letter-spacing:0;}
 .pc-cycle{font-size:14px;color:rgba(255,255,255,.5);margin-top:8px;}
-.pc-trial-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;font-weight:500;color:var(--amber-md);background:rgba(200,134,10,.15);border:1px solid rgba(200,134,10,.3);padding:5px 12px;border-radius:100px;margin-top:16px;}
+.pc-trial-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;font-weight:600;color:var(--amber-md);background:rgba(200,134,10,.15);border:1px solid rgba(200,134,10,.3);padding:5px 12px;border-radius:100px;margin-top:16px;}
 .pc-body{padding:32px 36px 36px;}
 .pc-blurb{font-size:14px;color:var(--ink-dim);font-style:italic;line-height:1.6;margin-bottom:24px;}
 .pc-feats{list-style:none;display:flex;flex-direction:column;}
-.pc-feat{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px;color:var(--ink-mid);line-height:1.45;}
+.pc-feat{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--border);font-size:13.5px;color:var(--ink-mid);line-height:1.4;}
 .pc-feat:last-child{border-bottom:none;}
 .feat-ck{width:18px;height:18px;border-radius:50%;flex-shrink:0;background:var(--navy-lt);border:1px solid var(--navy-bdr);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--navy);font-weight:700;margin-top:1px;}
 .pc-cta{display:block;width:100%;margin-top:28px;font-family:var(--body);font-size:15px;font-weight:600;color:#fff;background:var(--navy);text-align:center;padding:14px;border-radius:var(--r2);border:none;cursor:pointer;transition:background .18s,box-shadow .18s;box-shadow:0 4px 16px rgba(30,58,95,.25);}
@@ -1099,87 +1099,97 @@ img,video,iframe,svg{max-width:100%;}
 <!-- ════ WHAT YOU RECEIVE ════ -->
 <section id="receive">
   <div class="wrap">
-    <div class="receive-grid">
-      <div>
-        <span class="eyebrow reveal">El resultado</span>
-        <h2 class="reveal d1">Todo lo que necesitas.<br>Nada que no sirva.</h2>
-        <p class="lead reveal d2">Cada lead llega pre-leído, pre-puntuado y pre-filtrado. Decisión de actuar o no en 10 segundos, sin abrir ningún boletín.</p>
-        <ul class="receive-list">
-          <li class="rl-item reveal">
-            <span class="rl-dot">✓</span>
-            <div>
-              <div class="rl-title">Ventaja de ser el primero</div>
-              <div class="rl-desc">El BOCM se publica a primera hora. Tu digest llega el mismo día. La mayoría de tus competidores no tienen este radar — o lo buscan a mano, horas después.</div>
-            </div>
-          </li>
-          <li class="rl-item reveal d1">
-            <span class="rl-dot">✓</span>
-            <div>
-              <div class="rl-title">Promotor, dirección y enlace directo al BOCM</div>
-              <div class="rl-desc">El nombre de quien ha solicitado o recibido la licencia, la dirección exacta y el enlace al anuncio oficial. Un clic a la fuente.</div>
-            </div>
-          </li>
-          <li class="rl-item reveal d1">
-            <span class="rl-dot">✓</span>
-            <div>
-              <div class="rl-title">PEM y valor estimado de obra</div>
-              <div class="rl-desc">El Presupuesto de Ejecución Material oficial (base imponible del ICIO) y el valor total estimado del proyecto. Sabes de qué tamaño es antes de hacer ninguna llamada.</div>
-            </div>
-          </li>
-          <li class="rl-item reveal d2">
-            <span class="rl-dot">✓</span>
-            <div>
-              <div class="rl-title">Puntuación de oportunidad 0–100</div>
-              <div class="rl-desc">Calculada según tipo de proyecto, presupuesto y completitud de datos. Ordena tu lista de llamadas por potencial real, no por fecha de publicación.</div>
-            </div>
-          </li>
-          <li class="rl-item reveal d3">
-            <span class="rl-dot">✓</span>
-            <div>
-              <div class="rl-title">Enlace a Google Maps</div>
-              <div class="rl-desc">Localiza el proyecto en el mapa en un clic. Comprueba la zona, el acceso y el entorno antes de llamar.</div>
-            </div>
-          </li>
-          <li class="rl-item reveal d4">
-            <span class="rl-dot">✓</span>
-            <div>
-              <div class="rl-title">Expediente y número de resolución</div>
-              <div class="rl-desc">El número de expediente del Ayuntamiento. Puedes verificar el estado directamente en el registro urbanístico municipal.</div>
-            </div>
-          </li>
-          <li class="rl-item reveal">
-            <span class="rl-dot">✓</span>
-            <div>
-              <div class="rl-title">AI Evaluation — análisis por sector</div>
-              <div class="rl-desc">Cada lead incluye un análisis con IA específico para tu perfil: estimación de maquinaria (Kiloutou), catchment de población (Retail), yield estimado y tipo propietario (Flexliving), metros de tubería (Molecor). No genérico — accionable.</div>
-            </div>
-          </li>
-          <li class="rl-item reveal d1">
-            <span class="rl-dot">✓</span>
-            <div>
-              <div class="rl-title">Mis Alertas — seguimiento de proyectos</div>
-              <div class="rl-desc">Guarda los proyectos que te interesan con un clic. Asigna prioridad P1/P2/P3. Añade notas privadas. Recibe una notificación cuando el proyecto avanza de fase (de inicial a definitivo, a adjudicado).</div>
-            </div>
-          </li>
-          <li class="rl-item reveal d2">
-            <span class="rl-dot">✓</span>
-            <div>
-              <div class="rl-title">Mapa interactivo de proyectos</div>
-              <div class="rl-desc">Todos tus leads geolocalizados en un mapa interactivo de Madrid. Filtra por zona, tipo y puntuación. Identifica concentraciones de actividad antes de llamar. Exporta la selección a CSV.</div>
-            </div>
-          </li>
-          <li class="rl-item reveal d3">
-            <span class="rl-dot">✓</span>
-            <div>
-              <div class="rl-title">8+ fuentes de datos oficiales</div>
-              <div class="rl-desc">Además del BOCM: contratos públicos de la CM, licitaciones del Plataforma Contratación del Estado, licencias urbanísticas de datos.madrid.es, BORME (nuevas empresas), BOE y más. Todo en un único dashboard.</div>
-            </div>
-          </li>
-        </ul>
-      </div>
+    <div style="text-align:center;max-width:640px;margin:0 auto 16px;">
+      <span class="eyebrow reveal">El resultado</span>
+      <h2 class="reveal d1">Todo lo que necesitas.<br>Nada que no sirva.</h2>
+      <p class="lead reveal d2" style="margin:0 auto;">Cada lead llega pre-leído, pre-puntuado y pre-filtrado. Decisión de actuar o no en 10 segundos, sin abrir ningún boletín.</p>
+    </div>
 
-      <!-- Real lead card: Paracuellos AD-10 -->
-      <div class="lead-card reveal d1">
+    <!-- Feature list — 2-column grid for space efficiency -->
+    <ul style="display:grid;grid-template-columns:1fr 1fr;gap:0 48px;list-style:none;margin:44px 0 0;" class="receive-list-grid reveal">
+      <li class="rl-item reveal">
+        <span class="rl-dot">✓</span>
+        <div>
+          <div class="rl-title">Ventaja de ser el primero</div>
+          <div class="rl-desc">El BOCM se publica a primera hora. Tu digest llega el mismo día. La mayoría de tus competidores no tienen este radar — o lo buscan a mano, horas después.</div>
+        </div>
+      </li>
+      <li class="rl-item reveal d1">
+        <span class="rl-dot">✓</span>
+        <div>
+          <div class="rl-title">Promotor, dirección y enlace directo al BOCM</div>
+          <div class="rl-desc">El nombre de quien ha solicitado o recibido la licencia, la dirección exacta y el enlace al anuncio oficial. Un clic a la fuente.</div>
+        </div>
+      </li>
+      <li class="rl-item reveal">
+        <span class="rl-dot">✓</span>
+        <div>
+          <div class="rl-title">PEM y valor estimado de obra</div>
+          <div class="rl-desc">El Presupuesto de Ejecución Material oficial (base imponible del ICIO) y el valor total estimado del proyecto. Sabes de qué tamaño es antes de hacer ninguna llamada.</div>
+        </div>
+      </li>
+      <li class="rl-item reveal d1">
+        <span class="rl-dot">✓</span>
+        <div>
+          <div class="rl-title">Puntuación de oportunidad 0–100</div>
+          <div class="rl-desc">Calculada según tipo de proyecto, presupuesto y completitud de datos. Ordena tu lista de llamadas por potencial real, no por fecha de publicación.</div>
+        </div>
+      </li>
+      <li class="rl-item reveal">
+        <span class="rl-dot">✓</span>
+        <div>
+          <div class="rl-title">Enlace a Google Maps</div>
+          <div class="rl-desc">Localiza el proyecto en el mapa en un clic. Comprueba la zona, el acceso y el entorno antes de llamar.</div>
+        </div>
+      </li>
+      <li class="rl-item reveal d1">
+        <span class="rl-dot">✓</span>
+        <div>
+          <div class="rl-title">Expediente y número de resolución</div>
+          <div class="rl-desc">El número de expediente del Ayuntamiento. Puedes verificar el estado directamente en el registro urbanístico municipal.</div>
+        </div>
+      </li>
+      <li class="rl-item reveal">
+        <span class="rl-dot">✓</span>
+        <div>
+          <div class="rl-title">AI Evaluation — análisis por sector</div>
+          <div class="rl-desc">Cada lead incluye un análisis con IA específico para tu perfil: estimación de maquinaria, catchment de población, yield estimado, metros de tubería. No genérico — accionable.</div>
+        </div>
+      </li>
+      <li class="rl-item reveal d1">
+        <span class="rl-dot">✓</span>
+        <div>
+          <div class="rl-title">Mis Alertas — seguimiento de proyectos</div>
+          <div class="rl-desc">Guarda los proyectos que te interesan con un clic. Asigna prioridad P1/P2/P3. Añade notas privadas. Recibe una notificación cuando el proyecto avanza de fase.</div>
+        </div>
+      </li>
+      <li class="rl-item reveal">
+        <span class="rl-dot">✓</span>
+        <div>
+          <div class="rl-title">Mapa interactivo de proyectos</div>
+          <div class="rl-desc">Todos tus leads geolocalizados en un mapa interactivo de Madrid. Filtra por zona, tipo y puntuación. Identifica concentraciones de actividad antes de llamar.</div>
+        </div>
+      </li>
+      <li class="rl-item reveal d1">
+        <span class="rl-dot">✓</span>
+        <div>
+          <div class="rl-title">8+ fuentes de datos oficiales</div>
+          <div class="rl-desc">Además del BOCM: contratos públicos CM, licitaciones PLACE, licencias datos.madrid.es, BORME, BOE y más. Todo en un único dashboard.</div>
+        </div>
+      </li>
+    </ul>
+    <style>
+      @media(max-width:680px){
+        .receive-list-grid{grid-template-columns:1fr!important;}
+      }
+    </style>
+
+    <!-- Real lead card: centered below, not squeezing text -->
+    <div style="margin-top:64px;">
+      <div style="text-align:center;margin-bottom:24px;">
+        <span style="font-family:var(--mono);font-size:11px;color:var(--ink-faint);letter-spacing:.1em;text-transform:uppercase;">Ejemplo de lead real — Paracuellos de Jarama</span>
+      </div>
+      <div class="lead-card reveal d1" style="max-width:680px;margin:0 auto;">
         <div class="lc-head">
           <div class="lc-council">
             <div class="lc-council-dot"></div>
@@ -1364,7 +1374,7 @@ img,video,iframe,svg{max-width:100%;}
     </div>
 
     <!-- Two cards side by side -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;" class="pricing-two-col reveal">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;padding-top:22px;" class="pricing-two-col reveal">
 
       <!-- ── STANDARD ── -->
       <div class="pricing-card" style="border-color:var(--border-2);">
@@ -1372,7 +1382,7 @@ img,video,iframe,svg{max-width:100%;}
           <div class="pc-plan" style="color:var(--ink-dim);">Standard</div>
           <div class="pc-price" style="color:var(--navy);"><sup style="color:var(--navy);">€</sup>99</div>
           <div class="pc-cycle" style="color:var(--ink-dim);">al mes · sin IVA · cancela cuando quieras</div>
-          <div class="pc-trial-badge">
+          <div class="pc-trial-badge" style="color:var(--amber);background:rgba(200,134,10,.12);border-color:rgba(200,134,10,.35);">
             <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><circle cx="5.5" cy="5.5" r="4.8" stroke="currentColor" stroke-width="1.1"/><path d="M3.3 5.5l1.6 1.6 2.8-2.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             Primer mes completamente gratis
           </div>
@@ -1401,9 +1411,9 @@ img,video,iframe,svg{max-width:100%;}
       </div>
 
       <!-- ── AJUSTADO A TU EMPRESA (recommended) ── -->
-      <div class="pricing-card" style="position:relative;">
+      <div class="pricing-card" style="position:relative;overflow:visible;">
         <div style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--amber);color:#fff;font-family:var(--mono);font-size:10px;font-weight:600;padding:5px 16px;border-radius:100px;white-space:nowrap;letter-spacing:.08em;text-transform:uppercase;z-index:1;">★ Recomendado</div>
-        <div class="pc-top">
+        <div class="pc-top" style="border-radius:var(--r3) var(--r3) 0 0;">
           <div class="pc-plan">Ajustado a tu empresa</div>
           <div class="pc-price"><sup>€</sup>299</div>
           <div class="pc-cycle">al mes · sin IVA · cancela cuando quieras</div>
